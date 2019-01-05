@@ -352,7 +352,10 @@ def make_lld(msa, component, sessionkey):
     elif component == 'vdisks':
         for vdisk in xml.findall("./OBJECT[@name='{}']".format(NAMES_MATCH[component])):
             vdisk_id = vdisk.find("./PROPERTY[@name='name']").text
-            vdisk_type = vdisk.find("./PROPERTY[@name='storage-type']").text
+            try:
+                vdisk_type = vdisk.find("./PROPERTY[@name='storage-type']").text
+            except AttributeError:
+                vdisk_type = "UNKNOWN"
             lld_dict = {
                 "{#VDISK.ID}": "{}".format(vdisk_id),
                 "{#VDISK.TYPE}": "{}".format(vdisk_type)
@@ -716,7 +719,7 @@ def get_full_json(msa, component, sessionkey):
 
 if __name__ == '__main__':
     # Current program version
-    VERSION = '0.6.5'
+    VERSION = '0.6.6'
     MSA_PARTS = ('disks', 'vdisks', 'controllers', 'enclosures', 'fans',
                  'power-supplies', 'ports', 'pools', 'disk-groups', 'volumes')
 

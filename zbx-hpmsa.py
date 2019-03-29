@@ -374,9 +374,11 @@ def make_lld(msa, component, sessionkey):
         for pool in xml.findall("./OBJECT[@name='{}']".format(NAMES_MATCH[component])):
             dg_id = pool.find("./PROPERTY[@name='name']").text
             dg_type = pool.find("./PROPERTY[@name='storage-type']").text
+            dg_tier = pool.find("./PROPERTY[@name='storage-tier']").text
             lld_dict = {
                 "{#DG.ID}": "{}".format(dg_id),
-                "{#DG.TYPE}": "{}".format(dg_type)
+                "{#DG.TYPE}": "{}".format(dg_type),
+                "{#DG.TIER}": "{}".format(dg_tier)
             }
             all_components.append(lld_dict)
     elif component == 'volumes':

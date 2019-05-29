@@ -482,16 +482,16 @@ def get_full_json(msa, component, sessionkey):
             disk_location = PROP.find("./PROPERTY[@name='location']").text
             disk_health = PROP.find("./PROPERTY[@name='health']").text
             disk_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
-            disk_error = PROP.find("./PROPERTY[@name='error']").text
             disk_full_data = {
                 "health": disk_health,
-                "health-num": disk_health_num,
-                "error": disk_error
+                "health-num": disk_health_num
             }
 
             # Processing advanced properties
             disk_ext = dict()
             disk_ext['temperature'] = PROP.find("./PROPERTY[@name='temperature-numeric']")
+            disk_ext['temperature-status-numeric'] = PROP.find("./PROPERTY[@name='temperature-status-numeric']")
+            disk_ext['job-running-numeric'] = PROP.find("./PROPERTY[@name='job-running-numeric']")
             disk_ext['power-on-hours'] = PROP.find("./PROPERTY[@name='power-on-hours']")
             for prop, value in disk_ext.items():
                 if value is not None:
@@ -721,7 +721,7 @@ def get_full_json(msa, component, sessionkey):
 
 if __name__ == '__main__':
     # Current program version
-    VERSION = '0.6.6'
+    VERSION = '0.6.7'
     MSA_PARTS = ('disks', 'vdisks', 'controllers', 'enclosures', 'fans',
                  'power-supplies', 'ports', 'pools', 'disk-groups', 'volumes')
 
@@ -733,7 +733,7 @@ if __name__ == '__main__':
     main_parser.add_argument('-f', '--login-file', nargs=1, type=str, help='Path to file contains login and password')
     main_parser.add_argument('-v', '--version', action='version', version=VERSION, help='Print script version and exit')
     main_parser.add_argument('-s', '--save-xml', type=str, nargs=1, help='Save response from storage as XML file')
-    main_parser.add_argument('-t', '--tmp-dir', type=str, nargs=1, default='/dev/shm/zbx-hpmsa/',
+    main_parser.add_argument('-t', '--tmp-dir', type=str, nargs=1, default='/var/tmp/zbx-hpmsa/',
                              help='Path to temp directory')
     main_parser.add_argument('--ssl', type=str, choices=('direct', 'verify'), help='Use https instead http')
 

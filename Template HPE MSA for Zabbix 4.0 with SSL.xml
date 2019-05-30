@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>4.0</version>
-    <date>2019-03-29T08:18:25Z</date>
+    <version>4.2</version>
+    <date>2019-05-30T08:22:50Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -13,10 +13,9 @@
             <name>Template HPE MSA for Zabbix 4.0 with SSL</name>
             <description>Monitor HPE MSA storages.&#13;
 Tested with HP MSA P2000 G3, HP MSA 2040, HP MSA 2050, HP MSA2324FC.&#13;
+SSL support&#13;
 &#13;
-Version: 0.6.6&#13;
-&#13;
-Use {$SSL_MODE} macros to determine SSL mode: verify or direct</description>
+Version: 0.6.7</description>
             <groups>
                 <group>
                     <name>Templates</name>
@@ -629,7 +628,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -763,6 +762,8 @@ WWN: {#CONTROLLER.WWN}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#CONTROLLER.ID}']['cpu-load']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -837,6 +838,8 @@ WWN: {#CONTROLLER.WWN}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#CONTROLLER.ID}']['flash-health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -911,6 +914,8 @@ WWN: {#CONTROLLER.WWN}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#CONTROLLER.ID}']['flash-status-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -985,6 +990,8 @@ WWN: {#CONTROLLER.WWN}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#CONTROLLER.ID}']['health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -1057,6 +1064,8 @@ WWN: {#CONTROLLER.WWN}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#CONTROLLER.ID}']['iops']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -1131,6 +1140,8 @@ WWN: {#CONTROLLER.WWN}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#CONTROLLER.ID}']['redundancy-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -1205,6 +1216,8 @@ WWN: {#CONTROLLER.WWN}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#CONTROLLER.ID}']['status-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -1678,6 +1691,50 @@ WWN: {#CONTROLLER.WWN}</description>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
+                        <graph_prototype>
+                            <name>Controller {#CONTROLLER.ID} workload</name>
+                            <width>900</width>
+                            <height>300</height>
+                            <yaxismin>0.0000</yaxismin>
+                            <yaxismax>100.0000</yaxismax>
+                            <show_work_period>1</show_work_period>
+                            <show_triggers>1</show_triggers>
+                            <type>0</type>
+                            <show_legend>1</show_legend>
+                            <show_3d>0</show_3d>
+                            <percent_left>0.0000</percent_left>
+                            <percent_right>0.0000</percent_right>
+                            <ymin_type_1>0</ymin_type_1>
+                            <ymax_type_1>0</ymax_type_1>
+                            <ymin_item_1>0</ymin_item_1>
+                            <ymax_item_1>0</ymax_item_1>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>0</sortorder>
+                                    <drawtype>2</drawtype>
+                                    <color>1A7C11</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.0 with SSL</host>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu-load&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>5</drawtype>
+                                    <color>F63100</color>
+                                    <yaxisside>1</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.0 with SSL</host>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;iops&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
                     </graph_prototypes>
                     <host_prototypes/>
                     <jmx_endpoint/>
@@ -1698,13 +1755,16 @@ WWN: {#CONTROLLER.WWN}</description>
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Disk groups discovery</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -1731,6 +1791,78 @@ WWN: {#CONTROLLER.WWN}</description>
                     <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA disk groups.</description>
                     <item_prototypes>
+                        <item_prototype>
+                            <name>Disk group {#DG.ID} current job, numeric</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>msa.dg[&quot;{#DG.ID}&quot;,&quot;curr-job-num&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} current job.&#13;
+Disk group tier: {#DG.TIER}</description>
+                            <inventory_link>0</inventory_link>
+                            <applications/>
+                            <valuemap>
+                                <name>HPE MSA Current job</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$['{#DG.ID}']['curr-job-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk group {#DG.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                            </master_item>
+                        </item_prototype>
                         <item_prototype>
                             <name>Disk group {#DG.ID} health status, numeric</name>
                             <type>18</type>
@@ -1771,6 +1903,8 @@ Disk group tier: {#DG.TIER}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#DG.ID}']['health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -1841,6 +1975,8 @@ Disk group tier: {#DG.TIER}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#DG.ID}']['owner-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -1911,6 +2047,8 @@ Disk group tier: {#DG.TIER}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#DG.ID}']['owner-pref-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -1981,6 +2119,8 @@ Disk group tier: {#DG.TIER}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#DG.ID}']['status-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -2133,13 +2273,16 @@ Disk group tier: {#DG.TIER}</description>
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Physical disks discovery</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -2166,75 +2309,6 @@ Disk group tier: {#DG.TIER}</description>
                     <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA physical disks.</description>
                     <item_prototypes>
-                        <item_prototype>
-                            <name>Physical disk {#DISK.ID} error status</name>
-                            <type>18</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>msa.disk[&quot;{#DISK.ID}&quot;,&quot;error&quot;]</key>
-                            <delay>0</delay>
-                            <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Health error status of physical disk {#DISK.ID} with SN {#DISK.SN}.</description>
-                            <inventory_link>0</inventory_link>
-                            <applications/>
-                            <valuemap>
-                                <name>HPE MSA Common Health</name>
-                            </valuemap>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>12</type>
-                                    <params>$['{#DISK.ID}']['error']</params>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes>
-                                <application_prototype>
-                                    <name>MSA Disk {#DISK.ID}</name>
-                                </application_prototype>
-                            </application_prototypes>
-                            <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
-                            </master_item>
-                        </item_prototype>
                         <item_prototype>
                             <name>Physical disk {#DISK.ID} health status, numeric</name>
                             <type>18</type>
@@ -2274,6 +2348,8 @@ Disk group tier: {#DG.TIER}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#DISK.ID}']['health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -2288,6 +2364,77 @@ Disk group tier: {#DG.TIER}</description>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
                             <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk {#DISK.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Physical disk {#DISK.ID} current job</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>msa.disk[&quot;{#DISK.ID}&quot;,&quot;job-running-numeric&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Physical disk {#DISK.ID} with SN {#DISK.SN} current running job.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications/>
+                            <valuemap>
+                                <name>HPE MSA Current job</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$['{#DISK.ID}']['job-running-numeric']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -2341,6 +2488,8 @@ Disk group tier: {#DG.TIER}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#DISK.ID}']['power-on-hours']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -2408,6 +2557,8 @@ Disk group tier: {#DG.TIER}</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#DISK.ID}']['temperature']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -2438,6 +2589,77 @@ Disk group tier: {#DG.TIER}</description>
                                 <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
                             </master_item>
                         </item_prototype>
+                        <item_prototype>
+                            <name>Physical disk {#DISK.ID} temperature status</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature-status-numeric&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Temperature status of physical disk {#DISK.ID} with SN {#DISK.SN}.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications/>
+                            <valuemap>
+                                <name>HPE MSA Disks temperature status</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$['{#DISK.ID}']['temperature-status-numeric']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk {#DISK.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                            </master_item>
+                        </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
@@ -2451,39 +2673,6 @@ Disk group tier: {#DG.TIER}</description>
                             <status>0</status>
                             <priority>2</priority>
                             <description>Physical disk {#DISK.ID} health status in {ITEM.VALUE} state.</description>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>device</tag>
-                                    <value>msa</value>
-                                </tag>
-                                <tag>
-                                    <tag>model</tag>
-                                    <value>{INVENTORY.MODEL}</value>
-                                </tag>
-                                <tag>
-                                    <tag>part</tag>
-                                    <value>physical disk</value>
-                                </tag>
-                                <tag>
-                                    <tag>vendor</tag>
-                                    <value>hp</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;error&quot;].avg(#3)}&lt;&gt;0</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>Disk {#DISK.ID} last error status is {ITEM.VALUE}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description>Physical disk {#DISK.ID} has errors.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
@@ -2543,7 +2732,7 @@ Ack to close.</description>
                         <trigger_prototype>
                             <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature&quot;].max(5m)}&gt;={$MSA_DISK_TEMP_CRIT}</expression>
                             <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature&quot;].max(30m)}&lt;={$MSA_DISK_TEMP_OK}</recovery_expression>
+                            <recovery_expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_OK}</recovery_expression>
                             <name>Disk {#DISK.ID} temperature is over critical threshold: {ITEM.VALUE}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
@@ -2568,6 +2757,10 @@ Ack to close.</description>
                                     <value>physical disk</value>
                                 </tag>
                                 <tag>
+                                    <tag>temperature</tag>
+                                    <value>critical</value>
+                                </tag>
+                                <tag>
                                     <tag>vendor</tag>
                                     <value>hp</value>
                                 </tag>
@@ -2576,7 +2769,7 @@ Ack to close.</description>
                         <trigger_prototype>
                             <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature&quot;].max(10m)}&gt;={$MSA_DISK_TEMP_WARN}</expression>
                             <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature&quot;].max(30m)}&lt;={$MSA_DISK_TEMP_OK}</recovery_expression>
+                            <recovery_expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_OK}</recovery_expression>
                             <name>Disk {#DISK.ID} temperature is over warning threshold: {ITEM.VALUE}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
@@ -2590,7 +2783,7 @@ Ack to close.</description>
                                 <dependency>
                                     <name>Disk {#DISK.ID} temperature is over critical threshold: {ITEM.VALUE}</name>
                                     <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature&quot;].max(5m)}&gt;={$MSA_DISK_TEMP_CRIT}</expression>
-                                    <recovery_expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature&quot;].max(30m)}&lt;={$MSA_DISK_TEMP_OK}</recovery_expression>
+                                    <recovery_expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.disk[&quot;{#DISK.ID}&quot;,&quot;temperature&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_OK}</recovery_expression>
                                 </dependency>
                             </dependencies>
                             <tags>
@@ -2605,6 +2798,10 @@ Ack to close.</description>
                                 <tag>
                                     <tag>part</tag>
                                     <value>physical disk</value>
+                                </tag>
+                                <tag>
+                                    <tag>temperature</tag>
+                                    <value>warning</value>
                                 </tag>
                                 <tag>
                                     <tag>vendor</tag>
@@ -2633,13 +2830,16 @@ Ack to close.</description>
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Enclosures discovery</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -2705,6 +2905,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#ENCLOSURE.ID}']['health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -2774,6 +2976,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#ENCLOSURE.ID}']['status-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -2893,13 +3097,16 @@ Ack to close.</description>
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Fans discovery</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -2965,6 +3172,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#FAN.ID}']['health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3032,6 +3241,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#FAN.ID}']['speed']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3101,6 +3312,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#FAN.ID}']['status-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3253,13 +3466,16 @@ Ack to close.</description>
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Pools discovery</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -3325,6 +3541,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POOL.ID}']['health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3394,6 +3612,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POOL.ID}']['owner-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3463,6 +3683,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POOL.ID}']['owner-pref-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3582,13 +3804,16 @@ Ack to close.</description>
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Ports discovery</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -3616,6 +3841,12 @@ Ack to close.</description>
                                 <value>^Present$</value>
                                 <operator>8</operator>
                                 <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#PORT.SPEED}</macro>
+                                <value>None</value>
+                                <operator>9</operator>
+                                <formulaid>B</formulaid>
                             </condition>
                         </conditions>
                     </filter>
@@ -3661,6 +3892,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#PORT.ID}']['health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3730,6 +3963,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#PORT.ID}']['port-status-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3799,6 +4034,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#PORT.ID}']['sfp-status']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -3849,10 +4086,6 @@ Ack to close.</description>
                                 <tag>
                                     <tag>device</tag>
                                     <value>msa</value>
-                                </tag>
-                                <tag>
-                                    <tag>model</tag>
-                                    <value>{INVENTORY.MODEL}</value>
                                 </tag>
                                 <tag>
                                     <tag>part</tag>
@@ -3984,13 +4217,16 @@ Ack to close.</description>
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Power supplies discovery</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -4056,6 +4292,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POWERSUPPLY.ID}']['health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4123,6 +4361,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POWERSUPPLY.ID}']['power-5i']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4190,6 +4430,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POWERSUPPLY.ID}']['power-5v']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4257,6 +4499,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POWERSUPPLY.ID}']['power-12i']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4324,6 +4568,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POWERSUPPLY.ID}']['power-12v']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4391,6 +4637,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POWERSUPPLY.ID}']['power-33v']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4460,6 +4708,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POWERSUPPLY.ID}']['status-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4527,6 +4777,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#POWERSUPPLY.ID}']['temperature']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4760,13 +5012,16 @@ Ack to close.</description>
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>Volumes discovery</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -4839,6 +5094,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#VOLUME.ID}']['health-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4908,6 +5165,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#VOLUME.ID}']['owner-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -4977,6 +5236,8 @@ Ack to close.</description>
                                 <step>
                                     <type>12</type>
                                     <params>$['{#VOLUME.ID}']['owner-pref-num']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
@@ -5096,6 +5357,9 @@ Ack to close.</description>
                     <ssl_key_password/>
                     <verify_peer>0</verify_peer>
                     <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
             </discovery_rules>
             <httptests/>
@@ -5138,7 +5402,7 @@ Ack to close.</description>
                 </macro>
                 <macro>
                     <macro>{$MSA_DISK_TEMP_OK}</macro>
-                    <value>25</value>
+                    <value>29</value>
                 </macro>
                 <macro>
                     <macro>{$MSA_DISK_TEMP_WARN}</macro>
@@ -5147,10 +5411,6 @@ Ack to close.</description>
                 <macro>
                     <macro>{$NODATA_RANGE}</macro>
                     <value>15m</value>
-                </macro>
-                <macro>
-                    <macro>{$SSL_MODE}</macro>
-                    <value>direct</value>
                 </macro>
                 <macro>
                     <macro>{$TRENDS}</macro>
@@ -5167,6 +5427,7 @@ Ack to close.</description>
                 </template>
             </templates>
             <screens/>
+            <tags/>
         </template>
     </templates>
     <triggers>
@@ -5498,8 +5759,16 @@ Ack to close.</description>
                     <newvalue>OK</newvalue>
                 </mapping>
                 <mapping>
+                    <value>1</value>
+                    <newvalue>Degraded</newvalue>
+                </mapping>
+                <mapping>
                     <value>2</value>
                     <newvalue>Fault</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Unknown</newvalue>
                 </mapping>
                 <mapping>
                     <value>4</value>
@@ -5528,12 +5797,20 @@ Ack to close.</description>
                     <newvalue>OK</newvalue>
                 </mapping>
                 <mapping>
+                    <value>1</value>
+                    <newvalue>Degraded</newvalue>
+                </mapping>
+                <mapping>
                     <value>2</value>
                     <newvalue>Fault</newvalue>
                 </mapping>
                 <mapping>
                     <value>3</value>
                     <newvalue>Unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>N/A</newvalue>
                 </mapping>
             </mappings>
         </value_map>
@@ -5545,7 +5822,7 @@ Ack to close.</description>
                     <newvalue>Operational but not redundant</newvalue>
                 </mapping>
                 <mapping>
-                    <value>2</value>
+                    <value>3</value>
                     <newvalue>Redundant</newvalue>
                 </mapping>
                 <mapping>
@@ -5576,6 +5853,55 @@ Ack to close.</description>
                 <mapping>
                     <value>3</value>
                     <newvalue>Unknown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Current job</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>None</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>INIT</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>RCON</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>VRFY</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>EXPD</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>VRSC</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>DRSC</newvalue>
+                </mapping>
+                <mapping>
+                    <value>9</value>
+                    <newvalue>VREMV</newvalue>
+                </mapping>
+                <mapping>
+                    <value>12</value>
+                    <newvalue>VPREP</newvalue>
+                </mapping>
+                <mapping>
+                    <value>13</value>
+                    <newvalue>VDRAIN</newvalue>
+                </mapping>
+                <mapping>
+                    <value>14</value>
+                    <newvalue>VRECV</newvalue>
                 </mapping>
             </mappings>
         </value_map>
@@ -5646,6 +5972,23 @@ Ack to close.</description>
                 <mapping>
                     <value>4</value>
                     <newvalue>N/A</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Disks temperature status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>OK</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Critical</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Warning</newvalue>
                 </mapping>
             </mappings>
         </value_map>

@@ -480,10 +480,8 @@ def get_full_json(msa, component, sessionkey):
         for PROP in xml.findall("./OBJECT[@name='drive']"):
             # Processing main properties
             disk_location = PROP.find("./PROPERTY[@name='location']").text
-            disk_health = PROP.find("./PROPERTY[@name='health']").text
             disk_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
             disk_full_data = {
-                "health": disk_health,
                 "health-num": disk_health_num
             }
 
@@ -500,80 +498,54 @@ def get_full_json(msa, component, sessionkey):
     elif component == 'vdisks':
         for PROP in xml.findall("./OBJECT[@name='virtual-disk']"):
             vdisk_name = PROP.find("./PROPERTY[@name='name']").text
-            vdisk_health = PROP.find("./PROPERTY[@name='health']").text
             vdisk_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
-            vdisk_status = PROP.find("./PROPERTY[@name='status']").text
             vdisk_status_num = PROP.find("./PROPERTY[@name='status-numeric']").text
-            vdisk_owner = PROP.find("./PROPERTY[@name='owner']").text
             vdisk_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
-            vdisk_owner_pref = PROP.find("./PROPERTY[@name='preferred-owner']").text
             vdisk_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
             vdisk_full_data = {
-                "health": vdisk_health,
                 "health-num": vdisk_health_num,
-                "status": vdisk_status,
                 "status-num": vdisk_status_num,
-                "owner": vdisk_owner,
                 "owner-num": vdisk_owner_num,
-                "owner-pref": vdisk_owner_pref,
                 "owner-pref-num": vdisk_owner_pref_num
             }
             all_components[vdisk_name] = vdisk_full_data
     elif component == 'pools':
         for PROP in xml.findall("./OBJECT[@name='pools']"):
             pool_name = PROP.find("./PROPERTY[@name='name']").text
-            pool_health = PROP.find("./PROPERTY[@name='health']").text
             pool_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
-            pool_owner = PROP.find("./PROPERTY[@name='owner']").text
             pool_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
-            pool_owner_pref = PROP.find("./PROPERTY[@name='preferred-owner']").text
             pool_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
             pool_full_data = {
-                "health": pool_health,
                 "health-num": pool_health_num,
-                "owner": pool_owner,
                 "owner-num": pool_owner_num,
-                "owner-pref": pool_owner_pref,
                 "owner-pref-num": pool_owner_pref_num
             }
             all_components[pool_name] = pool_full_data
     elif component == 'disk-groups':
         for PROP in xml.findall("./OBJECT[@name='disk-group']"):
             dg_name = PROP.find("./PROPERTY[@name='name']").text
-            dg_health = PROP.find("./PROPERTY[@name='health']").text
             dg_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
-            dg_status = PROP.find("./PROPERTY[@name='status']").text
             dg_status_num = PROP.find("./PROPERTY[@name='status-numeric']").text
-            dg_owner = PROP.find("./PROPERTY[@name='owner']").text
             dg_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
-            dg_owner_pref = PROP.find("./PROPERTY[@name='preferred-owner']").text
             dg_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
+            dg_curr_job_num = PROP.find("./PROPERTY[@name='current-job-numeric']").text
             dg_full_data = {
-                "health": dg_health,
                 "health-num": dg_health_num,
-                "status": dg_status,
                 "status-num": dg_status_num,
-                "owner": dg_owner,
                 "owner-num": dg_owner_num,
-                "owner-pref": dg_owner_pref,
-                "owner-pref-num": dg_owner_pref_num
+                "owner-pref-num": dg_owner_pref_num,
+                "curr-job-num": dg_curr_job_num
             }
             all_components[dg_name] = dg_full_data
     elif component == 'volumes':
         for PROP in xml.findall("./OBJECT[@name='volume']"):
             volume_name = PROP.find("./PROPERTY[@name='volume-name']").text
-            volume_health = PROP.find("./PROPERTY[@name='health']").text
             volume_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
-            volume_owner = PROP.find("./PROPERTY[@name='owner']").text
             volume_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
-            volume_owner_pref = PROP.find("./PROPERTY[@name='preferred-owner']").text
             volume_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
             volume_full_data = {
-                "health": volume_health,
                 "health-num": volume_health_num,
-                "owner": volume_owner,
                 "owner-num": volume_owner_num,
-                "owner-pref": volume_owner_pref,
                 "owner-pref-num": volume_owner_pref_num
             }
             all_components[volume_name] = volume_full_data
@@ -582,11 +554,8 @@ def get_full_json(msa, component, sessionkey):
             # Processing main controller properties
             ctrl_id = PROP.find("./PROPERTY[@name='controller-id']").text
             ctrl_sc_fw = PROP.find("./PROPERTY[@name='sc-fw']").text
-            ctrl_health = PROP.find("./PROPERTY[@name='health']").text
             ctrl_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
-            ctrl_status = PROP.find("./PROPERTY[@name='status']").text
             ctrl_status_num = PROP.find("./PROPERTY[@name='status-numeric']").text
-            ctrl_rd_status = PROP.find("./PROPERTY[@name='redundancy-status']").text
             ctrl_rd_status_num = PROP.find("./PROPERTY[@name='redundancy-status-numeric']").text
 
             # Get controller statistics
@@ -603,11 +572,8 @@ def get_full_json(msa, component, sessionkey):
 
             # Making full controller dict
             ctrl_full_data = {
-                "health": ctrl_health,
                 "health-num": ctrl_health_num,
-                "status": ctrl_status,
                 "status-num": ctrl_status_num,
-                "redundancy": ctrl_rd_status,
                 "redundancy-num": ctrl_rd_status_num,
                 "cpu-load": ctrl_cpu_load,
                 "iops": ctrl_iops,
@@ -630,15 +596,11 @@ def get_full_json(msa, component, sessionkey):
         for PROP in xml.findall("./OBJECT[@name='enclosures']"):
             # Processing main enclosure properties
             encl_id = PROP.find("./PROPERTY[@name='enclosure-id']").text
-            encl_health = PROP.find("./PROPERTY[@name='health']").text
             encl_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
-            encl_status = PROP.find("./PROPERTY[@name='status']").text
             encl_status_num = PROP.find("./PROPERTY[@name='status-numeric']").text
             # Making full enclosure dict
             encl_full_data = {
-                "health": encl_health,
                 "health-num": encl_health_num,
-                "status": encl_status,
                 "status-num": encl_status_num
             }
             all_components[encl_id] = encl_full_data
@@ -650,9 +612,7 @@ def get_full_json(msa, component, sessionkey):
             ps_name = PS.find("./PROPERTY[@name='name']").text
             # Exclude voltage regulators
             if ps_name.lower().find('voltage regulator') == -1:
-                ps_health = PS.find("./PROPERTY[@name='health']").text
                 ps_health_num = PS.find("./PROPERTY[@name='health-numeric']").text
-                ps_status = PS.find("./PROPERTY[@name='status']").text
                 ps_status_num = PS.find("./PROPERTY[@name='status-numeric']").text
                 ps_dc12v = PS.find("./PROPERTY[@name='dc12v']").text
                 ps_dc5v = PS.find("./PROPERTY[@name='dc5v']").text
@@ -660,9 +620,7 @@ def get_full_json(msa, component, sessionkey):
                 ps_dc12i = PS.find("./PROPERTY[@name='dc12i']").text
                 ps_dc5i = PS.find("./PROPERTY[@name='dc5i']").text
                 ps_full_data = {
-                    "health": ps_health,
                     "health-num": ps_health_num,
-                    "status": ps_status,
                     "status-num": ps_status_num,
                     "power-12v": ps_dc12v,
                     "power-5v": ps_dc5v,
@@ -682,15 +640,11 @@ def get_full_json(msa, component, sessionkey):
         for FAN in xml.findall("./OBJECT[@name='fan-details']"):
             # Processing main fan properties
             fan_id = FAN.find(".PROPERTY[@name='durable-id']").text
-            fan_health = FAN.find(".PROPERTY[@name='health']").text
             fan_health_num = FAN.find(".PROPERTY[@name='health-numeric']").text
-            fan_status = FAN.find(".PROPERTY[@name='status']").text
             fan_status_num = FAN.find(".PROPERTY[@name='status-numeric']").text
             fan_speed = FAN.find(".PROPERTY[@name='speed']").text
             fan_full_data = {
-                "health": fan_health,
                 "health-num": fan_health_num,
-                "status": fan_status,
                 "status-num": fan_status_num,
                 "speed": fan_speed
             }
@@ -699,17 +653,14 @@ def get_full_json(msa, component, sessionkey):
         for FC in xml.findall("./OBJECT[@name='ports']"):
             # Processing main ports properties
             port_name = FC.find("./PROPERTY[@name='port']").text
-            port_health = FC.find("./PROPERTY[@name='health']").text
             port_health_num = FC.find("./PROPERTY[@name='health-numeric']").text
             if port_health_num != '4':
                 port_full_data = {
-                    "health": port_health,
                     "health-num": port_health_num
                 }
 
                 # Processing advanced ports properties
                 port_ext = dict()
-                port_ext['port-status'] = FC.find("./PROPERTY[@name='status']")
                 port_ext['port-status-num'] = FC.find("./PROPERTY[@name='status-numeric']")
                 port_ext['sfp-status'] = FC.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status']")
                 for prop, value in port_ext.items():

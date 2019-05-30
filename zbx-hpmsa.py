@@ -227,7 +227,7 @@ def query_xmlapi(url, sessionkey):
     # Makes GET request to URL
     try:
         # Connection timeout in seconds (connection, read).
-        timeout = (1, 3)
+        timeout = (3, 10)
         full_url = 'https://' + url if USE_SSL else 'http://' + url
         headers = {'sessionKey': sessionkey} if API_VERSION == 2 else {
             'Cookie': "wbiusername={}; wbisessionkey={}".format(MSA_USERNAME, sessionkey)}
@@ -352,12 +352,14 @@ def make_lld(msa, component, sessionkey):
     elif component == 'vdisks':
         for vdisk in xml.findall("./OBJECT[@name='{}']".format(NAMES_MATCH[component])):
             vdisk_id = vdisk.find("./PROPERTY[@name='name']").text
+            vdisk_sn = vdisk.find("./PROPERTY[@name='serial-number']").txt
             try:
                 vdisk_type = vdisk.find("./PROPERTY[@name='storage-type']").text
             except AttributeError:
                 vdisk_type = "UNKNOWN"
             lld_dict = {
                 "{#VDISK.ID}": "{}".format(vdisk_id),
+                "{#VDISK.SN}": "{}".format(vdisk_sn),
                 "{#VDISK.TYPE}": "{}".format(vdisk_type)
             }
             all_components.append(lld_dict)
@@ -371,23 +373,27 @@ def make_lld(msa, component, sessionkey):
             }
             all_components.append(lld_dict)
     elif component == 'disk-groups':
-        for pool in xml.findall("./OBJECT[@name='{}']".format(NAMES_MATCH[component])):
-            dg_id = pool.find("./PROPERTY[@name='name']").text
-            dg_type = pool.find("./PROPERTY[@name='storage-type']").text
-            dg_tier = pool.find("./PROPERTY[@name='storage-tier']").text
+        for dg in xml.findall("./OBJECT[@name='{}']".format(NAMES_MATCH[component])):
+            dg_id = dg.find("./PROPERTY[@name='name']").text
+            dg_type = dg.find("./PROPERTY[@name='storage-type']").text
+            dg_sn = dg.find(".PROPERTY[@name='pool-serial-number']").text
+            dg_tier = dg.find("./PROPERTY[@name='storage-tier']").text
             lld_dict = {
                 "{#DG.ID}": "{}".format(dg_id),
+                "{#DG.SN}": "{}".format(dg_sn),
                 "{#DG.TYPE}": "{}".format(dg_type),
                 "{#DG.TIER}": "{}".format(dg_tier)
             }
             all_components.append(lld_dict)
     elif component == 'volumes':
-        for pool in xml.findall("./OBJECT[@name='{}']".format(NAMES_MATCH[component])):
-            volume_id = pool.find("./PROPERTY[@name='volume-name']").text
-            volume_type = pool.find("./PROPERTY[@name='volume-type']").text
+        for vol in xml.findall("./OBJECT[@name='{}']".format(NAMES_MATCH[component])):
+            vol_id = vol.find("./PROPERTY[@name='volume-name']").text
+            vol_type = vol.find("./PROPERTY[@name='volume-type']").text
+            vol_sn = vol.find("./PROPERTY[@name='serial-number']").text
             lld_dict = {
-                "{#VOLUME.ID}": "{}".format(volume_id),
-                "{#VOLUME.TYPE}": "{}".format(volume_type)
+                "{#VOLUME.ID}": "{}".format(vol_id),
+                "{#VOLUME.SN}": "{}".format(vol_sn),
+                "{#VOLUME.TYPE}": "{}".format(vol_type)
             }
             all_components.append(lld_dict)
     elif component == 'controllers':
@@ -672,7 +678,7 @@ def get_full_json(msa, component, sessionkey):
 
 if __name__ == '__main__':
     # Current program version
-    VERSION = '0.6.7'
+    VERSION = '0.6.8'
     MSA_PARTS = ('disks', 'vdisks', 'controllers', 'enclosures', 'fans',
                  'power-supplies', 'ports', 'pools', 'disk-groups', 'volumes')
 

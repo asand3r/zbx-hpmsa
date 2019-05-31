@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.2</version>
-    <date>2019-05-30T08:22:50Z</date>
+    <date>2019-05-31T06:05:08Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -15,7 +15,7 @@
 Tested with HP MSA P2000 G3, HP MSA 2040, HP MSA 2050, HP MSA2324FC.&#13;
 SSL support&#13;
 &#13;
-Version: 0.6.7</description>
+Version: 0.6.8</description>
             <groups>
                 <group>
                     <name>Templates</name>
@@ -1796,7 +1796,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.ID}&quot;,&quot;curr-job-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;curr-job-num&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -1830,7 +1830,7 @@ Disk group tier: {#DG.TIER}</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#DG.ID}']['curr-job-num']</params>
+                                    <params>$['{#DG.SN}']['curr-job-num']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>
@@ -1868,7 +1868,7 @@ Disk group tier: {#DG.TIER}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.ID}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;health-num&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -1902,7 +1902,7 @@ Disk group tier: {#DG.TIER}</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#DG.ID}']['health-num']</params>
+                                    <params>$['{#DG.SN}']['health-num']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>
@@ -1940,7 +1940,7 @@ Disk group tier: {#DG.TIER}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.ID}&quot;,&quot;owner-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;owner-num&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -1974,7 +1974,7 @@ Disk group tier: {#DG.TIER}</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#DG.ID}']['owner-num']</params>
+                                    <params>$['{#DG.SN}']['owner-num']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>
@@ -2012,7 +2012,7 @@ Disk group tier: {#DG.TIER}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.ID}&quot;,&quot;owner-pref-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;owner-pref-num&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -2046,7 +2046,7 @@ Disk group tier: {#DG.TIER}</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#DG.ID}']['owner-pref-num']</params>
+                                    <params>$['{#DG.SN}']['owner-pref-num']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>
@@ -2084,7 +2084,7 @@ Disk group tier: {#DG.TIER}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.ID}&quot;,&quot;status-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;status-num&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -2118,7 +2118,7 @@ Disk group tier: {#DG.TIER}</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#DG.ID}']['status-num']</params>
+                                    <params>$['{#DG.SN}']['status-num']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>
@@ -2154,7 +2154,7 @@ Disk group tier: {#DG.TIER}</description>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.dg[&quot;{#DG.ID}&quot;,&quot;owner-num&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.0 with SSL:msa.dg[&quot;{#DG.ID}&quot;,&quot;owner-pref-num&quot;].last()}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;owner-num&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.0 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;owner-pref-num&quot;].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Disk group {#DG.ID} current owner is not preferred</name>
@@ -2187,7 +2187,7 @@ Disk group tier: {#DG.TIER}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.dg[&quot;{#DG.ID}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Disk group {#DG.ID} health status is {ITEM.VALUE}</name>
@@ -2220,7 +2220,7 @@ Disk group tier: {#DG.TIER}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.dg[&quot;{#DG.ID}&quot;,&quot;status-num&quot;].avg(#3)}&lt;&gt;{$DG_STATUS_OK:&quot;{#DG.TIER}&quot;}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;status-num&quot;].avg(#3)}&lt;&gt;{$DG_STATUS_OK:&quot;{#DG.TIER}&quot;}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Disk group {#DG.ID} operational status is {ITEM.VALUE}</name>
@@ -5060,7 +5060,7 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.volume[&quot;{#VOLUME.ID}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;health-num&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -5093,7 +5093,7 @@ Ack to close.</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#VOLUME.ID}']['health-num']</params>
+                                    <params>$['{#VOLUME.SN}']['health-num']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>
@@ -5131,7 +5131,7 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.volume[&quot;{#VOLUME.ID}&quot;,&quot;owner-num&quot;]</key>
+                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owner-num&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -5164,7 +5164,7 @@ Ack to close.</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#VOLUME.ID}']['owner-num']</params>
+                                    <params>$['{#VOLUME.SN}']['owner-num']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>
@@ -5202,7 +5202,7 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.volume[&quot;{#VOLUME.ID}&quot;,&quot;owner-pref-num&quot;]</key>
+                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owner-pref-num&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -5235,7 +5235,7 @@ Ack to close.</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#VOLUME.ID}']['owner-pref-num']</params>
+                                    <params>$['{#VOLUME.SN}']['owner-pref-num']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>
@@ -5271,7 +5271,7 @@ Ack to close.</description>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.volume[&quot;{#VOLUME.ID}&quot;,&quot;owner-num&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.0 with SSL:msa.volume[&quot;{#VOLUME.ID}&quot;,&quot;owner-pref-num&quot;].last()}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owner-num&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.0 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owner-pref-num&quot;].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Volume {#VOLUME.ID} current owner not preferred</name>
@@ -5304,7 +5304,7 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.volume[&quot;{#VOLUME.ID}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.0 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Volume {#VOLUME.ID} health status is {ITEM.VALUE}</name>

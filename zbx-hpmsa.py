@@ -529,7 +529,7 @@ def get_full_json(msa, component, sessionkey):
             all_components[pool_name] = pool_full_data
     elif component == 'disk-groups':
         for PROP in xml.findall("./OBJECT[@name='disk-group']"):
-            dg_name = PROP.find("./PROPERTY[@name='name']").text
+            dg_sn = PROP.find(".PROPERTY[@name='pool-serial-number']").text
             dg_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
             dg_status_num = PROP.find("./PROPERTY[@name='status-numeric']").text
             dg_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
@@ -542,19 +542,19 @@ def get_full_json(msa, component, sessionkey):
                 "owner-pref-num": dg_owner_pref_num,
                 "curr-job-num": dg_curr_job_num
             }
-            all_components[dg_name] = dg_full_data
+            all_components[dg_sn] = dg_full_data
     elif component == 'volumes':
         for PROP in xml.findall("./OBJECT[@name='volume']"):
-            volume_name = PROP.find("./PROPERTY[@name='volume-name']").text
-            volume_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
-            volume_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
-            volume_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
-            volume_full_data = {
-                "health-num": volume_health_num,
-                "owner-num": volume_owner_num,
-                "owner-pref-num": volume_owner_pref_num
+            vol_sn = PROP.find("./PROPERTY[@name='serial-number']").text
+            vol_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
+            vol_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
+            vol_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
+            vol_full_data = {
+                "health-num": vol_health_num,
+                "owner-num": vol_owner_num,
+                "owner-pref-num": vol_owner_pref_num
             }
-            all_components[volume_name] = volume_full_data
+            all_components[vol_sn] = vol_full_data
     elif component == 'controllers':
         for PROP in xml.findall("./OBJECT[@name='controllers']"):
             # Processing main controller properties

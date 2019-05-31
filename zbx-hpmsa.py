@@ -283,23 +283,27 @@ def make_lld(msa, component, sessionkey, pretty=False):
     msa_conn = msa[1] if VERIFY_SSL else msa[0]
     url = '{strg}/api/show/{comp}'.format(strg=msa_conn, comp=component)
 
-    # Making request to API
+    # Making request to the API
     resp_return_code, resp_description, xml = query_xmlapi(url, sessionkey)
     if resp_return_code != '0':
         raise SystemExit('ERROR: {rc} : {rd}'.format(rc=resp_return_code, rd=resp_description))
 
-    # Eject XML from response
+    # Processing response
     all_components = []
-    # Vdisks is deprecated in HPE MSA 1040/2040+ so it stay here for compatibilities
     if component == 'disks':
         for disk in xml.findall("./OBJECT[@name='drive']"):
             disk_id = disk.find("./PROPERTY[@name='location']").text
             disk_sn = disk.find("./PROPERTY[@name='serial-number']").text
+            disk_model = disk.find("./PROPERTY[@name='model']").text
+            disk_arch = disk.find("./PROPERTY[@name='architecture']").text
             lld_dict = {
                 "{#DISK.ID}": "{}".format(disk_id),
-                "{#DISK.SN}": "{}".format(disk_sn)
+                "{#DISK.SN}": "{}".format(disk_sn),
+                "{#DISK.MODEL}": "{}".format(disk_model),
+                "{#DISK.ARCH}": "{}".format(disk_arch)
             }
             all_components.append(lld_dict)
+    # vdisks is deprecated in HPE MSA 1040/2040+ so it stay here for old MSA devices
     elif component == 'vdisks':
         for vdisk in xml.findall("./OBJECT[@name='virtual-disk']"):
             vdisk_id = vdisk.find("./PROPERTY[@name='name']").text

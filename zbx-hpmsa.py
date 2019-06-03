@@ -113,7 +113,7 @@ def sql_cmd(query, fetch_all=False):
         conn.close()
         return data
     except sqlite3.OperationalError as e:
-        print("ERROR: {}".format(e))
+        print("CACHE ERROR: (db: {}) {}".format(CACHE_DB, e))
 
 
 def display_cache():

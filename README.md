@@ -6,7 +6,7 @@ Also you can contact me with Telegram: @asand3r
 zbx-hpmsa provides ability to make Low Level Discovery (LLD) of HPE MSA storage components via it's XML API and retrieve many of some other metrics like health statuses, temperature etc.
 Program wrote with Python 3.7, but works fine with Python 3.4 from EPEL.
 
-**Latest stable versions:** 0.6.8
+**Latest stable versions:** 0.7
 
 __Please, read [Requirements and Installation](https://github.com/asand3r/zbx-hpmsa/wiki/Requirements-and-Installation) section on Wiki page before use.__  
 

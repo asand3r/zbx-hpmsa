@@ -63,7 +63,7 @@ I hope it will reduce total received bytes by Zabbix database.
 
 ## Feautres  
 **Common:**
- - [x] Bulk requests for dependent items (Zabbix 3.4+)
+ - [x] Bulk requests for dependent items (Zabbix 4.0+)
  - [x] HTTPS support
  - [x] Login cache (SQLite3)
  - [x] 'install' argument to prepare script to work
@@ -80,49 +80,18 @@ I hope it will reduce total received bytes by Zabbix database.
  - [x] Fans
  - [x] Volumes
 
-## TODO  
-- [ ] Add correct processing of round-robin DNS records
-
 ## Usage
-You can find more examples on Wiki page, but I placed some cases here too. Be noticed - syntax of v0.5 and v0.6 differs!  
+You can find more examples on Wiki page, but I placed some cases here too.   
 - LLD of enclosures, controllers, virtual disks and physical disks:  
-Before v0.6:  
 ```bash
-[user@server ~] # ./zbx-hpmsa.py --discovery --msa 10.0.0.1 --component vdisks
-{"data":[{"{#VDISKNAME}":"vDisk01"},{"{#VDISKNAME}":"vDisk02"}]}
-```
-With v0.6:
-```bash
-[user@server ~] # ./zbx-hpmsa.py lld 10.0.0.1 vdisks
-{"data":[{"{#VDISKNAME}":"vDisk01"},{"{#VDISKNAME}":"vDisk02"}]}
+[root@server ~] # ./zbx-hpmsa.py lld 10.0.0.1 volumes
+{"data":[{"{#VOLUME.ID}":"Test_Volume","{#VOLUME.SN}":"00c0ff2896a400008fb7265a01000000","{#VOLUME.TYPE}":"standard"}}
 ```
 
-- Request health status of one component. E.g. disk '1.1':  
-Before v0.6:  
+- Request full available data in JSON. E.g. all disks:  
 ```bash
-[user@server ~] # ./zbx-hpmsa.py --msa 10.0.0.1 --component disks --get 1.1
-OK
-```
-With v0.6:
-
-```bash
-[user@server ~] # ./zbx-hpmsa.py health 10.0.0.1 disks 1.1
-OK
-```
-- Request full available data in JSON. E.g. all disks or controller 'A':  
-Before v0.6:
-```bash
-[user@server ~] # ./zbx-hpmsa.py --msa 10.0.0.1 --component disks --get-health full
-{"1.1":{"health":"OK","health-num":"0","error":"0","temperature":"25","power-on-hours":"26094"}, ... }
-[user@server ~] # ./zbx-hpmsa.py --msa 10.0.0.1 --component controllers --get-health full
-{"A":{"health":"OK","health-num":"0","status":"Operational","status-num":"0","redundancy":"Redundant","redundancy-num":"2","flash-health":"OK","flash-health-num":"0","flash-status":"Installed","flash-status-num":"1"}, ... }
-```
-With v0.6:
-```bash
-[user@server ~] # ./zbx-hpmsa.py full 10.0.0.1 disks
-{"1.1":{"health":"OK","health-num":"0","error":"0","temperature":"25","power-on-hours":"26094"}, ... }
-[user@server ~] # ./zbx-hpmsa.py full 10.0.0.1 controllers
-{"A":{"health":"OK","health-num":"0","status":"Operational","status-num":"0","redundancy":"Redundant","redundancy-num":"2","flash-health":"OK","flash-health-num":"0","flash-status":"Installed","flash-status-num":"1"}, ... }
+[root@server ~] # ./zbx-hpmsa.py full 10.0.0.1 disks
+{"1.1":{"h":"0","t":"25","ts":"1","cj":"0","poh":"15050"},"1.2":{"h":"0","t":"25","ts":"1","cj":"0","poh":"15050"}, ... }
 ```
 
 ## Zabbix templates

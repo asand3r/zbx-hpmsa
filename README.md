@@ -1,10 +1,9 @@
 # zbx-hpmsa
-Utility for retrieve hardware info from HPE MSA storage via XML API for Zabbix Monitoring Platform.  
+Utility for retrieve hardware info and stats about HPE MSA storages via XML API for Zabbix Monitoring Platform.  
 Zabbix Share page: https://share.zabbix.com/component/mtree/storage-devices/hp/hp-msa-2040-xml-api  
-Also you can contact me with Telegram: @asand3r
 
-zbx-hpmsa provides ability to make Low Level Discovery (LLD) of HPE MSA storage components via it's XML API and retrieve many of some other metrics like health statuses, temperature etc.
-Program wrote with Python 3.7.3, but works fine with Python 3.6.8 from EPEL.
+zbx-hpmsa provides ability to make Low Level Discovery (LLD) of HPE MSA storage components via it's XML API and retrieve many of some other metrics like health statuses, temperature etc.  
+Developed with Python 3.7, works with Python 3.4 and higher.
 
 **Latest stable versions:** 0.7
 

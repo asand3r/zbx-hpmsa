@@ -307,14 +307,12 @@ def make_lld(msa, component, sessionkey, pretty=False):
     elif component == 'vdisks':
         for vdisk in xml.findall("./OBJECT[@name='virtual-disk']"):
             vdisk_id = vdisk.find("./PROPERTY[@name='name']").text
-            vdisk_sn = vdisk.find("./PROPERTY[@name='serial-number']").txt
             try:
                 vdisk_type = vdisk.find("./PROPERTY[@name='storage-type']").text
             except AttributeError:
                 vdisk_type = "UNKNOWN"
             lld_dict = {
                 "{#VDISK.ID}": "{}".format(vdisk_id),
-                "{#VDISK.SN}": "{}".format(vdisk_sn),
                 "{#VDISK.TYPE}": "{}".format(vdisk_type)
             }
             all_components.append(lld_dict)

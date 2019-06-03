@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import os
-import grp
 import json
+import shutil
 import urllib3
 from hashlib import md5
 from socket import gethostbyname
@@ -49,12 +49,12 @@ def install_script(tmp_dir, group):
 
     # Set owner to tmp dir
     try:
-        os.chown(tmp_dir, 0, grp.getgrnam(group).gr_gid)
-        os.chown(CACHE_DB, 0, grp.getgrnam(group).gr_gid)
+        shutil.chown(tmp_dir, user='root', group=group)
+        shutil.chown(CACHE_DB, user='root', group=group)
     except KeyError:
         print('WARNING: Cannot find group "{}" to set access rights. Using "root" group.'.format(group))
         os.chown(tmp_dir, 0, 0)
-        os.chown(CACHE_DB, 0, grp.getgrnam(group).gr_gid)
+        os.chown(CACHE_DB, 0, 0)
 
 
 def make_cred_hash(cred, isfile=False):

@@ -322,8 +322,10 @@ def make_lld(msa, component, sessionkey, pretty=False):
         for pool in xml.findall("./OBJECT[@name='pools']"):
             pool_id = pool.find("./PROPERTY[@name='name']").text
             pool_type = pool.find("./PROPERTY[@name='storage-type']").text
+            pool_sn = pool.find("./PROPERTY[@name='serial-number']").text
             lld_dict = {
                 "{#POOL.ID}": "{}".format(pool_id),
+                "{#POOL.SN}": "{}".format(pool_sn),
                 "{#POOL.TYPE}": "{}".format(pool_type)
             }
             all_components.append(lld_dict)
@@ -482,7 +484,7 @@ def get_full_json(msa, component, sessionkey, pretty=False):
             all_components[vdisk_name] = vdisk_full_data
     elif component == 'pools':
         for PROP in xml.findall("./OBJECT[@name='pools']"):
-            pool_name = PROP.find("./PROPERTY[@name='name']").text
+            pool_sn = PROP.find("./PROPERTY[@name='serial-number']").text
             pool_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
             pool_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
             pool_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
@@ -491,7 +493,7 @@ def get_full_json(msa, component, sessionkey, pretty=False):
                 "ow": pool_owner_num,
                 "owp": pool_owner_pref_num
             }
-            all_components[pool_name] = pool_full_data
+            all_components[pool_sn] = pool_full_data
     elif component == 'disk-groups':
         for PROP in xml.findall("./OBJECT[@name='disk-group']"):
             dg_sn = PROP.find(".PROPERTY[@name='pool-serial-number']").text

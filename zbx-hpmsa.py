@@ -412,7 +412,7 @@ def make_lld(msa, component, sessionkey, pretty=False):
     return json.dumps({"data": all_components}, separators=(',', ':'), indent=pretty)
 
 
-def get_full_json(msa, component, sessionkey, pretty=False):
+def get_full_json(msa, component, sessionkey, pretty=False, human=False):
     """
     Form text in JSON with storage component data.
 
@@ -424,17 +424,11 @@ def get_full_json(msa, component, sessionkey, pretty=False):
     :type pretty: int
     :param component: Name of storage component.
     :type component: str
+    :param human: Expand result dict keys in human readable format
+    :type: bool
     :return: JSON with all found data.
     :rtype: str
     """
-
-    # Match dict for print output in human readable format
-    m = {'h': 'health', 's': 'status', 'ow': 'owner', 'owp': 'owner-preferred', 't': 'temperature',
-         'ts': 'temperature-status', 'cj': 'current-job', 'poh': 'power-on-hours', 'rs': 'redundancy-status',
-         'fw': 'firmware-version', 'sp': 'speed', 'ps': 'port-status', 'ss': 'sfp-status',
-         'fh': 'flash-health', 'fs': 'flash-status', '12v': 'power-12v', '5v': 'power-5v',
-         '33v': 'power-33v', '12i': 'power-12i', '5i': 'power-5i', 'io': 'iops', 'cpu': 'cpu-load'
-         }
 
     # Forming URL
     msa_conn = msa[1] if VERIFY_SSL else msa[0]
@@ -635,13 +629,35 @@ def get_full_json(msa, component, sessionkey, pretty=False):
                         port_full_data[prop] = value.text
                 all_components[port_name] = port_full_data
     # Transform dict keys to human readable format if '--human' argument is given
-    if HUMAN:
-        for compid, metrics in all_components.items():
-            h_metrics = {}
-            for inner_dict_key in metrics.keys():
-                h_metrics[m[inner_dict_key]] = metrics[inner_dict_key]
-            all_components[compid] = h_metrics
+    if human:
+        all_components = expand_dict(all_components)
     return json.dumps(all_components, separators=(',', ':'), indent=pretty)
+
+
+def expand_dict(init_dict):
+    """
+    Expand dict keys to full names
+
+    :param init_dict: Initial dict
+    :type: dict
+    :return: Dictionary with fully expanded key names
+    :rtype: dict
+    """
+
+    # Match dict for print output in human readable format
+    m = {'h': 'health', 's': 'status', 'ow': 'owner', 'owp': 'owner-preferred', 't': 'temperature',
+         'ts': 'temperature-status', 'cj': 'current-job', 'poh': 'power-on-hours', 'rs': 'redundancy-status',
+         'fw': 'firmware-version', 'sp': 'speed', 'ps': 'port-status', 'ss': 'sfp-status',
+         'fh': 'flash-health', 'fs': 'flash-status', '12v': 'power-12v', '5v': 'power-5v',
+         '33v': 'power-33v', '12i': 'power-12i', '5i': 'power-5i', 'io': 'iops', 'cpu': 'cpu-load'
+         }
+
+    result_dict = {}
+    for compid, metrics in init_dict.items():
+        for key in metrics.keys():
+            result_dict[m[key]] = metrics[key]
+        init_dict[compid] = result_dict
+    return result_dict
 
 
 if __name__ == '__main__':
@@ -698,8 +714,7 @@ if __name__ == '__main__':
         VERIFY_SSL = args.ssl == 'verify'
         MSA_USERNAME = args.username
         MSA_PASSWORD = args.password
-        PRETTY = 2 if args.pretty else None
-        HUMAN = args.human
+        to_pretty = 2 if args.pretty else None
 
         # (IP, DNS)
         IS_IP = all(elem.isdigit() for elem in args.msa.split('.'))
@@ -716,10 +731,10 @@ if __name__ == '__main__':
 
         # Make discovery
         if args.command == 'lld':
-            print(make_lld(MSA_CONNECT, args.part, skey, PRETTY))
+            print(make_lld(MSA_CONNECT, args.part, skey, args.human))
         # Getting full components data in JSON
         elif args.command == 'full':
-            print(get_full_json(MSA_CONNECT, args.part, skey, PRETTY))
+            print(get_full_json(MSA_CONNECT, args.part, skey, to_pretty, args.human))
     # Preparations tasks
     elif args.command == 'install':
         install_script(TMP_DIR, 'zabbix')

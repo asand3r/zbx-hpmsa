@@ -11,7 +11,7 @@ __Please, read [Requirements and Installation](https://github.com/asand3r/zbx-hp
 
 ## v0.6 vs v0.7
 There are a couple of important changes in v0.7 of the script:  
-  - Removed 'health' argument. It was used for working with old Zabbix versions, which doesn't support JSONPath preprocessing (like 3.0 and 3.2). So, version 0.7 supports only Zabbix 4.0 and 4.2;
+  - Removed 'health' argument. It was used for working with old Zabbix versions, which doesn't support JSONPath preprocessing (like 3.0 and 3.2). So, version 0.7 supports only Zabbix 4.0 and 4.2; 3.4 also will work, but LLD doesn't;
   - Version 0.7 breaks compatibility with template distributed for version 0.6.x. Now, master item contains JSON with shorten key names.  
 E.g. version 0.6.8 outpul was:  
 ```bash

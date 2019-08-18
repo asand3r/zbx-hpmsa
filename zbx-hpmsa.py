@@ -331,7 +331,7 @@ def make_lld(msa, component, sessionkey, pretty=False):
         for dg in xml.findall("./OBJECT[@name='disk-group']"):
             dg_id = dg.find("./PROPERTY[@name='name']").text
             dg_type = dg.find("./PROPERTY[@name='storage-type']").text
-            dg_sn = dg.find(".PROPERTY[@name='pool-serial-number']").text
+            dg_sn = dg.find(".PROPERTY[@name='serial-number']").text
             dg_tier = dg.find("./PROPERTY[@name='storage-tier']").text
             lld_dict = {
                 "{#DG.ID}": "{}".format(dg_id),
@@ -488,7 +488,7 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             all_components[pool_sn] = pool_full_data
     elif component == 'disk-groups':
         for PROP in xml.findall("./OBJECT[@name='disk-group']"):
-            dg_sn = PROP.find(".PROPERTY[@name='pool-serial-number']").text
+            dg_sn = PROP.find(".PROPERTY[@name='serial-number']").text
             dg_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
             dg_status_num = PROP.find("./PROPERTY[@name='status-numeric']").text
             dg_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text

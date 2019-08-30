@@ -494,12 +494,17 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             dg_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
             dg_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
             dg_curr_job_num = PROP.find("./PROPERTY[@name='current-job-numeric']").text
+            dg_curr_job_pct = PROP.find("./PROPERTY[@name='current-job-completion']").text
+            # current job completion return None if job isn't running, so I'm replacing it with zero if None
+            if dg_curr_job_pct is None:
+                dg_curr_job_pct = '0'
             dg_full_data = {
                 "h": dg_health_num,
                 "s": dg_status_num,
                 "ow": dg_owner_num,
                 "owp": dg_owner_pref_num,
-                "cj": dg_curr_job_num
+                "cj": dg_curr_job_num,
+                "cjp": dg_curr_job_pct.rstrip('%')
             }
             all_components[dg_sn] = dg_full_data
     elif component == 'volumes':
@@ -649,14 +654,16 @@ def expand_dict(init_dict):
          'ts': 'temperature-status', 'cj': 'current-job', 'poh': 'power-on-hours', 'rs': 'redundancy-status',
          'fw': 'firmware-version', 'sp': 'speed', 'ps': 'port-status', 'ss': 'sfp-status',
          'fh': 'flash-health', 'fs': 'flash-status', '12v': 'power-12v', '5v': 'power-5v',
-         '33v': 'power-33v', '12i': 'power-12i', '5i': 'power-5i', 'io': 'iops', 'cpu': 'cpu-load'
+         '33v': 'power-33v', '12i': 'power-12i', '5i': 'power-5i', 'io': 'iops', 'cpu': 'cpu-load',
+         'cjp': 'current-job-completion'
          }
 
     result_dict = {}
     for compid, metrics in init_dict.items():
+        h_metrics = {}
         for key in metrics.keys():
-            result_dict[m[key]] = metrics[key]
-        init_dict[compid] = result_dict
+            h_metrics[m[key]] = metrics[key]
+        result_dict[compid] = h_metrics
     return result_dict
 
 
@@ -731,7 +738,7 @@ if __name__ == '__main__':
 
         # Make discovery
         if args.command == 'lld':
-            print(make_lld(MSA_CONNECT, args.part, skey, args.human))
+            print(make_lld(MSA_CONNECT, args.part, skey, to_pretty))
         # Getting full components data in JSON
         elif args.command == 'full':
             print(get_full_json(MSA_CONNECT, args.part, skey, to_pretty, args.human))

@@ -674,24 +674,25 @@ if __name__ == '__main__':
                  'power-supplies', 'ports', 'pools', 'disk-groups', 'volumes')
 
     # Main parser
-    main_parser = ArgumentParser(description='Zabbix script for HP MSA XML API.', add_help=True)
+    main_parser = ArgumentParser(description='Zabbix script for HP MSA devices.', add_help=True)
     main_parser.add_argument('-a', '--api', type=int, default=2, choices=(1, 2), help='MSA API version (default: 2)')
-    main_parser.add_argument('-u', '--username', default='monitor', type=str, help='User name to login in MSA')
-    main_parser.add_argument('-p', '--password', default='!monitor', type=str, help='Password for your user')
-    main_parser.add_argument('-f', '--login-file', nargs=1, type=str, help='Path to file contains login and password')
+    main_parser.add_argument('-u', '--username', default='monitor', type=str, help='Username to connect with')
+    main_parser.add_argument('-p', '--password', default='!monitor', type=str, help='Password for the username')
+    main_parser.add_argument('-f', '--login-file', nargs=1, type=str, help='Path to the file with credentials')
     main_parser.add_argument('-v', '--version', action='version', version=VERSION, help='Print script version and exit')
-    main_parser.add_argument('-s', '--save-xml', type=str, nargs=1, help='Save response from storage as XML file')
-    main_parser.add_argument('-t', '--tmp-dir', type=str, nargs=1, default='/var/tmp/zbx-hpmsa/',
-                             help='Path to temp directory')
-    main_parser.add_argument('--ssl', type=str, choices=('direct', 'verify'), help='Use https instead http')
+    main_parser.add_argument('-s', '--save-xml', type=str, nargs=1, help='Save response to XML file')
+    main_parser.add_argument('-t', '--tmp-dir', type=str, nargs=1, default='/var/tmp/zbx-hpmsa/', help='Temp directory')
+    main_parser.add_argument('--ssl', type=str, choices=('direct', 'verify'), help='Use secure connections')
     main_parser.add_argument('--pretty', action='store_true', help='Print output in pretty format')
-    main_parser.add_argument('--human', action='store_true', help='Print output in pretty format')
+    main_parser.add_argument('--human', action='store_true', help='Expose shorten response fields')
 
     # Subparsers
     subparsers = main_parser.add_subparsers(help='Possible options list', dest='command')
 
     # Install script command
     install_parser = subparsers.add_parser('install', help='Do preparation tasks')
+    install_parser.add_argument('--reinstall', action='store_true', help='Recreate script temp dir and cache DB')
+    install_parser.add_argument('group', type=str, default='zabbix', help='Temp directory owner group')
 
     # Show script cache
     cache_parser = subparsers.add_parser('cache', help='Operations with cache')
@@ -699,13 +700,13 @@ if __name__ == '__main__':
     cache_parser.add_argument('--drop', action='store_true', help='Drop cache data')
 
     # LLD script command
-    lld_parser = subparsers.add_parser('lld', help='Do low-level discovery task')
+    lld_parser = subparsers.add_parser('lld', help='Retrieve LLD data from MSA')
     lld_parser.add_argument('msa', type=str, help='MSA address (DNS name or IP)')
     lld_parser.add_argument('part', type=str, help='MSA part name', choices=MSA_PARTS)
 
     # FULL script command
-    full_parser = subparsers.add_parser('full', help='Retrieve full data from MSA')
-    full_parser.add_argument('msa', type=str, help='MSA address (DNS name or IP)')
+    full_parser = subparsers.add_parser('full', help='Retrieve metrics data for a MSA component')
+    full_parser.add_argument('msa', type=str, help='MSA connection address (DNS name or IP)')
     full_parser.add_argument('part', type=str, help='MSA part name', choices=MSA_PARTS)
 
     args = main_parser.parse_args()
@@ -744,7 +745,12 @@ if __name__ == '__main__':
             print(get_full_json(MSA_CONNECT, args.part, skey, to_pretty, args.human))
     # Preparations tasks
     elif args.command == 'install':
-        install_script(TMP_DIR, 'zabbix')
+        TMP_GROUP = args.group
+        if args.reinstall:
+            os.rmdir(TMP_DIR)
+            install_script(TMP_DIR, TMP_GROUP)
+        else:
+            install_script(TMP_DIR, TMP_GROUP)
     # Operations with cache
     elif args.command == 'cache':
         if args.show:

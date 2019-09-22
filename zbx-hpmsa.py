@@ -26,14 +26,15 @@ def install_script(tmp_dir, group):
     :rtype: None
     """
 
-    # Create config directory and assign rights
+    # Create directory for cache and assign rights
     try:
         if not os.path.exists(tmp_dir):
             # Create directory
             os.mkdir(tmp_dir)
             os.chmod(tmp_dir, 0o775)
+            print("Cache directory was created at: '{}'".format(tmp_dir))
     except PermissionError:
-        raise SystemExit('PERMISSION ERROR: You have no permissions to create "{}" directory.'.format(tmp_dir))
+        raise SystemExit("ERROR: You don't have permissions to create '{}' directory".format(tmp_dir))
 
     # Init cache db
     if not os.path.exists(CACHE_DB):
@@ -46,15 +47,16 @@ def install_script(tmp_dir, group):
                 'PRIMARY KEY (dns_name, ip, proto))'
                 )
         os.chmod(CACHE_DB, 0o664)
+        print("Cache database initialized as: '{}'".format(CACHE_DB))
 
     # Set owner to tmp dir
     try:
-        shutil.chown(tmp_dir, user='root', group=group)
-        shutil.chown(CACHE_DB, user='root', group=group)
-    except KeyError:
-        print('WARNING: Cannot find group "{}" to set access rights. Using "root" group.'.format(group))
-        os.chown(tmp_dir, 0, 0)
-        os.chown(CACHE_DB, 0, 0)
+        shutil.chown(tmp_dir, group=group)
+        shutil.chown(CACHE_DB, group=group)
+        print("Cache directory group set to: '{}'".format(group))
+    except LookupError:
+        print("WARNING: Cannot find group '{}' to set access rights. Using current user primary group.\n"
+              "You must manually check access rights to '{}' for zabbix_server".format(group, CACHE_DB))
 
 
 def make_cred_hash(cred, isfile=False):
@@ -692,7 +694,7 @@ if __name__ == '__main__':
     # Install script command
     install_parser = subparsers.add_parser('install', help='Do preparation tasks')
     install_parser.add_argument('--reinstall', action='store_true', help='Recreate script temp dir and cache DB')
-    install_parser.add_argument('group', type=str, default='zabbix', help='Temp directory owner group')
+    install_parser.add_argument('--group', type=str, default='zabbix', help='Temp directory owner group')
 
     # Show script cache
     cache_parser = subparsers.add_parser('cache', help='Operations with cache')
@@ -747,6 +749,8 @@ if __name__ == '__main__':
     elif args.command == 'install':
         TMP_GROUP = args.group
         if args.reinstall:
+            print("Removing '{}' and '{}'".format(CACHE_DB, TMP_DIR))
+            os.remove(CACHE_DB)
             os.rmdir(TMP_DIR)
             install_script(TMP_DIR, TMP_GROUP)
         else:

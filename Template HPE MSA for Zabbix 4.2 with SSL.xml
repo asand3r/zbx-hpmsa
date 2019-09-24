@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.2</version>
-    <date>2019-06-03T12:32:16Z</date>
+    <date>2019-09-24T21:22:30Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -26,17 +26,17 @@ Min. script version: 0.7</description>
                     <name>Inventory</name>
                 </application>
                 <application>
-                    <name>MSA JSONs</name>
+                    <name>MSA Master Items</name>
                 </application>
             </applications>
             <items>
                 <item>
-                    <name>Device model</name>
+                    <name>MSA Model Name</name>
                     <type>4</type>
                     <snmp_community>public</snmp_community>
                     <snmp_oid>.1.3.6.1.4.1.232.2.2.4.2.0</snmp_oid>
                     <key>msa.model</key>
-                    <delay>3h</delay>
+                    <delay>1h</delay>
                     <history>{$HISTORY}</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -63,7 +63,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <inventory_link>29</inventory_link>
                     <applications>
                         <application>
-                            <name>Inventory</name>
+                            <name>General</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -91,12 +91,12 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <master_item/>
                 </item>
                 <item>
-                    <name>MSA JSON controllers full</name>
+                    <name>MSA Master Item Controllers</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -122,7 +122,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MSA JSONs</name>
+                            <name>MSA Master Items</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -150,12 +150,12 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <master_item/>
                 </item>
                 <item>
-                    <name>MSA JSON disk-groups full</name>
+                    <name>MSA Master Item Disk-groups</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -181,7 +181,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MSA JSONs</name>
+                            <name>MSA Master Items</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -209,12 +209,12 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <master_item/>
                 </item>
                 <item>
-                    <name>MSA JSON disks full</name>
+                    <name>MSA Master Item Physical Disks</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -236,11 +236,11 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>JSON with data about disks</description>
+                    <description>JSON with physical disks data</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MSA JSONs</name>
+                            <name>MSA Master Items</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -268,12 +268,12 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <master_item/>
                 </item>
                 <item>
-                    <name>MSA JSON enclosures full</name>
+                    <name>MSA Master Item Enclosures</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -295,11 +295,11 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>JSON with data about enclosures</description>
+                    <description>JSON with enclosures data</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MSA JSONs</name>
+                            <name>MSA Master Items</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -327,12 +327,12 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <master_item/>
                 </item>
                 <item>
-                    <name>MSA JSON fans full</name>
+                    <name>MSA Master Item Fans</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -354,11 +354,11 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>JSON with data about fans</description>
+                    <description>JSON with fans data</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MSA JSONs</name>
+                            <name>MSA Master Items</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -386,12 +386,12 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <master_item/>
                 </item>
                 <item>
-                    <name>MSA JSON pools full</name>
+                    <name>MSA Master Item Pools</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -413,11 +413,11 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>JSON with data about pools</description>
+                    <description>JSON with pools data</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MSA JSONs</name>
+                            <name>MSA Master Items</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -445,12 +445,12 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <master_item/>
                 </item>
                 <item>
-                    <name>MSA JSON ports full</name>
+                    <name>MSA Master Item Ports</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -472,11 +472,11 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>JSON with data about ports</description>
+                    <description>JSON with ports data</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MSA JSONs</name>
+                            <name>MSA Master Items</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -504,12 +504,12 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <master_item/>
                 </item>
                 <item>
-                    <name>MSA JSON power-supplies full</name>
+                    <name>MSA Master Item Power Supplies</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -531,11 +531,11 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>JSON with data about power-supplies</description>
+                    <description>JSON with power supplies data</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MSA JSONs</name>
+                            <name>MSA Master Items</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -563,12 +563,12 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <master_item/>
                 </item>
                 <item>
-                    <name>MSA JSON volumes full</name>
+                    <name>MSA Master Item Volumes</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -594,7 +594,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
-                            <name>MSA JSONs</name>
+                            <name>MSA Master Items</name>
                         </application>
                     </applications>
                     <valuemap/>
@@ -663,7 +663,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                             <key>icmpping[{#CONTROLLER.IP},2]</key>
                             <delay>30s</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -725,7 +725,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu-load&quot;]</key>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -799,10 +799,10 @@ WWN: {#CONTROLLER.WWN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;flash-health-num&quot;]</key>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;fh&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -822,7 +822,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>MSA controller {#CONTROLLER.ID} flash card health status (numeric)&#13;
+                            <description>MSA controller {#CONTROLLER.ID} flash card health status&#13;
 &#13;
 Controller info:&#13;
 SN: {#CONTROLLER.SN}&#13;
@@ -831,7 +831,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Compact flash health</name>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -875,10 +875,10 @@ WWN: {#CONTROLLER.WWN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;flash-status-num&quot;]</key>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;fs&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -898,7 +898,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>MSA controller {#CONTROLLER.ID} flash card status (numeric)&#13;
+                            <description>MSA controller {#CONTROLLER.ID} flash card status&#13;
 &#13;
 Controller info:&#13;
 SN: {#CONTROLLER.SN}&#13;
@@ -907,7 +907,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Compact flash status</name>
+                                <name>HPE MSA Compact Flash Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -951,10 +951,10 @@ WWN: {#CONTROLLER.WWN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;h&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -974,7 +974,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>MSA controller {#CONTROLLER.ID} health status (numeric)&#13;
+                            <description>MSA controller {#CONTROLLER.ID} health status&#13;
 &#13;
 Controller info:&#13;
 SN: {#CONTROLLER.SN}&#13;
@@ -983,7 +983,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Controller health</name>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -1027,7 +1027,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;iops&quot;]</key>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;io&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -1101,10 +1101,10 @@ WWN: {#CONTROLLER.WWN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;redundancy-num&quot;]</key>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;rs&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -1124,7 +1124,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>MSA controller {#CONTROLLER.ID} redundancy status (numeric).&#13;
+                            <description>MSA controller {#CONTROLLER.ID} redundancy status&#13;
 &#13;
 Controller info:&#13;
 SN: {#CONTROLLER.SN}&#13;
@@ -1133,7 +1133,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Controller redundancy</name>
+                                <name>HPE MSA Controller Redundancy</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -1177,10 +1177,10 @@ WWN: {#CONTROLLER.WWN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;status-num&quot;]</key>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;s&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -1200,7 +1200,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>MSA controller {#CONTROLLER.ID} status (numeric)&#13;
+                            <description>MSA controller {#CONTROLLER.ID} status&#13;
 &#13;
 Controller info:&#13;
 SN: {#CONTROLLER.SN}&#13;
@@ -1209,7 +1209,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Controller status</name>
+                                <name>HPE MSA Controller Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -1254,9 +1254,9 @@ WWN: {#CONTROLLER.WWN}</description>
                             <snmp_community/>
                             <snmp_oid/>
                             <key>net.tcp.service[http,{#CONTROLLER.IP},80]</key>
-                            <delay>{$UPDATE}</delay>
+                            <delay>1m</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -1342,7 +1342,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;health-num&quot;].count(#3,0,ne)}&gt;2</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;h&quot;].max(2m)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Controller {#CONTROLLER.ID} health status is {ITEM.VALUE}</name>
@@ -1368,7 +1368,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;status-num&quot;].count(#3,0,ne)}&gt;2</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;s&quot;].max(2m)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Controller {#CONTROLLER.ID} operational status is {ITEM.VALUE}</name>
@@ -1394,7 +1394,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;redundancy-num&quot;].count(#3,2,ne)}&gt;2</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;rs&quot;].max(2m)}&lt;&gt;2</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Controller {#CONTROLLER.ID} redundancy status is {ITEM.VALUE}</name>
@@ -1420,7 +1420,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu-load&quot;].avg(1h)}&gt;85</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu&quot;].avg(1h)}&gt;85</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>CPU load on {#CONTROLLER.ID} too high: {ITEM.VALUE}</name>
@@ -1446,7 +1446,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;flash-health-num&quot;].count(#3,0,ne)}&gt;2</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;fh&quot;].max(2m)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Flash card on Controller {#CONTROLLER.ID} health status is {ITEM.VALUE}</name>
@@ -1472,7 +1472,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;flash-status-num&quot;].count(#3,1,ne)}&gt;2</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;fs&quot;].max(2m)}&lt;&gt;1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Flash card on Controller {#CONTROLLER.ID} operational status is {ITEM.VALUE}</name>
@@ -1498,7 +1498,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:net.tcp.service[http,{#CONTROLLER.IP},80].count(#3,1,ne)}&gt;2</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:net.tcp.service[http,{#CONTROLLER.IP},80].max(2m)}&lt;&gt;1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Web interface on controller {#CONTROLLER.ID} ({#CONTROLLER.IP}) is down</name>
@@ -1558,7 +1558,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                     <type>0</type>
                                     <item>
                                         <host>Template HPE MSA for Zabbix 4.2 with SSL</host>
-                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu-load&quot;]</key>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu&quot;]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -1590,7 +1590,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                     <type>0</type>
                                     <item>
                                         <host>Template HPE MSA for Zabbix 4.2 with SSL</host>
-                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;iops&quot;]</key>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;io&quot;]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -1622,7 +1622,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                     <type>0</type>
                                     <item>
                                         <host>Template HPE MSA for Zabbix 4.2 with SSL</host>
-                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu-load&quot;]</key>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu&quot;]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -1634,7 +1634,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                     <type>0</type>
                                     <item>
                                         <host>Template HPE MSA for Zabbix 4.2 with SSL</host>
-                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;iops&quot;]</key>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;io&quot;]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -1700,10 +1700,10 @@ WWN: {#CONTROLLER.WWN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;curr-job-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;cj&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
@@ -1731,7 +1731,7 @@ Disk group SN: {#DG.SN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Current job</name>
+                                <name>HPE MSA Current Job</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -1771,14 +1771,87 @@ Disk group SN: {#DG.SN}</description>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
+                            <name>Disk group {#DG.ID} current job percent completion</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;cjp&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>%</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} current job percent completion.&#13;
+&#13;
+Disk group type: {#DG.TYPE}&#13;
+Disk group tier: {#DG.TIER}&#13;
+Disk group SN: {#DG.SN}</description>
+                            <inventory_link>0</inventory_link>
+                            <applications/>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$['{#DG.SN}']['cjp']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk group {#DG.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
                             <name>Disk group {#DG.ID} health status</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;h&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
@@ -1798,7 +1871,7 @@ Disk group SN: {#DG.SN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Disk group {#DG.ID} with type {#DG.TYPE} health status (numeric).&#13;
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} health status&#13;
 &#13;
 Disk group type: {#DG.TYPE}&#13;
 Disk group tier: {#DG.TIER}&#13;
@@ -1806,7 +1879,7 @@ Disk group SN: {#DG.SN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Disk Health</name>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -1850,10 +1923,10 @@ Disk group SN: {#DG.SN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;owner-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;ow&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -1881,7 +1954,7 @@ Disk group SN: {#DG.SN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Owner</name>
+                                <name>HPE MSA Controller Owner</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -1925,10 +1998,10 @@ Disk group SN: {#DG.SN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;owner-pref-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;owp&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -1948,7 +2021,7 @@ Disk group SN: {#DG.SN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Disk group {#DG.ID} preferred owner (numeric).&#13;
+                            <description>Disk group {#DG.ID} preferred owner&#13;
 &#13;
 Disk group type: {#DG.TYPE}&#13;
 Disk group tier: {#DG.TIER}&#13;
@@ -1956,7 +2029,7 @@ Disk group SN: {#DG.SN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Owner</name>
+                                <name>HPE MSA Controller Owner</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -2000,10 +2073,10 @@ Disk group SN: {#DG.SN}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;status-num&quot;]</key>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;s&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -2023,7 +2096,7 @@ Disk group SN: {#DG.SN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Disk group {#DG.ID} with type {#DG.TYPE} operational status (numeric).&#13;
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} operational status&#13;
 &#13;
 Disk group type: {#DG.TYPE}&#13;
 Disk group tier: {#DG.TIER}&#13;
@@ -2031,7 +2104,7 @@ Disk group SN: {#DG.SN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Disk Group and Vdisk status</name>
+                                <name>HPE MSA Disk Group, VDisk Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -2073,7 +2146,7 @@ Disk group SN: {#DG.SN}</description>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;owner-num&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.2 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;owner-pref-num&quot;].last()}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;ow&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.2 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;owp&quot;].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Disk group {#DG.ID} current owner is not preferred</name>
@@ -2094,7 +2167,7 @@ Disk group SN: {#DG.SN}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;h&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Disk group {#DG.ID} health status is {ITEM.VALUE}</name>
@@ -2115,7 +2188,7 @@ Disk group SN: {#DG.SN}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;status-num&quot;].avg(#3)}&lt;&gt;{$DG_STATUS_OK:&quot;{#DG.TIER}&quot;}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;s&quot;].max(#3)}&lt;&gt;{$DG_STATUS_OK:&quot;{#DG.TIER}&quot;}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Disk group {#DG.ID} operational status is {ITEM.VALUE}</name>
@@ -2161,7 +2234,7 @@ Disk group SN: {#DG.SN}</description>
                     <master_item/>
                 </discovery_rule>
                 <discovery_rule>
-                    <name>Physical disks discovery</name>
+                    <name>Physical drives discovery</name>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
@@ -2193,89 +2266,14 @@ Disk group SN: {#DG.SN}</description>
                     <description>Discovery all HPE MSA physical disks.</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Physical disk {#DISK.ID} health status</name>
+                            <name>Physical drive {#DISK.ID} current job</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;cj&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Physical disk {#DISK.ID} health status.&#13;
-&#13;
-Disk SN: {#DISK.SN}&#13;
-Disk arch: {#DISK.ARCH}&#13;
-Disk model: {#DISK.MODEL}</description>
-                            <inventory_link>0</inventory_link>
-                            <applications/>
-                            <valuemap>
-                                <name>HPE MSA Disk Health</name>
-                            </valuemap>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>12</type>
-                                    <params>$['{#DISK.ID}']['h']</params>
-                                    <error_handler>0</error_handler>
-                                    <error_handler_params/>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes>
-                                <application_prototype>
-                                    <name>MSA Disk {#DISK.ID}</name>
-                                </application_prototype>
-                            </application_prototypes>
-                            <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
-                            </master_item>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>Physical disk {#DISK.ID} current job</name>
-                            <type>18</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;job-running-numeric&quot;]</key>
-                            <delay>0</delay>
-                            <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -2303,7 +2301,7 @@ Disk model: {#DISK.MODEL}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Current job</name>
+                                <name>HPE MSA Current Job</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -2343,14 +2341,89 @@ Disk model: {#DISK.MODEL}</description>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Physical disk {#DISK.ID} power on hours</name>
+                            <name>Physical drive {#DISK.ID} health status</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;power-on-hours&quot;]</key>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;h&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Physical disk {#DISK.ID} health status.&#13;
+&#13;
+Disk SN: {#DISK.SN}&#13;
+Disk arch: {#DISK.ARCH}&#13;
+Disk model: {#DISK.MODEL}</description>
+                            <inventory_link>0</inventory_link>
+                            <applications/>
+                            <valuemap>
+                                <name>DELETE HPE MSA Disk Health</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$['{#DISK.ID}']['h']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk {#DISK.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Physical drive {#DISK.ID} power on hours</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;poh&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -2416,11 +2489,11 @@ Disk model: {#DISK.MODEL}</description>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Physical disk {#DISK.ID} temperature</name>
+                            <name>Physical drive {#DISK.ID} temperature</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature&quot;]</key>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -2443,7 +2516,7 @@ Disk model: {#DISK.MODEL}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Physical disk {#DISK.ID} temperature in °C.&#13;
+                            <description>Physical drive {#DISK.ID} temperature in °C.&#13;
 &#13;
 Disk SN: {#DISK.SN}&#13;
 Disk arch: {#DISK.ARCH}&#13;
@@ -2493,10 +2566,10 @@ Disk model: {#DISK.MODEL}</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature-status-numeric&quot;]</key>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;ts&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -2524,7 +2597,7 @@ Disk model: {#DISK.MODEL}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Disks temperature status</name>
+                                <name>HPE MSA Drive Temperature Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -2566,16 +2639,16 @@ Disk model: {#DISK.MODEL}</description>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;h&quot;].avg(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Disk {#DISK.ID} health status is {ITEM.VALUE}</name>
+                            <name>Drive {#DISK.ID} health status is {ITEM.VALUE}</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
-                            <priority>2</priority>
-                            <description>Physical disk {#DISK.ID} health status in {ITEM.VALUE} state.</description>
+                            <priority>3</priority>
+                            <description>Physical drive {#DISK.ID} health status in {ITEM.VALUE} state.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
@@ -2587,16 +2660,16 @@ Disk model: {#DISK.MODEL}</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;power-on-hours&quot;].last()}&gt;{$MSA_DISK_POWER_ON_HOURS}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;poh&quot;].last()}&gt;{$MSA_DISK_POWER_ON_HOURS}</expression>
                             <recovery_mode>2</recovery_mode>
                             <recovery_expression/>
-                            <name>Disk {#DISK.ID} summary power on hours are too high: {ITEM.VALUE} hours</name>
+                            <name>Drive {#DISK.ID} power on hours are too high: {ITEM.VALUE} hours</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
                             <priority>1</priority>
-                            <description>Physical disk {#DISK.ID} summary work hourse are too high. Maybe, you should replace it. Check device owner manual.&#13;
+                            <description>Physical drive {#DISK.ID} summary work hourse are too high. Maybe, you should replace it. Check device owner manual.&#13;
 Ack to close.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
@@ -2609,16 +2682,16 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature&quot;].max(5m)}&gt;={$MSA_DISK_TEMP_CRIT}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;].max(5m)}&gt;={$MSA_DISK_TEMP_CRIT}</expression>
                             <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_CRIT}-5</recovery_expression>
-                            <name>Disk {#DISK.ID} temperature is over critical threshold: {ITEM.VALUE}</name>
+                            <recovery_expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_CRIT}-5</recovery_expression>
+                            <name>Drive {#DISK.ID} temperature is over critical threshold</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description>Physical disk {#DISK.ID} temperature is in critical state: {ITEM.VALUE}</description>
+                            <description>Physical drive {#DISK.ID} temperature is in critical state: {ITEM.VALUE}</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
@@ -2634,23 +2707,23 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature&quot;].max(10m)}&gt;={$MSA_DISK_TEMP_WARN}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;].max(10m)}&gt;={$MSA_DISK_TEMP_WARN}</expression>
                             <recovery_mode>1</recovery_mode>
-                            <recovery_expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_OK}</recovery_expression>
-                            <name>Disk {#DISK.ID} temperature is over warning threshold: {ITEM.VALUE}</name>
+                            <recovery_expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_OK}</recovery_expression>
+                            <name>Drive {#DISK.ID} temperature is over warning threshold</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>Physical disk {#DISK.ID} temperature too high: {ITEM.VALUE}</description>
+                            <description>Physical drive {#DISK.ID} temperature too high: {ITEM.VALUE}</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
-                                    <name>Disk {#DISK.ID} temperature is over critical threshold: {ITEM.VALUE}</name>
-                                    <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature&quot;].max(5m)}&gt;={$MSA_DISK_TEMP_CRIT}</expression>
-                                    <recovery_expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_CRIT}-5</recovery_expression>
+                                    <name>Drive {#DISK.ID} temperature is over critical threshold</name>
+                                    <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;].max(5m)}&gt;={$MSA_DISK_TEMP_CRIT}</expression>
+                                    <recovery_expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_CRIT}-5</recovery_expression>
                                 </dependency>
                             </dependencies>
                             <tags>
@@ -2665,29 +2738,27 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature-status-numeric&quot;].min(#3)}&lt;&gt;1</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;ts&quot;].min(#3)}&lt;&gt;1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Disk {#DISK.ID} temperature status in {ITEM.VALUE} state</name>
+                            <name>Drive {#DISK.ID} temperature status in {ITEM.VALUE} state</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description>Physical disk {#DISK.ID} temperature status is not OK.</description>
+                            <description>Physical disk {#DISK.ID} temperature status is in {ITEM.VALUE} state</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
-                            <dependencies>
-                                <dependency>
-                                    <name>Disk {#DISK.ID} temperature is over critical threshold: {ITEM.VALUE}</name>
-                                    <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature&quot;].max(5m)}&gt;={$MSA_DISK_TEMP_CRIT}</expression>
-                                    <recovery_expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;temperature&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_CRIT}-5</recovery_expression>
-                                </dependency>
-                            </dependencies>
+                            <dependencies/>
                             <tags>
                                 <tag>
                                     <tag>part</tag>
                                     <value>physical disk</value>
+                                </tag>
+                                <tag>
+                                    <tag>temperature</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -2753,10 +2824,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;h&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -2776,7 +2847,7 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Enclosure {#ENCLOSURE.ID} with SN {#ENCLOSURE.SN} health status (numeric).</description>
+                            <description>Enclosure {#ENCLOSURE.ID} with SN {#ENCLOSURE.SN} health status</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
@@ -2824,10 +2895,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;status-num&quot;]</key>
+                            <key>msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;s&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -2847,11 +2918,11 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Enclosure {#ENCLOSURE.ID} with SN {#ENCLOSURE.SN} operational status (numeric).</description>
+                            <description>Enclosure {#ENCLOSURE.ID} with SN {#ENCLOSURE.SN} operational status</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Enclosure status</name>
+                                <name>HPE MSA Enclosure Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -2893,7 +2964,7 @@ Ack to close.</description>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;h&quot;].avg(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Enclosure {#ENCLOSURE.ID} health status is {ITEM.VALUE}</name>
@@ -2914,7 +2985,7 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;status-num&quot;].avg(#3)}&lt;&gt;1</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;s&quot;].avg(#3)}&lt;&gt;1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Enclosure {#ENCLOSURE.ID} operational status is {ITEM.VALUE}</name>
@@ -2922,8 +2993,8 @@ Ack to close.</description>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
-                            <priority>2</priority>
-                            <description>Enclosure {#ENCLOSURE.ID} operational status is not UP.</description>
+                            <priority>3</priority>
+                            <description>Enclosure {#ENCLOSURE.ID} operational status is {ITEM.VALUE}</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
@@ -2996,10 +3067,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.fan[&quot;{#FAN.ID}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.fan[&quot;{#FAN.ID}&quot;,&quot;h&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -3019,7 +3090,7 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Fan {#FAN.ID} in location &quot;{#FAN.LOCATION}&quot; health status (numeric)</description>
+                            <description>Fan {#FAN.ID} in location &quot;{#FAN.LOCATION}&quot; health status</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
@@ -3063,11 +3134,82 @@ Ack to close.</description>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Fan {#FAN.ID} speed, rpm</name>
+                            <name>Fan {#FAN.ID} operational status</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.fan[&quot;{#FAN.ID}&quot;,&quot;speed&quot;]</key>
+                            <key>msa.fan[&quot;{#FAN.ID}&quot;,&quot;s&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Fan {#FAN.ID} in location &quot;{#FAN.LOCATION}&quot; operational status</description>
+                            <inventory_link>0</inventory_link>
+                            <applications/>
+                            <valuemap>
+                                <name>DELETE HPE MSA Fan Status</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$['{#FAN.ID}']['s']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Fan {#FAN.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fan {#FAN.ID} speed</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>msa.fan[&quot;{#FAN.ID}&quot;,&quot;sp&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -3090,7 +3232,7 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Fan {#FAN.ID} in location &quot;{#FAN.LOCATION}&quot; rpm.</description>
+                            <description>Fan {#FAN.ID} in location &quot;{#FAN.LOCATION}&quot; rotation speed, rpm.</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap/>
@@ -3131,81 +3273,10 @@ Ack to close.</description>
                                 <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
                             </master_item>
                         </item_prototype>
-                        <item_prototype>
-                            <name>Fan {#FAN.ID} status</name>
-                            <type>18</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>msa.fan[&quot;{#FAN.ID}&quot;,&quot;status-num&quot;]</key>
-                            <delay>0</delay>
-                            <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Fan {#FAN.ID} in location &quot;{#FAN.LOCATION}&quot; operational status (numeric)</description>
-                            <inventory_link>0</inventory_link>
-                            <applications/>
-                            <valuemap>
-                                <name>HPE MSA Fan Status</name>
-                            </valuemap>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>12</type>
-                                    <params>$['{#FAN.ID}']['s']</params>
-                                    <error_handler>0</error_handler>
-                                    <error_handler_params/>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes>
-                                <application_prototype>
-                                    <name>MSA Fan {#FAN.ID}</name>
-                                </application_prototype>
-                            </application_prototypes>
-                            <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
-                            </master_item>
-                        </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;h&quot;].avg(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Fan {#FAN.ID} health status is {ITEM.VALUE}</name>
@@ -3214,7 +3285,7 @@ Ack to close.</description>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description>Fan {#FAN.ID} health status in {ITEM.VALUE}</description>
+                            <description>Fan {#FAN.ID} health status in {ITEM.VALUE} state</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
@@ -3226,7 +3297,7 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;status-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;s&quot;].avg(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Fan {#FAN.ID} operational status is {ITEM.VALUE}</name>
@@ -3234,7 +3305,7 @@ Ack to close.</description>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
-                            <priority>2</priority>
+                            <priority>3</priority>
                             <description>Fan {#FAN.ID} operational status in {ITEM.VALUE} state.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
@@ -3247,16 +3318,16 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;speed&quot;].avg(#3)}&lt;2000</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;sp&quot;].avg(#3)}&lt;2000</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>Fan {#FAN.ID} rotation speed to low</name>
+                            <name>Fan {#FAN.ID} rotation speed too low</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>Fan {#FAN.ID} rotation speed to low ({ITEM.VALUE}).</description>
+                            <description>Fan {#FAN.ID} rotation speed to low: {ITEM.VALUE}</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
@@ -3329,10 +3400,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.pool[&quot;{#POOL.SN}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.pool[&quot;{#POOL.SN}&quot;,&quot;h&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -3352,7 +3423,7 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Pool {#POOL.ID} with type {#POOL.TYPE} health status (numeric).</description>
+                            <description>Pool {#POOL.ID} with type {#POOL.TYPE} health status</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
@@ -3400,10 +3471,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.pool[&quot;{#POOL.SN}&quot;,&quot;owner-num&quot;]</key>
+                            <key>msa.pool[&quot;{#POOL.SN}&quot;,&quot;ow&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -3423,11 +3494,11 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Pool {#POOL.ID} with type {#POOL.TYPE} owner (numeric)</description>
+                            <description>Pool {#POOL.ID} with type {#POOL.TYPE} owner</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Owner</name>
+                                <name>HPE MSA Controller Owner</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -3471,10 +3542,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.pool[&quot;{#POOL.SN}&quot;,&quot;owner-pref-num&quot;]</key>
+                            <key>msa.pool[&quot;{#POOL.SN}&quot;,&quot;owp&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -3494,11 +3565,11 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Pool {#POOL.ID} with type {#POOL.TYPE} preferred owner (numeric)</description>
+                            <description>Pool {#POOL.ID} with type {#POOL.TYPE} preferred owner</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Owner</name>
+                                <name>HPE MSA Controller Owner</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -3540,7 +3611,7 @@ Ack to close.</description>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.pool[&quot;{#POOL.SN}&quot;,&quot;owner-num&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.2 with SSL:msa.pool[&quot;{#POOL.SN}&quot;,&quot;owner-pref-num&quot;].last()}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.pool[&quot;{#POOL.SN}&quot;,&quot;ow&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.2 with SSL:msa.pool[&quot;{#POOL.SN}&quot;,&quot;owp&quot;].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Pool {#POOL.ID} current owner not preferred</name>
@@ -3556,12 +3627,12 @@ Ack to close.</description>
                             <tags>
                                 <tag>
                                     <tag>part</tag>
-                                    <value>pools</value>
+                                    <value>pool</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.pool[&quot;{#POOL.SN}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.pool[&quot;{#POOL.SN}&quot;,&quot;h&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Pool {#POOL.ID} health status is {ITEM.VALUE}</name>
@@ -3577,7 +3648,7 @@ Ack to close.</description>
                             <tags>
                                 <tag>
                                     <tag>part</tag>
-                                    <value>pools</value>
+                                    <value>pool</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -3656,12 +3727,12 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.port[&quot;{#PORT.ID}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.port[&quot;{#PORT.ID}&quot;,&quot;h&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -3679,7 +3750,7 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Port {#PORT.ID} ({#PORT.SPEED}) with type {#PORT.TYPE} health status (numeric).</description>
+                            <description>Port {#PORT.ID} ({#PORT.SPEED}) with type {#PORT.TYPE} health status</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
@@ -3715,7 +3786,7 @@ Ack to close.</description>
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>MSA Port {#PORT.ID}</name>
+                                    <name>MSA Controller Port {#PORT.ID}</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
@@ -3727,10 +3798,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.port[&quot;{#PORT.ID}&quot;,&quot;port-status-num&quot;]</key>
+                            <key>msa.port[&quot;{#PORT.ID}&quot;,&quot;ps&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -3750,11 +3821,11 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Port {#PORT.ID} ({#PORT.SPEED}) with type {#PORT.TYPE} operational status (numeric).</description>
+                            <description>Port {#PORT.ID} ({#PORT.SPEED}) with type {#PORT.TYPE} operational status</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Port status</name>
+                                <name>HPE MSA Port, Power Supply, Fan Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -3786,7 +3857,7 @@ Ack to close.</description>
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>MSA Port {#PORT.ID}</name>
+                                    <name>MSA Controller Port {#PORT.ID}</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
@@ -3798,12 +3869,12 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.port[&quot;{#PORT.ID}&quot;,&quot;sfp-status&quot;]</key>
+                            <key>msa.port[&quot;{#PORT.ID}&quot;,&quot;ss&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>0</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -3825,7 +3896,7 @@ Ack to close.</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Common Health</name>
+                                <name>HPE MSA SFP Module Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -3857,7 +3928,7 @@ Ack to close.</description>
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>MSA Port {#PORT.ID}</name>
+                                    <name>MSA Controller Port {#PORT.ID}</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
@@ -3867,28 +3938,7 @@ Ack to close.</description>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.port[&quot;{#PORT.ID}&quot;,&quot;health-num&quot;].nodata(3m)}=1</expression>
-                            <recovery_mode>0</recovery_mode>
-                            <recovery_expression/>
-                            <name>Missed data from port {#PORT.ID}</name>
-                            <correlation_mode>0</correlation_mode>
-                            <correlation_tag/>
-                            <url/>
-                            <status>0</status>
-                            <priority>2</priority>
-                            <description>Cannot check status of port {#PORT.ID}.</description>
-                            <type>0</type>
-                            <manual_close>0</manual_close>
-                            <dependencies/>
-                            <tags>
-                                <tag>
-                                    <tag>part</tag>
-                                    <value>ports</value>
-                                </tag>
-                            </tags>
-                        </trigger_prototype>
-                        <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.port[&quot;{#PORT.ID}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.port[&quot;{#PORT.ID}&quot;,&quot;h&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Port {#PORT.ID} health status is {ITEM.VALUE}</name>
@@ -3897,19 +3947,19 @@ Ack to close.</description>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description>Port {#PORT.ID} health status in {ITEM.VALUE} state.</description>
+                            <description>Port {#PORT.ID} health status is in {ITEM.VALUE} state.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
                                 <tag>
                                     <tag>part</tag>
-                                    <value>ports</value>
+                                    <value>port</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.port[&quot;{#PORT.ID}&quot;,&quot;port-status-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.port[&quot;{#PORT.ID}&quot;,&quot;ps&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Port {#PORT.ID} operational status is {ITEM.VALUE}</name>
@@ -3918,7 +3968,7 @@ Ack to close.</description>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description>Port {#PORT.ID} operational status in {ITEM.VALUE} state.</description>
+                            <description>Port {#PORT.ID} operational status is in {ITEM.VALUE} state.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
@@ -3930,7 +3980,7 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.port[&quot;{#PORT.ID}&quot;,&quot;sfp-status&quot;].regexp(OK,#3)}=0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.port[&quot;{#PORT.ID}&quot;,&quot;ss&quot;].max(#3)}&lt;&gt;3</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Port {#PORT.ID} SFP module in {ITEM.VALUE} state</name>
@@ -4008,82 +4058,11 @@ Ack to close.</description>
                     <description>Discovery all HPE MSA power supplies.</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Power supply {#POWERSUPPLY.ID} health status</name>
-                            <type>18</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;health-num&quot;]</key>
-                            <delay>0</delay>
-                            <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
-                            <status>0</status>
-                            <value_type>3</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; health status (numeric).</description>
-                            <inventory_link>0</inventory_link>
-                            <applications/>
-                            <valuemap>
-                                <name>HPE MSA Common Health</name>
-                            </valuemap>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>12</type>
-                                    <params>$['{#POWERSUPPLY.ID}']['h']</params>
-                                    <error_handler>0</error_handler>
-                                    <error_handler_params/>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes>
-                                <application_prototype>
-                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
-                                </application_prototype>
-                            </application_prototypes>
-                            <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
-                            </master_item>
-                        </item_prototype>
-                        <item_prototype>
                             <name>Power supply {#POWERSUPPLY.ID} power 5i</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-5i&quot;]</key>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;5i&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -4152,7 +4131,7 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-5v&quot;]</key>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;5v&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -4221,7 +4200,7 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-12i&quot;]</key>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;12i&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -4290,7 +4269,7 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-12v&quot;]</key>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;12v&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -4359,7 +4338,7 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-33v&quot;]</key>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;33v&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -4424,14 +4403,14 @@ Ack to close.</description>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Power supply {#POWERSUPPLY.ID} operational status</name>
+                            <name>Power supply {#POWERSUPPLY.ID} health status</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;status-num&quot;]</key>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;h&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -4451,11 +4430,82 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; operational status (numeric)</description>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; health status</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Power Supplies Satus</name>
+                                <name>HPE MSA Common Health</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$['{#POWERSUPPLY.ID}']['h']</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>1</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} operational status</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;s&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; operational status</description>
+                            <inventory_link>0</inventory_link>
+                            <applications/>
+                            <valuemap>
+                                <name>HPE MSA Port, Power Supply, Fan Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -4499,7 +4549,7 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;temperature&quot;]</key>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;t&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
                             <trends>{$TRENDS}</trends>
@@ -4522,7 +4572,7 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; temperature.</description>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; temperature in Celsius.</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap/>
@@ -4566,7 +4616,7 @@ Ack to close.</description>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;h&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Power supply unit {#POWERSUPPLY.ID} health status is {ITEM.VALUE}</name>
@@ -4575,7 +4625,7 @@ Ack to close.</description>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description>Power supply unit {#POWERSUPPLY.ID} in {#POWERSUPPLY.LOCATION} health status in {ITEM.VALUE} state.</description>
+                            <description>Power supply unit {#POWERSUPPLY.ID} in {#POWERSUPPLY.LOCATION} health status is in {ITEM.VALUE} state.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
@@ -4587,7 +4637,7 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;status-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;s&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Power supply unit {#POWERSUPPLY.ID} operational status is {ITEM.VALUE}</name>
@@ -4608,7 +4658,7 @@ Ack to close.</description>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;temperature&quot;].max(1h)}&gt;=50</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;t&quot;].avg(30m)}&gt;=50</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Power supply unit {#POWERSUPPLY.ID} temperature too high: {ITEM.VALUE}</name>
@@ -4617,7 +4667,7 @@ Ack to close.</description>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>Power supply unit {#POWERSUPPLY.ID} in {#POWERSUPPLY.LOCATION} temperature too high for last hour.</description>
+                            <description>Power supply unit {#POWERSUPPLY.ID} in {#POWERSUPPLY.LOCATION} temperature too high.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
@@ -4625,6 +4675,10 @@ Ack to close.</description>
                                 <tag>
                                     <tag>part</tag>
                                     <value>power supply</value>
+                                </tag>
+                                <tag>
+                                    <tag>temperature</tag>
+                                    <value/>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -4657,7 +4711,7 @@ Ack to close.</description>
                                     <type>0</type>
                                     <item>
                                         <host>Template HPE MSA for Zabbix 4.2 with SSL</host>
-                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-5i&quot;]</key>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;5i&quot;]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -4669,7 +4723,7 @@ Ack to close.</description>
                                     <type>0</type>
                                     <item>
                                         <host>Template HPE MSA for Zabbix 4.2 with SSL</host>
-                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-5v&quot;]</key>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;5v&quot;]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -4681,7 +4735,7 @@ Ack to close.</description>
                                     <type>0</type>
                                     <item>
                                         <host>Template HPE MSA for Zabbix 4.2 with SSL</host>
-                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-12i&quot;]</key>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;12i&quot;]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -4693,7 +4747,7 @@ Ack to close.</description>
                                     <type>0</type>
                                     <item>
                                         <host>Template HPE MSA for Zabbix 4.2 with SSL</host>
-                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-12v&quot;]</key>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;12v&quot;]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -4705,7 +4759,7 @@ Ack to close.</description>
                                     <type>0</type>
                                     <item>
                                         <host>Template HPE MSA for Zabbix 4.2 with SSL</host>
-                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;power-33v&quot;]</key>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;33v&quot;]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -4778,10 +4832,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;health-num&quot;]</key>
+                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;h&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -4801,7 +4855,7 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Volume {#VOLUME.ID} with type {#VOLUME.TYPE} health status (numeric)</description>
+                            <description>Volume {#VOLUME.ID} with type {#VOLUME.TYPE} health status</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
@@ -4849,10 +4903,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owner-num&quot;]</key>
+                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;ow&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -4872,11 +4926,11 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Volume {#VOLUME.ID} with type {#VOLUME.TYPE} current owner (numeric)</description>
+                            <description>Volume {#VOLUME.ID} with type {#VOLUME.TYPE} current owner</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Owner</name>
+                                <name>HPE MSA Controller Owner</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -4920,10 +4974,10 @@ Ack to close.</description>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owner-pref-num&quot;]</key>
+                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owp&quot;]</key>
                             <delay>0</delay>
                             <history>{$HISTORY}</history>
-                            <trends>{$TRENDS}</trends>
+                            <trends>0</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
@@ -4943,11 +4997,11 @@ Ack to close.</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Volume {#VOLUME.ID} with type {#VOLUME.TYPE} preferred owner (numeric).</description>
+                            <description>Volume {#VOLUME.ID} with type {#VOLUME.TYPE} preferred owner</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Owner</name>
+                                <name>HPE MSA Controller Owner</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -4989,7 +5043,7 @@ Ack to close.</description>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owner-num&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.2 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owner-pref-num&quot;].last()}</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;ow&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.2 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owp&quot;].last()}</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Volume {#VOLUME.ID} current owner not preferred</name>
@@ -5005,12 +5059,12 @@ Ack to close.</description>
                             <tags>
                                 <tag>
                                     <tag>part</tag>
-                                    <value>volumes</value>
+                                    <value>volume</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;health-num&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;h&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Volume {#VOLUME.ID} health status is {ITEM.VALUE}</name>
@@ -5019,14 +5073,14 @@ Ack to close.</description>
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>Volume {#VOLUME.ID} health status in {ITEM.VALUE} state.</description>
+                            <description>Volume {#VOLUME.ID} health status is in {ITEM.VALUE} state.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
                                 <tag>
                                     <tag>part</tag>
-                                    <value>volumes</value>
+                                    <value>volume</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -5096,27 +5150,27 @@ Ack to close.</description>
                 </macro>
                 <macro>
                     <macro>{$MSA_DISK_TEMP_CRIT}</macro>
-                    <value>40</value>
+                    <value>50</value>
                 </macro>
                 <macro>
                     <macro>{$MSA_DISK_TEMP_OK}</macro>
-                    <value>29</value>
+                    <value>39</value>
                 </macro>
                 <macro>
                     <macro>{$MSA_DISK_TEMP_WARN}</macro>
-                    <value>34</value>
+                    <value>40</value>
                 </macro>
                 <macro>
                     <macro>{$NODATA_RANGE}</macro>
                     <value>15m</value>
                 </macro>
                 <macro>
-                    <macro>{$TRENDS}</macro>
-                    <value>180d</value>
+                    <macro>{$SSL_MODE}</macro>
+                    <value>direct</value>
                 </macro>
                 <macro>
-                    <macro>{$UPDATE}</macro>
-                    <value>1m</value>
+                    <macro>{$TRENDS}</macro>
+                    <value>180d</value>
                 </macro>
             </macros>
             <templates>
@@ -5146,7 +5200,7 @@ Ack to close.</description>
             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot obtain MSA Conrollers data</name>
+            <name>Cannot read MSA Conrollers data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -5159,7 +5213,7 @@ Ack to close.</description>
             <tags>
                 <tag>
                     <tag>part</tag>
-                    <value>controllers</value>
+                    <value>controller</value>
                 </tag>
             </tags>
         </trigger>
@@ -5167,7 +5221,7 @@ Ack to close.</description>
             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot obtain MSA Disk Groups data</name>
+            <name>Cannot read MSA Disk Groups data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -5188,7 +5242,7 @@ Ack to close.</description>
             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot obtain MSA Enclosures data</name>
+            <name>Cannot read MSA Enclosures data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -5209,7 +5263,7 @@ Ack to close.</description>
             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot obtain MSA Fans data</name>
+            <name>Cannot read MSA Fans data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -5230,20 +5284,20 @@ Ack to close.</description>
             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot obtain MSA Physical disks data</name>
+            <name>Cannot read MSA Physical Drives data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
             <status>0</status>
             <priority>2</priority>
-            <description>Cannot retrieve JSON with Physical Disks data from MSA.</description>
+            <description>Cannot retrieve JSON with Physical Drives data from MSA.</description>
             <type>0</type>
             <manual_close>0</manual_close>
             <dependencies/>
             <tags>
                 <tag>
                     <tag>part</tag>
-                    <value>physical disks</value>
+                    <value>drive</value>
                 </tag>
             </tags>
         </trigger>
@@ -5251,7 +5305,7 @@ Ack to close.</description>
             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot obtain MSA Pools data</name>
+            <name>Cannot read MSA Pools data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -5264,7 +5318,7 @@ Ack to close.</description>
             <tags>
                 <tag>
                     <tag>part</tag>
-                    <value>pools</value>
+                    <value>pool</value>
                 </tag>
             </tags>
         </trigger>
@@ -5272,7 +5326,7 @@ Ack to close.</description>
             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot obtain MSA Ports data</name>
+            <name>Cannot read MSA Ports data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -5293,7 +5347,7 @@ Ack to close.</description>
             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot obtain MSA Power Supplies data</name>
+            <name>Cannot read MSA Power Supplies data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -5306,7 +5360,7 @@ Ack to close.</description>
             <tags>
                 <tag>
                     <tag>part</tag>
-                    <value>power supplies</value>
+                    <value>power supply</value>
                 </tag>
             </tags>
         </trigger>
@@ -5314,7 +5368,7 @@ Ack to close.</description>
             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot obtain MSA Volumes data</name>
+            <name>Cannot read MSA Volumes data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -5327,12 +5381,62 @@ Ack to close.</description>
             <tags>
                 <tag>
                     <tag>part</tag>
-                    <value>volumes</value>
+                    <value>volume</value>
                 </tag>
             </tags>
         </trigger>
     </triggers>
     <value_maps>
+        <value_map>
+            <name>DELETE HPE MSA Disk Health</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>OK</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Degraded</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Fault</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>N/A</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>DELETE HPE MSA Fan Status</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Warning</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Error</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Not Present</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Unknown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
         <value_map>
             <name>HPE MSA Common Health</name>
             <mappings>
@@ -5355,32 +5459,7 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Compact flash health</name>
-            <mappings>
-                <mapping>
-                    <value>0</value>
-                    <newvalue>OK</newvalue>
-                </mapping>
-                <mapping>
-                    <value>1</value>
-                    <newvalue>Degraded</newvalue>
-                </mapping>
-                <mapping>
-                    <value>2</value>
-                    <newvalue>Fault</newvalue>
-                </mapping>
-                <mapping>
-                    <value>3</value>
-                    <newvalue>Unknown</newvalue>
-                </mapping>
-                <mapping>
-                    <value>4</value>
-                    <newvalue>N/A</newvalue>
-                </mapping>
-            </mappings>
-        </value_map>
-        <value_map>
-            <name>HPE MSA Compact flash status</name>
+            <name>HPE MSA Compact Flash Status</name>
             <mappings>
                 <mapping>
                     <value>0</value>
@@ -5393,32 +5472,20 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Controller health</name>
+            <name>HPE MSA Controller Owner</name>
             <mappings>
                 <mapping>
                     <value>0</value>
-                    <newvalue>OK</newvalue>
+                    <newvalue>B</newvalue>
                 </mapping>
                 <mapping>
                     <value>1</value>
-                    <newvalue>Degraded</newvalue>
-                </mapping>
-                <mapping>
-                    <value>2</value>
-                    <newvalue>Fault</newvalue>
-                </mapping>
-                <mapping>
-                    <value>3</value>
-                    <newvalue>Unknown</newvalue>
-                </mapping>
-                <mapping>
-                    <value>4</value>
-                    <newvalue>N/A</newvalue>
+                    <newvalue>A</newvalue>
                 </mapping>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Controller redundancy</name>
+            <name>HPE MSA Controller Redundancy</name>
             <mappings>
                 <mapping>
                     <value>0</value>
@@ -5439,7 +5506,7 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Controller status</name>
+            <name>HPE MSA Controller Status</name>
             <mappings>
                 <mapping>
                     <value>0</value>
@@ -5460,7 +5527,7 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Current job</name>
+            <name>HPE MSA Current Job</name>
             <mappings>
                 <mapping>
                     <value>0</value>
@@ -5509,7 +5576,7 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Disk Group and Vdisk status</name>
+            <name>HPE MSA Disk Group, VDisk Status</name>
             <mappings>
                 <mapping>
                     <value>0</value>
@@ -5554,32 +5621,7 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Disk Health</name>
-            <mappings>
-                <mapping>
-                    <value>0</value>
-                    <newvalue>OK</newvalue>
-                </mapping>
-                <mapping>
-                    <value>1</value>
-                    <newvalue>Degraded</newvalue>
-                </mapping>
-                <mapping>
-                    <value>2</value>
-                    <newvalue>Fault</newvalue>
-                </mapping>
-                <mapping>
-                    <value>3</value>
-                    <newvalue>Unknown</newvalue>
-                </mapping>
-                <mapping>
-                    <value>4</value>
-                    <newvalue>N/A</newvalue>
-                </mapping>
-            </mappings>
-        </value_map>
-        <value_map>
-            <name>HPE MSA Disks temperature status</name>
+            <name>HPE MSA Drive Temperature Status</name>
             <mappings>
                 <mapping>
                     <value>1</value>
@@ -5596,7 +5638,7 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Enclosure status</name>
+            <name>HPE MSA Enclosure Status</name>
             <mappings>
                 <mapping>
                     <value>0</value>
@@ -5637,45 +5679,32 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Fan Status</name>
+            <name>HPE MSA Flash, Drive, Controller Health</name>
             <mappings>
                 <mapping>
                     <value>0</value>
-                    <newvalue>Up</newvalue>
+                    <newvalue>OK</newvalue>
                 </mapping>
                 <mapping>
                     <value>1</value>
-                    <newvalue>Warning</newvalue>
+                    <newvalue>Degraded</newvalue>
                 </mapping>
                 <mapping>
                     <value>2</value>
-                    <newvalue>Error</newvalue>
+                    <newvalue>Fault</newvalue>
                 </mapping>
                 <mapping>
                     <value>3</value>
-                    <newvalue>Not Present</newvalue>
+                    <newvalue>Unknown</newvalue>
                 </mapping>
                 <mapping>
                     <value>4</value>
-                    <newvalue>Unknown</newvalue>
+                    <newvalue>N/A</newvalue>
                 </mapping>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Owner</name>
-            <mappings>
-                <mapping>
-                    <value>0</value>
-                    <newvalue>B</newvalue>
-                </mapping>
-                <mapping>
-                    <value>1</value>
-                    <newvalue>A</newvalue>
-                </mapping>
-            </mappings>
-        </value_map>
-        <value_map>
-            <name>HPE MSA Port status</name>
+            <name>HPE MSA Port, Power Supply, Fan Status</name>
             <mappings>
                 <mapping>
                     <value>0</value>
@@ -5704,27 +5733,23 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Power Supplies Satus</name>
+            <name>HPE MSA SFP Module Status</name>
             <mappings>
                 <mapping>
                     <value>0</value>
-                    <newvalue>Up</newvalue>
+                    <newvalue>Not compatible</newvalue>
                 </mapping>
                 <mapping>
                     <value>1</value>
-                    <newvalue>Warning</newvalue>
+                    <newvalue>Incorrect protocol</newvalue>
                 </mapping>
                 <mapping>
                     <value>2</value>
-                    <newvalue>Error</newvalue>
+                    <newvalue>Not present</newvalue>
                 </mapping>
                 <mapping>
                     <value>3</value>
-                    <newvalue>Not Present</newvalue>
-                </mapping>
-                <mapping>
-                    <value>4</value>
-                    <newvalue>Unknown</newvalue>
+                    <newvalue>OK</newvalue>
                 </mapping>
             </mappings>
         </value_map>

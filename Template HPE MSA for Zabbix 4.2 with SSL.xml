@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.2</version>
-    <date>2019-09-24T21:22:30Z</date>
+    <date>2019-09-24T22:22:08Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -2376,7 +2376,7 @@ Disk model: {#DISK.MODEL}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>DELETE HPE MSA Disk Health</name>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -3165,7 +3165,7 @@ Ack to close.</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>DELETE HPE MSA Fan Status</name>
+                                <name>HPE MSA Port, Power Supply, Fan Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -5387,56 +5387,6 @@ Ack to close.</description>
         </trigger>
     </triggers>
     <value_maps>
-        <value_map>
-            <name>DELETE HPE MSA Disk Health</name>
-            <mappings>
-                <mapping>
-                    <value>0</value>
-                    <newvalue>OK</newvalue>
-                </mapping>
-                <mapping>
-                    <value>1</value>
-                    <newvalue>Degraded</newvalue>
-                </mapping>
-                <mapping>
-                    <value>2</value>
-                    <newvalue>Fault</newvalue>
-                </mapping>
-                <mapping>
-                    <value>3</value>
-                    <newvalue>Unknown</newvalue>
-                </mapping>
-                <mapping>
-                    <value>4</value>
-                    <newvalue>N/A</newvalue>
-                </mapping>
-            </mappings>
-        </value_map>
-        <value_map>
-            <name>DELETE HPE MSA Fan Status</name>
-            <mappings>
-                <mapping>
-                    <value>0</value>
-                    <newvalue>Up</newvalue>
-                </mapping>
-                <mapping>
-                    <value>1</value>
-                    <newvalue>Warning</newvalue>
-                </mapping>
-                <mapping>
-                    <value>2</value>
-                    <newvalue>Error</newvalue>
-                </mapping>
-                <mapping>
-                    <value>3</value>
-                    <newvalue>Not Present</newvalue>
-                </mapping>
-                <mapping>
-                    <value>4</value>
-                    <newvalue>Unknown</newvalue>
-                </mapping>
-            </mappings>
-        </value_map>
         <value_map>
             <name>HPE MSA Common Health</name>
             <mappings>

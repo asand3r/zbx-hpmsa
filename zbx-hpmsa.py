@@ -255,7 +255,7 @@ def query_xmlapi(url, sessionkey):
                 with open(SAVE_XML[0], 'w') as xml_file:
                     xml_file.write(response.text)
             except PermissionError:
-                    raise SystemExit('ERROR: Cannot save XML file to "{}"'.format(args.savexml))
+                raise SystemExit('ERROR: Cannot save XML file to "{}"'.format(args.savexml))
         response_xml = eTree.fromstring(response.content)
         return_code = response_xml.find("./OBJECT[@name='status']/PROPERTY[@name='return-code']").text
         return_response = response_xml.find("./OBJECT[@name='status']/PROPERTY[@name='response']").text

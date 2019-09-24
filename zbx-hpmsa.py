@@ -622,19 +622,29 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             # Processing main ports properties
             port_name = FC.find("./PROPERTY[@name='port']").text
             port_health_num = FC.find("./PROPERTY[@name='health-numeric']").text
-            if port_health_num != '4':
-                port_full_data = {
-                    "h": port_health_num
-                }
+            port_full_data = {
+                "h": port_health_num
+            }
 
-                # Processing advanced ports properties
-                port_ext = dict()
-                port_ext['ps'] = FC.find("./PROPERTY[@name='status-numeric']")
-                port_ext['ss'] = FC.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status']")
-                for prop, value in port_ext.items():
-                    if value is not None:
-                        port_full_data[prop] = value.text
-                all_components[port_name] = port_full_data
+            # Processing advanced ports properties
+            port_ext = dict()
+            port_ext['ps'] = FC.find("./PROPERTY[@name='status-numeric']")
+            for prop, value in port_ext.items():
+                if value is not None:
+                    port_full_data[prop] = value.text
+
+            # SFP Status
+            # Because of before 1050/2050 API has no numeric property for sfp-status, creating mapping self
+            sfp_status_map = {"Not compatible": '0', "Incorrect protocol": '1', "Not present": '2', "OK": '3'}
+            sfp_status_char = FC.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status']")
+            sfp_status_num = FC.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status-numeric']")
+            if sfp_status_num is not None:
+                port_full_data['ss'] = sfp_status_num.text
+            else:
+                if sfp_status_char is not None:
+                    port_full_data['ss'] = sfp_status_map[sfp_status_char.text]
+
+            all_components[port_name] = port_full_data
     # Transform dict keys to human readable format if '--human' argument is given
     if human:
         all_components = expand_dict(all_components)

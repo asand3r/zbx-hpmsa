@@ -651,6 +651,134 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
     return json.dumps(all_components, separators=(',', ':'), indent=pretty)
 
 
+def get_super(msa, sessionkey, pretty=False, human=False):
+    """
+    Query /show/configuration for super-discovery
+
+    :param msa: MSA DNS name and IP address.
+    :type msa: tuple
+    :param sessionkey: Session key.
+    :type sessionkey: str
+    :param pretty: Print in pretty format
+    :type pretty: int
+    :param human: Expand result dict keys in human readable format
+    :type: bool
+    :return: JSON with all found data.
+    :rtype: str
+    """
+
+    # Forming URL
+    msa_conn = msa[1] if VERIFY_SSL else msa[0]
+    url = '{}/api/show/configuration'.format(msa_conn)
+
+    # Making request to API
+    resp_code, resp_descr, xml = query_xmlapi(url, sessionkey)
+    if resp_code != '0':
+        raise SystemExit('ERROR: {rc} : {rd}'.format(rc=resp_code, rd=resp_descr))
+
+    # DELETE! Local XML file!
+    with open('/home/asand3r/Downloads/conf_2040.xml', 'r') as xml_file:
+        xml_data = xml_file.read().encode()
+        xml = eTree.fromstring(xml_data)
+
+    # Parsing XML response and forming dict
+    sdata = {'sys': [], 'ctrl': [], 'ports': [], 'drives': []}
+    # System Information
+    for prop in xml.findall("./OBJECT[@name='system-information']"):
+        sys_data = dict()
+        sys_data['name'] = prop.find("./PROPERTY[@name='system-name']").text
+        sys_data['cont'] = prop.find("./PROPERTY[@name='system-contact']").text
+        sys_data['loc'] = prop.find("./PROPERTY[@name='system-location']").text
+        sys_data['mod'] = prop.find("./PROPERTY[@name='system-information']").text
+        sys_data['sn'] = prop.find("./PROPERTY[@name='midplane-serial-number']").text
+        for k, v in sys_data.items():
+            if v is None:
+                sys_data[k] = "EMPTY"
+        sdata['sys'].append(sys_data)
+
+    # Controllers
+    for ctrl in xml.findall("./OBJECT[@name='controllers']"):
+        ctrl_data = dict()
+        # inv
+        ctrl_data['id'] = ctrl.find("./PROPERTY[@name='controller-id']").text
+        ctrl_data['sn'] = ctrl.find("./PROPERTY[@name='serial-number']").text
+        ctrl_data['pn'] = ctrl.find("./PROPERTY[@name='part-number']").text
+        ctrl_data['pos'] = ctrl.find("./PROPERTY[@name='position']").text
+        ctrl_data['ip'] = ctrl.find("./PROPERTY[@name='ip-address']").text
+        ctrl_data['mac'] = ctrl.find("./OBJECT[@basetype='network-parameters']/PROPERTY[@name='mac-address']").text
+        ctrl_data['wwn'] = ctrl.find("./PROPERTY[@name='node-wwn']").text
+        ctrl_data['fw'] = ctrl.find("./PROPERTY[@name='sc-fw']").text
+
+        # Health data
+        ctrl_data['h'] = ctrl.find("./PROPERTY[@name='health-numeric']").text
+        ctrl_data['s'] = ctrl.find("./PROPERTY[@name='status-numeric']").text
+        ctrl_data['rs'] = ctrl.find("./PROPERTY[@name='redundancy-status-numeric']").text
+        # Compact flash
+        ctrl_data['cfs'] = ctrl.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='status-numeric']").text
+        ctrl_data['cfh'] = ctrl.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='health-numeric']").text
+        # SAS Port
+        ctrl_data['sass'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='status-numeric']").text
+        ctrl_data['sash'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='health-numeric']").text
+        for k, v in ctrl_data.items():
+            if v is None:
+                ctrl_data[k] = "EMPTY"
+        # full
+        sdata['ctrl'].append(ctrl_data)
+
+        # Controller fc ports
+        for port in ctrl.findall("./OBJECT[@name='ports']"):
+            port_data = dict()
+            # inv
+            port_data['id'] = port.find("./PROPERTY[@name='port']").text
+            port_data['t'] = port.find("./PROPERTY[@name='port-type']").text
+
+            # health
+            port_data['s'] = port.find("./PROPERTY[@name='status-numeric']").text
+            port_data['sp'] = port.find("./PROPERTY[@name='actual-speed']").text
+            port_data['sfp'] = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-present']").text
+            port_data['spn'] = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-part-number']").text
+            # Because of before 1050/2050 API has no numeric property for sfp-status, creating mapping
+            sfp_status_map = {"Not compatible": '0', "Incorrect protocol": '1', "Not present": '2', "OK": '3'}
+            sfp_status_char = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status']")
+            sfp_status_num = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status-numeric']")
+            if sfp_status_num is not None:
+                port_data['ss'] = sfp_status_num.text
+            else:
+                if sfp_status_char is not None:
+                    port_data['ss'] = sfp_status_map[sfp_status_char.text]
+
+            for k, v in port_data.items():
+                if v is None:
+                    port_data[k] = "EMPTY"
+
+            sdata['ports'].append(port_data)
+
+    # Physical drives
+    for drive in xml.findall("./OBJECT[@basetype='drives']"):
+        drive_data = dict()
+        # Inv data
+        drive_data['id'] = drive.find("./PROPERTY[@name='location']").text
+        drive_data['sn'] = drive.find("./PROPERTY[@name='serial-number']").text
+        drive_data['mod'] = drive.find("./PROPERTY[@name='model']").text
+        drive_data['arch'] = drive.find("./PROPERTY[@name='architecture']").text
+
+        # Health data
+        drive_data['h'] = drive.find("./PROPERTY[@name='health-numeric']").text
+        drive_data['t'] = drive.find("./PROPERTY[@name='temperature-numeric']").text
+        drive_data['ts'] = drive.find("./PROPERTY[@name='temperature-status-numeric']").text
+        drive_data['cj'] = drive.find("./PROPERTY[@name='job-running-numeric']").text
+        drive_data['poh'] = drive.find("./PROPERTY[@name='power-on-hours']").text
+        drive_data['ssdll'] = drive.find("./PROPERTY[@name='ssd-life-left-numeric']").text
+        sdata['drives'].append(drive_data)
+    # DEBUG PRINT
+    print(json.dumps(sdata, indent=2))
+
+    # Transform dict keys to human readable format if '--human' argument is given
+    if human:
+        sdata = expand_dict(sdata)
+    return json.dumps(sdata, separators=(',', ':'), indent=pretty)
+
+
 def expand_dict(init_dict):
     """
     Expand dict keys to full names
@@ -681,7 +809,7 @@ def expand_dict(init_dict):
 
 if __name__ == '__main__':
     # Current program version
-    VERSION = '0.7'
+    VERSION = '0.7super'
     MSA_PARTS = ('disks', 'vdisks', 'controllers', 'enclosures', 'fans',
                  'power-supplies', 'ports', 'pools', 'disk-groups', 'volumes')
 

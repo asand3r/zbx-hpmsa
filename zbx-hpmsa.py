@@ -677,76 +677,69 @@ def get_super(msa, sessionkey, pretty=False, human=False):
         raise SystemExit('ERROR: {rc} : {rd}'.format(rc=resp_code, rd=resp_descr))
 
     # DELETE! Local XML file!
-    with open('/home/asand3r/Downloads/conf_2040.xml', 'r') as xml_file:
+    with open('/home/asand3r/Downloads/conf_2050.xml', 'r') as xml_file:
         xml_data = xml_file.read().encode()
         xml = eTree.fromstring(xml_data)
 
     # Parsing XML response and forming dict
     sdata = {}
-    for part in ['sys', 'encl', 'ctrl', 'ports', 'ps', 'fans', 'drives', 'dg', 'pools']:
+    for part in ['sys', 'encl', 'ctrl', 'ports', 'ps', 'fans', 'drives', 'pools', 'dg', 'vd']:
         sdata[part] = []
-    # sdata = {'sys': [], 'ctrl': [], 'ports': [], 'ps': [], 'fan': [], 'drives': [], 'encl': [], 'dg': [], 'pools': []}
     # System Information
     for prop in xml.findall("./OBJECT[@name='system-information']"):
         sys_data = dict()
-        sys_data['name'] = prop.find("./PROPERTY[@name='system-name']").text
-        sys_data['cont'] = prop.find("./PROPERTY[@name='system-contact']").text
-        sys_data['loc'] = prop.find("./PROPERTY[@name='system-location']").text
-        sys_data['mod'] = prop.find("./PROPERTY[@name='system-information']").text
+        sys_data['n'] = prop.find("./PROPERTY[@name='system-name']").text
+        sys_data['c'] = prop.find("./PROPERTY[@name='system-contact']").text
+        sys_data['l'] = prop.find("./PROPERTY[@name='system-location']").text
+        sys_data['m'] = prop.find("./PROPERTY[@name='system-information']").text
         sys_data['sn'] = prop.find("./PROPERTY[@name='midplane-serial-number']").text
         for k, v in sys_data.items():
-            if v is None:
-                sys_data[k] = "EMPTY"
+            if v is None or v.isspace():
+                sys_data[k] = "N/A"
         sdata['sys'].append(sys_data)
 
     # Enclosures, Controllers, Power-Supplies
     for encl in xml.findall("./OBJECT[@name='enclosures']"):
         encl_data = dict()
-        encl_data['id'] = encl.find("./PROPERTY[@name='enclosure-id]").text
+        encl_data['i'] = encl.find("./PROPERTY[@name='enclosure-id']").text
         encl_data['sn'] = encl.find("./PROPERTY[@name='midplane-serial-number']").text
-        encl_data['pn'] = encl.find("./PROPERTY[@name='part-number']").text
         encl_data['s'] = encl.find("./PROPERTY[@name='status-numeric']").text
         encl_data['h'] = encl.find("./PROPERTY[@name='health-numeric']").text
         sdata['encl'].append(encl_data)
+
+        # Controllers
         for ctrl in encl.findall("./OBJECT[@name='controllers']"):
             ctrl_data = dict()
-            ctrl_data['id'] = ctrl.find("./PROPERTY[@name='controller-id']").text
+            ctrl_data['i'] = ctrl.find("./PROPERTY[@name='controller-id']").text
             ctrl_data['sn'] = ctrl.find("./PROPERTY[@name='serial-number']").text
-            ctrl_data['pn'] = ctrl.find("./PROPERTY[@name='part-number']").text
-            ctrl_data['pos'] = ctrl.find("./PROPERTY[@name='position']").text
+            ctrl_data['p'] = ctrl.find("./PROPERTY[@name='position-numeric']").text
             ctrl_data['ip'] = ctrl.find("./PROPERTY[@name='ip-address']").text
             ctrl_data['mac'] = ctrl.find("./OBJECT[@basetype='network-parameters']/PROPERTY[@name='mac-address']").text
-            ctrl_data['wwn'] = ctrl.find("./PROPERTY[@name='node-wwn']").text
             ctrl_data['fw'] = ctrl.find("./PROPERTY[@name='sc-fw']").text
-
-            # Health data
-            ctrl_data['h'] = ctrl.find("./PROPERTY[@name='health-numeric']").text
             ctrl_data['s'] = ctrl.find("./PROPERTY[@name='status-numeric']").text
+            ctrl_data['h'] = ctrl.find("./PROPERTY[@name='health-numeric']").text
             ctrl_data['rs'] = ctrl.find("./PROPERTY[@name='redundancy-status-numeric']").text
             # Compact flash
             ctrl_data['cfs'] = ctrl.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='status-numeric']").text
             ctrl_data['cfh'] = ctrl.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='health-numeric']").text
             # SAS Port
-            ctrl_data['sass'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='status-numeric']").text
-            ctrl_data['sash'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='health-numeric']").text
+            ctrl_data['sps'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='status-numeric']").text
+            ctrl_data['sph'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='health-numeric']").text
             for k, v in ctrl_data.items():
                 if v is None:
-                    ctrl_data[k] = "EMPTY"
+                    ctrl_data[k] = "N/A"
             # full
             sdata['ctrl'].append(ctrl_data)
 
             # Controller fc ports
             for port in ctrl.findall("./OBJECT[@name='ports']"):
                 port_data = dict()
-                # inv
-                port_data['id'] = port.find("./PROPERTY[@name='port']").text
+                port_data['i'] = port.find("./PROPERTY[@name='port']").text
                 port_data['t'] = port.find("./PROPERTY[@name='port-type']").text
-
-                # health
                 port_data['s'] = port.find("./PROPERTY[@name='status-numeric']").text
+                port_data['h'] = port.find("./PROPERTY[@name='health-numeric']").text
                 port_data['sp'] = port.find("./PROPERTY[@name='actual-speed']").text
-                port_data['sfp'] = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-present']").text
-                port_data['spn'] = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-part-number']").text
+                port_data['sfp'] = port.find(".//PROPERTY[@name='sfp-present-numeric']").text
                 # Because of before 1050/2050 API has no numeric property for sfp-status, creating mapping
                 sfp_status_map = {"Not compatible": '0', "Incorrect protocol": '1', "Not present": '2', "OK": '3'}
                 sfp_status_char = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status']")
@@ -756,29 +749,103 @@ def get_super(msa, sessionkey, pretty=False, human=False):
                 else:
                     if sfp_status_char is not None:
                         port_data['ss'] = sfp_status_map[sfp_status_char.text]
-
+                # Replacing possible 'None' to string 'N/A'
                 for k, v in port_data.items():
                     if v is None:
-                        port_data[k] = "EMPTY"
-
+                        port_data[k] = "N/A"
                 sdata['ports'].append(port_data)
+        # Power Supplies
+        for ps in encl.findall("./OBJECT[@name='power-supplies']"):
+            ps_data = dict()
+            ps_data['i'] = ps.find("./PROPERTY[@name='durable-id']").text
+            ps_data['p'] = ps.find("./PROPERTY[@name='position-numeric']").text
+            ps_data['s'] = ps.find("./PROPERTY[@name='status-numeric']").text
+            ps_data['h'] = ps.find("./PROPERTY[@name='health-numeric']").text
+            ps_data['12v'] = ps.find("./PROPERTY[@name='dc12v']").text
+            ps_data['5v'] = ps.find("./PROPERTY[@name='dc5v']").text
+            ps_data['33v'] = ps.find("./PROPERTY[@name='dc33v']").text
+            ps_data['12i'] = ps.find("./PROPERTY[@name='dc12i']").text
+            ps_data['5i'] = ps.find("./PROPERTY[@name='dc5i']").text
+            sdata['ps'].append(ps_data)
 
+        # Fans
+        for fan in encl.findall(".//OBJECT[@name='fan-details']"):
+            fan_data = dict()
+            fan_data['i'] = fan.find("./PROPERTY[@name='durable-id']").text
+            fan_data['p'] = fan.find("./PROPERTY[@name='position-numeric']").text
+            fan_data['s'] = fan.find("./PROPERTY[@name='status-numeric']").text
+            fan_data['h'] = fan.find("./PROPERTY[@name='health-numeric']").text
+            fan_data['sp'] = fan.find("./PROPERTY[@name='speed']").text
+            fan_data['ss'] = fan.find("./PROPERTY[@name='status-ses-numeric']").text
+            fan_data['sx'] = fan.find("./PROPERTY[@name='extended-status']").text
+            sdata['fans'].append(fan_data)
+
+    # Pools and Disk groups
+    for pool in xml.findall("./OBJECT[@name='pools']"):
+        pool_data = dict()
+        pool_data['i'] = pool.find("./PROPERTY[@name='name']").text
+        pool_data['tp'] = pool.find("./PROPERTY[@name='storage-type-numeric']").text
+        pool_data['sn'] = pool.find("./PROPERTY[@name='serial-number']").text
+        pool_data['ts'] = pool.find("./PROPERTY[@name='total-size-numeric']").text
+        pool_data['ta'] = pool.find("./PROPERTY[@name='total-avail-numeric']").text
+        pool_data['h'] = pool.find("./PROPERTY[@name='health-numeric']").text
+        pool_data['o'] = pool.find("./PROPERTY[@name='owner-numeric']").text
+        pool_data['op'] = pool.find("./PROPERTY[@name='preferred-owner-numeric']").text
+        sdata['pools'].append(pool_data)
+
+        # Disk groups
+        for dg in pool.findall("./OBJECT[@name='disk-group']"):
+            dg_data = dict()
+            dg_data['i'] = dg.find("./PROPERTY[@name='name']").text
+            dg_data['sz'] = dg.find("./PROPERTY[@name='size-numeric']").text
+            dg_data['fs'] = dg.find("./PROPERTY[@name='freespace-numeric']").text
+            dg_data['tp'] = dg.find("./PROPERTY[@name='storage-type']").text
+            dg_data['tr'] = dg.find("./PROPERTY[@name='storage-tier']").text
+            dg_data['s'] = dg.find("./PROPERTY[@name='status-numeric']").text
+            dg_data['h'] = dg.find("./PROPERTY[@name='health-numeric']").text
+            # THINK: Delete 'o' and 'op' properties?
+            dg_data['o'] = dg.find("./PROPERTY[@name='owner-numeric']").text
+            dg_data['op'] = dg.find("./PROPERTY[@name='preferred-owner-numeric']").text
+            dg_data['j'] = dg.find("./PROPERTY[@name='current-job-numeric']").text
+            dg_curr_job_pct = dg.find("./PROPERTY[@name='current-job-completion']").text
+            # current job completion return None if job isn't running, replacing it with zero
+            if dg_curr_job_pct is None:
+                dg_curr_job_pct = '0'
+            dg_data['jp'] = dg_curr_job_pct.rstrip('%')
+            sdata['dg'].append(dg_data)
+
+    # Virtual disks
+    for vd in xml.findall("./OBJECT[@name='virtual-disk']"):
+        vd_data = dict()
+        vd_data['i'] = vd.find("./PROPERTY[@name='name']").text
+        vd_data['sn'] = vd.find("./PROPERTY[@name='serial-number']").text
+        vd_data['sz'] = vd.find("./PROPERTY[@name='size-numeric']").text
+        vd_data['fs'] = vd.find("./PROPERTY[@name='freespace-numeric']").text
+        vd_data['s'] = vd.find("./PROPERTY[@name='status-numeric']").text
+        vd_data['h'] = vd.find("./PROPERTY[@name='health-numeric']").text
+        vd_data['j'] = vd.find("./PROPERTY[@name='current-job-numeric']").text
+        vd_curr_job_pct = vd.find("./PROPERTY[@name='current-job-completion']").text
+        # current job completion return None if job isn't running, replacing it with zero
+        if vd_curr_job_pct is None:
+            vd_curr_job_pct = '0'
+        vd_data['jp'] = vd_curr_job_pct.rstrip('%')
+        sdata['vd'].append(vd_data)
     # Physical drives
     for drive in xml.findall("./OBJECT[@basetype='drives']"):
         drive_data = dict()
-        # Inv data
-        drive_data['id'] = drive.find("./PROPERTY[@name='location']").text
-        drive_data['sn'] = drive.find("./PROPERTY[@name='serial-number']").text
-        drive_data['mod'] = drive.find("./PROPERTY[@name='model']").text
-        drive_data['arch'] = drive.find("./PROPERTY[@name='architecture']").text
-
-        # Health data
+        drive_data['i'] = drive.find("./PROPERTY[@name='location']").text
+        drive_data['a'] = drive.find("./PROPERTY[@name='architecture-numeric']").text
         drive_data['h'] = drive.find("./PROPERTY[@name='health-numeric']").text
+        # XML API doesn't contains numeric value for drives 'status' property, so build it self
+        drive_status_map = {'Up': 0, 'Spun Down': 1, 'Warning:': 2, 'Error': 3, 'Unknown': 4, 'Not Present': 5,
+                            'Unrecoverable': 6, 'Unavailable': 7, 'Unsupported': 8}
+        drive_data['s'] = drive_status_map[drive.find("./PROPERTY[@name='status']").text]
         drive_data['t'] = drive.find("./PROPERTY[@name='temperature-numeric']").text
         drive_data['ts'] = drive.find("./PROPERTY[@name='temperature-status-numeric']").text
-        drive_data['cj'] = drive.find("./PROPERTY[@name='job-running-numeric']").text
-        drive_data['poh'] = drive.find("./PROPERTY[@name='power-on-hours']").text
-        drive_data['ssdll'] = drive.find("./PROPERTY[@name='ssd-life-left-numeric']").text
+        # THINK: Delete 'j' property for drives?
+        drive_data['j'] = drive.find("./PROPERTY[@name='job-running-numeric']").text
+        drive_data['p'] = drive.find("./PROPERTY[@name='power-on-hours']").text
+        drive_data['ll'] = drive.find("./PROPERTY[@name='ssd-life-left-numeric']").text
         sdata['drives'].append(drive_data)
     # DEBUG PRINT
     print(json.dumps(sdata, indent=2))

@@ -677,9 +677,9 @@ def get_super(msa, sessionkey, pretty=False, human=False):
         raise SystemExit('ERROR: {rc} : {rd}'.format(rc=resp_code, rd=resp_descr))
 
     # DELETE! Local XML file!
-    with open('/home/asand3r/Downloads/conf_2050.xml', 'r') as xml_file:
-        xml_data = xml_file.read().encode()
-        xml = eTree.fromstring(xml_data)
+    # with open('/home/asand3r/Downloads/conf_2040.xml', 'r') as xml_file:
+    #     xml_data = xml_file.read().encode()
+    #     xml = eTree.fromstring(xml_data)
 
     # Parsing XML response and forming dict
     sdata = {}
@@ -777,7 +777,11 @@ def get_super(msa, sessionkey, pretty=False, human=False):
             fan_data['h'] = fan.find("./PROPERTY[@name='health-numeric']").text
             fan_data['sp'] = fan.find("./PROPERTY[@name='speed']").text
             fan_data['ss'] = fan.find("./PROPERTY[@name='status-ses-numeric']").text
-            fan_data['sx'] = fan.find("./PROPERTY[@name='extended-status']").text
+            fan_ex_status = fan.find("./PROPERTY[@name='extended-status']")
+            if fan_ex_status.get('type') == 'hex32':
+                fan_data['sx'] = int(fan_ex_status.text, 16)
+            else:
+                fan_data['sx'] = int(fan_ex_status.text)
             sdata['fans'].append(fan_data)
 
     # Pools and Disk groups
@@ -848,7 +852,7 @@ def get_super(msa, sessionkey, pretty=False, human=False):
         drive_data['ll'] = drive.find("./PROPERTY[@name='ssd-life-left-numeric']").text
         sdata['drives'].append(drive_data)
     # DEBUG PRINT
-    print(json.dumps(sdata, indent=2))
+    # print(json.dumps(sdata, indent=2))
 
     # Transform dict keys to human readable format if '--human' argument is given
     if human:
@@ -926,13 +930,16 @@ if __name__ == '__main__':
     full_parser.add_argument('msa', type=str, help='MSA connection address (DNS name or IP)')
     full_parser.add_argument('part', type=str, help='MSA part name', choices=MSA_PARTS)
 
+    # SUPER script command
+    super_parser = subparsers.add_parser('super', help='Experimental: Return all posible data with one JSON doc')
+    super_parser.add_argument('msa', type=str, help='MSA connection address (DNS name or IP)')
     args = main_parser.parse_args()
 
     API_VERSION = args.api
     TMP_DIR = args.tmp_dir
     CACHE_DB = TMP_DIR.rstrip('/') + '/zbx-hpmsa.cache.db'
 
-    if args.command in ('lld', 'full'):
+    if args.command in ('lld', 'full', 'super'):
         # Set some global variables
         SAVE_XML = args.save_xml
         USE_SSL = args.ssl in ('direct', 'verify')
@@ -960,6 +967,8 @@ if __name__ == '__main__':
         # Getting full components data in JSON
         elif args.command == 'full':
             print(get_full_json(MSA_CONNECT, args.part, skey, to_pretty, args.human))
+        elif args.command == 'super':
+            print(get_super(MSA_CONNECT, skey, to_pretty, args.human))
     # Preparations tasks
     elif args.command == 'install':
         TMP_GROUP = args.group

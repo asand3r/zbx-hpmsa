@@ -682,7 +682,10 @@ def get_super(msa, sessionkey, pretty=False, human=False):
         xml = eTree.fromstring(xml_data)
 
     # Parsing XML response and forming dict
-    sdata = {'sys': [], 'ctrl': [], 'ports': [], 'drives': []}
+    sdata = {}
+    for part in ['sys', 'encl', 'ctrl', 'ports', 'ps', 'fans', 'drives', 'dg', 'pools']:
+        sdata[part] = []
+    # sdata = {'sys': [], 'ctrl': [], 'ports': [], 'ps': [], 'fan': [], 'drives': [], 'encl': [], 'dg': [], 'pools': []}
     # System Information
     for prop in xml.findall("./OBJECT[@name='system-information']"):
         sys_data = dict()
@@ -696,62 +699,69 @@ def get_super(msa, sessionkey, pretty=False, human=False):
                 sys_data[k] = "EMPTY"
         sdata['sys'].append(sys_data)
 
-    # Controllers
-    for ctrl in xml.findall("./OBJECT[@name='controllers']"):
-        ctrl_data = dict()
-        # inv
-        ctrl_data['id'] = ctrl.find("./PROPERTY[@name='controller-id']").text
-        ctrl_data['sn'] = ctrl.find("./PROPERTY[@name='serial-number']").text
-        ctrl_data['pn'] = ctrl.find("./PROPERTY[@name='part-number']").text
-        ctrl_data['pos'] = ctrl.find("./PROPERTY[@name='position']").text
-        ctrl_data['ip'] = ctrl.find("./PROPERTY[@name='ip-address']").text
-        ctrl_data['mac'] = ctrl.find("./OBJECT[@basetype='network-parameters']/PROPERTY[@name='mac-address']").text
-        ctrl_data['wwn'] = ctrl.find("./PROPERTY[@name='node-wwn']").text
-        ctrl_data['fw'] = ctrl.find("./PROPERTY[@name='sc-fw']").text
+    # Enclosures, Controllers, Power-Supplies
+    for encl in xml.findall("./OBJECT[@name='enclosures']"):
+        encl_data = dict()
+        encl_data['id'] = encl.find("./PROPERTY[@name='enclosure-id]").text
+        encl_data['sn'] = encl.find("./PROPERTY[@name='midplane-serial-number']").text
+        encl_data['pn'] = encl.find("./PROPERTY[@name='part-number']").text
+        encl_data['s'] = encl.find("./PROPERTY[@name='status-numeric']").text
+        encl_data['h'] = encl.find("./PROPERTY[@name='health-numeric']").text
+        sdata['encl'].append(encl_data)
+        for ctrl in encl.findall("./OBJECT[@name='controllers']"):
+            ctrl_data = dict()
+            ctrl_data['id'] = ctrl.find("./PROPERTY[@name='controller-id']").text
+            ctrl_data['sn'] = ctrl.find("./PROPERTY[@name='serial-number']").text
+            ctrl_data['pn'] = ctrl.find("./PROPERTY[@name='part-number']").text
+            ctrl_data['pos'] = ctrl.find("./PROPERTY[@name='position']").text
+            ctrl_data['ip'] = ctrl.find("./PROPERTY[@name='ip-address']").text
+            ctrl_data['mac'] = ctrl.find("./OBJECT[@basetype='network-parameters']/PROPERTY[@name='mac-address']").text
+            ctrl_data['wwn'] = ctrl.find("./PROPERTY[@name='node-wwn']").text
+            ctrl_data['fw'] = ctrl.find("./PROPERTY[@name='sc-fw']").text
 
-        # Health data
-        ctrl_data['h'] = ctrl.find("./PROPERTY[@name='health-numeric']").text
-        ctrl_data['s'] = ctrl.find("./PROPERTY[@name='status-numeric']").text
-        ctrl_data['rs'] = ctrl.find("./PROPERTY[@name='redundancy-status-numeric']").text
-        # Compact flash
-        ctrl_data['cfs'] = ctrl.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='status-numeric']").text
-        ctrl_data['cfh'] = ctrl.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='health-numeric']").text
-        # SAS Port
-        ctrl_data['sass'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='status-numeric']").text
-        ctrl_data['sash'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='health-numeric']").text
-        for k, v in ctrl_data.items():
-            if v is None:
-                ctrl_data[k] = "EMPTY"
-        # full
-        sdata['ctrl'].append(ctrl_data)
-
-        # Controller fc ports
-        for port in ctrl.findall("./OBJECT[@name='ports']"):
-            port_data = dict()
-            # inv
-            port_data['id'] = port.find("./PROPERTY[@name='port']").text
-            port_data['t'] = port.find("./PROPERTY[@name='port-type']").text
-
-            # health
-            port_data['s'] = port.find("./PROPERTY[@name='status-numeric']").text
-            port_data['sp'] = port.find("./PROPERTY[@name='actual-speed']").text
-            port_data['sfp'] = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-present']").text
-            port_data['spn'] = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-part-number']").text
-            # Because of before 1050/2050 API has no numeric property for sfp-status, creating mapping
-            sfp_status_map = {"Not compatible": '0', "Incorrect protocol": '1', "Not present": '2', "OK": '3'}
-            sfp_status_char = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status']")
-            sfp_status_num = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status-numeric']")
-            if sfp_status_num is not None:
-                port_data['ss'] = sfp_status_num.text
-            else:
-                if sfp_status_char is not None:
-                    port_data['ss'] = sfp_status_map[sfp_status_char.text]
-
-            for k, v in port_data.items():
+            # Health data
+            ctrl_data['h'] = ctrl.find("./PROPERTY[@name='health-numeric']").text
+            ctrl_data['s'] = ctrl.find("./PROPERTY[@name='status-numeric']").text
+            ctrl_data['rs'] = ctrl.find("./PROPERTY[@name='redundancy-status-numeric']").text
+            # Compact flash
+            ctrl_data['cfs'] = ctrl.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='status-numeric']").text
+            ctrl_data['cfh'] = ctrl.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='health-numeric']").text
+            # SAS Port
+            ctrl_data['sass'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='status-numeric']").text
+            ctrl_data['sash'] = ctrl.find("./OBJECT[@name='expander-port']/PROPERTY[@name='health-numeric']").text
+            for k, v in ctrl_data.items():
                 if v is None:
-                    port_data[k] = "EMPTY"
+                    ctrl_data[k] = "EMPTY"
+            # full
+            sdata['ctrl'].append(ctrl_data)
 
-            sdata['ports'].append(port_data)
+            # Controller fc ports
+            for port in ctrl.findall("./OBJECT[@name='ports']"):
+                port_data = dict()
+                # inv
+                port_data['id'] = port.find("./PROPERTY[@name='port']").text
+                port_data['t'] = port.find("./PROPERTY[@name='port-type']").text
+
+                # health
+                port_data['s'] = port.find("./PROPERTY[@name='status-numeric']").text
+                port_data['sp'] = port.find("./PROPERTY[@name='actual-speed']").text
+                port_data['sfp'] = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-present']").text
+                port_data['spn'] = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-part-number']").text
+                # Because of before 1050/2050 API has no numeric property for sfp-status, creating mapping
+                sfp_status_map = {"Not compatible": '0', "Incorrect protocol": '1', "Not present": '2', "OK": '3'}
+                sfp_status_char = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status']")
+                sfp_status_num = port.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status-numeric']")
+                if sfp_status_num is not None:
+                    port_data['ss'] = sfp_status_num.text
+                else:
+                    if sfp_status_char is not None:
+                        port_data['ss'] = sfp_status_map[sfp_status_char.text]
+
+                for k, v in port_data.items():
+                    if v is None:
+                        port_data[k] = "EMPTY"
+
+                sdata['ports'].append(port_data)
 
     # Physical drives
     for drive in xml.findall("./OBJECT[@basetype='drives']"):

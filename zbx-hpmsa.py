@@ -849,11 +849,13 @@ def get_super(msa, sessionkey, pretty=False, human=False):
         # THINK: Delete 'j' property for drives?
         drive_data['j'] = int(drive.find("./PROPERTY[@name='job-running-numeric']").text)
         drive_data['p'] = int(drive.find("./PROPERTY[@name='power-on-hours']").text)
-        drive_data['ll'] = int(drive.find("./PROPERTY[@name='ssd-life-left-numeric']").text)
+        # Return SSD disk live remaining
+        if drive_data['a'] == 0:
+            drive_data['ll'] = int(drive.find("./PROPERTY[@name='ssd-life-left-numeric']").text)
         sdata['drives'].append(drive_data)
     # DEBUG PRINT
     # print(json.dumps(sdata, indent=2))
-    # print(json.dumps(sdata, separators=(',', ':')))
+    # json.dumps(sdata, separators=(',', ':')).__sizeof__()
 
     # Transform dict keys to human readable format if '--human' argument is given
     if human:

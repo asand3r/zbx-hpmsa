@@ -681,14 +681,16 @@ def get_super(msa, sessionkey, pretty=False, human=False):
     #     xml_data = xml_file.read().encode()
     #     xml = eTree.fromstring(xml_data)
 
-    # Small local funstion to query API for typical fields
-    def get_api_prop(xml_obj, keys_dict):
+    # Function to extract typical fields
+    def get_api_field(xml_obj, keys_dict):
         result = {}
         for key, api_filed in keys_dict.items():
-            api_prop = xml_obj.find("./PROPERTY[@name='{}']".format(api_filed)).text
-            if api_prop.isdigit():
-                api_prop = int(api_prop)
-            result[key] = api_prop
+            val = xml_obj.find("./PROPERTY[@name='{}']".format(api_filed)).text
+            if val is None:
+                val = 'N/A'
+            if val.isdigit():
+                val = int(val)
+            result[key] = val
         return result
 
     # Parsing XML response and forming dict
@@ -697,16 +699,9 @@ def get_super(msa, sessionkey, pretty=False, human=False):
         sdata[part] = []
     # System Information
     for prop in xml.findall("./OBJECT[@name='system-information']"):
-        sys_data = dict()
         sys_api = {'n': 'system-name', 'c': 'system-contact', 'l': 'system-location',
                         'm': 'system-information', 'sn': 'midplane-serial-number'}
-        for name, api in sys_api.items():
-            sys_data[name] = prop.find("./PROPERTY[@name='{}']".format(api)).text
-        # sys_data['n'] = prop.find("./PROPERTY[@name='system-name']").text
-        # sys_data['c'] = prop.find("./PROPERTY[@name='system-contact']").text
-        # sys_data['l'] = prop.find("./PROPERTY[@name='system-location']").text
-        # sys_data['m'] = prop.find("./PROPERTY[@name='system-information']").text
-        # sys_data['sn'] = prop.find("./PROPERTY[@name='midplane-serial-number']").text
+        sys_data = get_api_field(prop, sys_api)
         for k, v in sys_data.items():
             if v is None or v.isspace():
                 sys_data[k] = "N/A"
@@ -714,38 +709,16 @@ def get_super(msa, sessionkey, pretty=False, human=False):
 
     # Enclosures, Controllers, Power-Supplies
     for en in xml.findall("./OBJECT[@name='enclosures']"):
-        en_data = dict()
         en_api = {'i': 'enclosure-id', 'sn': 'midplane-serial-number', 's': 'status-numeric', 'h': 'health-numeric'}
-        for name, api in en_api.items():
-            api_prop = en.find("./PROPERTY[@name='{}']".format(api)).text
-            if api_prop.isdigit():
-                api_prop = int(api_prop)
-            en_data[name] = api_prop
-        # encl_data['i'] = en.find("./PROPERTY[@name='enclosure-id']").text
-        # encl_data['sn'] = en.find("./PROPERTY[@name='midplane-serial-number']").text
-        # encl_data['s'] = int(en.find("./PROPERTY[@name='status-numeric']").text)
-        # encl_data['h'] = int(en.find("./PROPERTY[@name='health-numeric']").text)
+        en_data = get_api_field(en, en_api)
         sdata['encl'].append(en_data)
 
         # Controllers
         for ct in en.findall("./OBJECT[@name='controllers']"):
-            ct_data = dict()
             ct_api = {'i': 'controller-id', 'sn': 'serial-number', 'p': 'position-numeric', 'ip': 'ip-address',
                       'fw': 'sc-fw', 's': 'status-numeric', 'h': 'health-numeric', 'rs': 'redundancy-status-numeric'}
-            for name, api in ct_api.items():
-                api_prop = ct.find("./PROPERTY[@name='{}']".format(api)).text
-                if api_prop.isdigit():
-                    api_prop = int(api_prop)
-                ct_data[name] = api_prop
+            ct_data = get_api_field(ct, ct_api)
             ct_data['mac'] = ct.find(".//PROPERTY[@name='mac-address']").text
-            # ctrl_data['i'] = ct.find("./PROPERTY[@name='controller-id']").text
-            # ctrl_data['sn'] = ct.find("./PROPERTY[@name='serial-number']").text
-            # ctrl_data['p'] = int(ct.find("./PROPERTY[@name='position-numeric']").text)
-            # ctrl_data['ip'] = ct.find("./PROPERTY[@name='ip-address']").text
-            # ctrl_data['fw'] = ct.find("./PROPERTY[@name='sc-fw']").text
-            # ctrl_data['s'] = int(ct.find("./PROPERTY[@name='status-numeric']").text)
-            # ctrl_data['h'] = int(ct.find("./PROPERTY[@name='health-numeric']").text)
-            # ctrl_data['rs'] = int(ct.find("./PROPERTY[@name='redundancy-status-numeric']").text)
             # Compact flash
             ct_data['cfs'] = int(ct.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='status-numeric']").text)
             ct_data['cfh'] = int(ct.find("./OBJECT[@basetype='compact-flash']/PROPERTY[@name='health-numeric']").text)
@@ -755,78 +728,40 @@ def get_super(msa, sessionkey, pretty=False, human=False):
             for k, v in ct_data.items():
                 if v is None:
                     ct_data[k] = "N/A"
-            # full
             sdata['ctrl'].append(ct_data)
 
             # Controller fc ports
-            for port in ct.findall("./OBJECT[@name='ports']"):
-                port_data = dict()
+            for fc in ct.findall("./OBJECT[@name='ports']"):
                 fc_api = {'i': 'port', 't': 'port-type', 's': 'status-numeric', 'h': 'health-numeric',
                           'ps': 'actual-speed'}
-                for name, api in fc_api.items():
-                    api_prop = port.find("./PROPERTY[@name='{}']".format(api)).text
-                    if api_prop is not None and api_prop.isdigit():
-                        api_prop = int(api_prop)
-                    port_data[name] = api_prop
-                # port_data['i'] = port.find("./PROPERTY[@name='port']").text
-                # port_data['t'] = port.find("./PROPERTY[@name='port-type']").text
-                # port_data['s'] = int(port.find("./PROPERTY[@name='status-numeric']").text)
-                # port_data['h'] = int(port.find("./PROPERTY[@name='health-numeric']").text)
-                # port_data['ps'] = port.find("./PROPERTY[@name='actual-speed']").text
-                port_data['sfp'] = int(port.find(".//PROPERTY[@name='sfp-present-numeric']").text)
-
+                fc_data = get_api_field(fc, fc_api)
+                fc_data['sfp'] = int(fc.find(".//PROPERTY[@name='sfp-present-numeric']").text)
                 # Because of before 1050/2050 API has no numeric property for sfp-status, creating mapping
                 sfp_status_map = {"Not compatible": '0', "Incorrect protocol": '1', "Not present": '2', "OK": '3'}
-                sfp_status_char = port.find(".//PROPERTY[@name='sfp-status']")
-                sfp_status_num = port.find(".//PROPERTY[@name='sfp-status-numeric']")
+                sfp_status_char = fc.find(".//PROPERTY[@name='sfp-status']")
+                sfp_status_num = fc.find(".//PROPERTY[@name='sfp-status-numeric']")
                 if sfp_status_num is not None:
-                    port_data['ss'] = int(sfp_status_num.text)
+                    fc_data['ss'] = int(sfp_status_num.text)
                 else:
                     if sfp_status_char is not None:
-                        port_data['ss'] = int(sfp_status_map[sfp_status_char.text])
-                # Replacing possible 'None' to string 'N/A'
-                for k, v in port_data.items():
+                        fc_data['ss'] = int(sfp_status_map[sfp_status_char.text])
+                # Replacing possible 'None' to 'N/A'
+                for k, v in fc_data.items():
                     if v is None:
-                        port_data[k] = "N/A"
-                sdata['ports'].append(port_data)
+                        fc_data[k] = "N/A"
+                sdata['ports'].append(fc_data)
         # Power Supplies
         for ps in en.findall("./OBJECT[@name='power-supplies']"):
-            ps_data = dict()
             ps_api = {'i': 'durable-id', 'p': 'position-numeric', 's': 'status-numeric', 'h': 'health-numeric',
                       '12v': 'dc12v', '5v': 'dc5v', '33v': 'dc33v', '12i': 'dc12i', '5i': 'dc5i'}
-            for name, api in ps_api.items():
-                api_prop = ps.find("./PROPERTY[@name='{}']".format(api)).text
-                if api_prop.isdigit():
-                    api_prop = int(api_prop)
-                ps_data[name] = api_prop
-            # ps_data['i'] = ps.find("./PROPERTY[@name='durable-id']").text
-            # ps_data['p'] = int(ps.find("./PROPERTY[@name='position-numeric']").text)
-            # ps_data['s'] = int(ps.find("./PROPERTY[@name='status-numeric']").text)
-            # ps_data['h'] = int(ps.find("./PROPERTY[@name='health-numeric']").text)
-            # ps_data['12v'] = int(ps.find("./PROPERTY[@name='dc12v']").text)
-            # ps_data['5v'] = int(ps.find("./PROPERTY[@name='dc5v']").text)
-            # ps_data['33v'] = int(ps.find("./PROPERTY[@name='dc33v']").text)
-            # ps_data['12i'] = int(ps.find("./PROPERTY[@name='dc12i']").text)
-            # ps_data['5i'] = int(ps.find("./PROPERTY[@name='dc5i']").text)
+            ps_data = get_api_field(ps, ps_api)
             sdata['ps'].append(ps_data)
 
         # Fans
         for fan in en.findall(".//OBJECT[@name='fan-details']"):
-            fan_data = dict()
             fan_api = {'i': 'durable-id', 'p': 'position-numeric', 's': 'status-numeric', 'h': 'health-numeric',
                        'sp': 'speed', 'ss': 'status-ses-numeric'}
-            for name, api in fan_api.items():
-                api_prop = fan.find("./PROPERTY[@name='{}']".format(api)).text
-                if api_prop.isdigit():
-                    api_prop = int(api_prop)
-                fan_data[name] = api_prop
-            # fan_data['i'] = fan.find("./PROPERTY[@name='durable-id']").text
-            # fan_data['p'] = int(fan.find("./PROPERTY[@name='position-numeric']").text)
-            # fan_data['s'] = int(fan.find("./PROPERTY[@name='status-numeric']").text)
-            # fan_data['h'] = int(fan.find("./PROPERTY[@name='health-numeric']").text)
-            # fan_data['sp'] = int(fan.find("./PROPERTY[@name='speed']").text)
-            # fan_data['ss'] = int(fan.find("./PROPERTY[@name='status-ses-numeric']").text)
-
+            fan_data = get_api_field(fan, fan_api)
             # Extended status in hex32 or uint32
             fan_ex_status = fan.find("./PROPERTY[@name='extended-status']")
             if fan_ex_status.get('type') == 'hex32':
@@ -837,47 +772,18 @@ def get_super(msa, sessionkey, pretty=False, human=False):
 
     # Pools and Disk groups
     for pool in xml.findall("./OBJECT[@name='pools']"):
-        pool_data = dict()
         pool_api = {'i': 'name', 'tp': 'storage-type-numeric', 'sn': 'serial-number',
                     'ts': 'total-size-numeric', 'ta': 'total-avail-numeric', 'h': 'health-numeric',
                     'o': 'owner-numeric', 'op': 'preferred-owner-numeric'}
-        for name, api in pool_api.items():
-            api_prop = pool.find("./PROPERTY[@name='{}']".format(api)).text
-            if api_prop.isdigit():
-                api_prop = int(api_prop)
-            pool_data[name] = api_prop
-        # pool_data['i'] = pool.find("./PROPERTY[@name='name']").text
-        # pool_data['tp'] = int(pool.find("./PROPERTY[@name='storage-type-numeric']").text)
-        # pool_data['sn'] = pool.find("./PROPERTY[@name='serial-number']").text
-        # pool_data['ts'] = int(pool.find("./PROPERTY[@name='total-size-numeric']").text)
-        # pool_data['ta'] = int(pool.find("./PROPERTY[@name='total-avail-numeric']").text)
-        # pool_data['h'] = int(pool.find("./PROPERTY[@name='health-numeric']").text)
-        # pool_data['o'] = int(pool.find("./PROPERTY[@name='owner-numeric']").text)
-        # pool_data['op'] = int(pool.find("./PROPERTY[@name='preferred-owner-numeric']").text)
+        pool_data = get_api_field(pool, pool_api)
         sdata['pools'].append(pool_data)
 
         # Disk groups
         for dg in pool.findall("./OBJECT[@name='disk-group']"):
-            dg_data = dict()
             dg_api = {'i': 'name', 'sz': 'size-numeric', 'fs': 'freespace-numeric', 'tp': 'storage-type',
                       'tr': 'storage-tier', 's': 'status-numeric', 'h': 'health-numeric', 'o': 'owner-numeric',
                       'op': 'preferred-owner-numeric', 'j': 'current-job-numeric'}
-            for name, api in dg_api.items():
-                api_prop = dg.find("./PROPERTY[@name='{}']".format(api)).text
-                if api_prop.isdigit():
-                    api_prop = int(api_prop)
-                dg_data[name] = api_prop
-            # dg_data['i'] = dg.find("./PROPERTY[@name='name']").text
-            # dg_data['sz'] = int(dg.find("./PROPERTY[@name='size-numeric']").text)
-            # dg_data['fs'] = int(dg.find("./PROPERTY[@name='freespace-numeric']").text)
-            # dg_data['tp'] = dg.find("./PROPERTY[@name='storage-type']").text
-            # dg_data['tr'] = dg.find("./PROPERTY[@name='storage-tier']").text
-            # dg_data['s'] = int(dg.find("./PROPERTY[@name='status-numeric']").text)
-            # dg_data['h'] = int(dg.find("./PROPERTY[@name='health-numeric']").text)
-            # THINK: Delete 'o' and 'op' properties?
-            # dg_data['o'] = int(dg.find("./PROPERTY[@name='owner-numeric']").text)
-            # dg_data['op'] = int(dg.find("./PROPERTY[@name='preferred-owner-numeric']").text)
-            # dg_data['j'] = int(dg.find("./PROPERTY[@name='current-job-numeric']").text)
+            dg_data = get_api_field(dg, dg_api)
             dg_curr_job_pct = dg.find("./PROPERTY[@name='current-job-completion']").text
             # current job completion return None if job isn't running, replacing it with zero
             if dg_curr_job_pct is None:
@@ -887,21 +793,9 @@ def get_super(msa, sessionkey, pretty=False, human=False):
 
     # Virtual disks
     for vd in xml.findall("./OBJECT[@name='virtual-disk']"):
-        vd_data = dict()
         vd_api = {'i': 'name', 'sn': 'serial-number', 'sz': 'size-numeric', 'fs': 'freespace-numeric',
                   's': 'status-numeric', 'h': 'health-numeric', 'j': 'current-job-numeric'}
-        for name, api in vd_api.items():
-            api_prop = vd.find("./PROPERTY[@name='{}']".format(api)).text
-            if api_prop.isdigit():
-                api_prop = int(api_prop)
-            vd_data[name] = api_prop
-        # vd_data['i'] = vd.find("./PROPERTY[@name='name']").text
-        # vd_data['sn'] = vd.find("./PROPERTY[@name='serial-number']").text
-        # vd_data['sz'] = int(vd.find("./PROPERTY[@name='size-numeric']").text)
-        # vd_data['fs'] = int(vd.find("./PROPERTY[@name='freespace-numeric']").text)
-        # vd_data['s'] = int(vd.find("./PROPERTY[@name='status-numeric']").text)
-        # vd_data['h'] = int(vd.find("./PROPERTY[@name='health-numeric']").text)
-        # vd_data['j'] = int(vd.find("./PROPERTY[@name='current-job-numeric']").text)
+        vd_data = get_api_field(vd, vd_api)
         vd_curr_job_pct = vd.find("./PROPERTY[@name='current-job-completion']").text
         # current job completion return None if job isn't running, replacing it with zero
         if vd_curr_job_pct is None:
@@ -911,38 +805,19 @@ def get_super(msa, sessionkey, pretty=False, human=False):
 
     # Physical drives
     for drive in xml.findall("./OBJECT[@basetype='drives']"):
-        drive_data = dict()
         dr_api = {'i': 'location', 'a': 'architecture-numeric', 'h': 'health-numeric', 't': 'temperature-numeric',
                   'ts': 'temperature-status-numeric', 'j': 'job-running-numeric', 'p': 'power-on-hours'}
-
-        for name, api in dr_api.items():
-            api_prop = drive.find("./PROPERTY[@name='{}']".format(api)).text
-            if api_prop.isdigit():
-                api_prop = int(api_prop)
-            drive_data[name] = api_prop
-
-        # drive_data['i'] = drive.find("./PROPERTY[@name='location']").text
-        # drive_data['a'] = int(drive.find("./PROPERTY[@name='architecture-numeric']").text)
-        # drive_data['h'] = int(drive.find("./PROPERTY[@name='health-numeric']").text)
-        # drive_data['t'] = int(drive.find("./PROPERTY[@name='temperature-numeric']").text)
-        # drive_data['ts'] = int(drive.find("./PROPERTY[@name='temperature-status-numeric']").text)
-        # THINK: Delete 'j' property for drives?
-        # drive_data['j'] = int(drive.find("./PROPERTY[@name='job-running-numeric']").text)
-        # drive_data['p'] = int(drive.find("./PROPERTY[@name='power-on-hours']").text)
+        dr_data = get_api_field(drive, dr_api)
 
         # XML API doesn't contains numeric value for drives 'status' property, so build it self
         drive_status_map = {'Up': 0, 'Spun Down': 1, 'Warning:': 2, 'Error': 3, 'Unknown': 4, 'Not Present': 5,
                             'Unrecoverable': 6, 'Unavailable': 7, 'Unsupported': 8}
-        drive_data['s'] = drive_status_map[drive.find("./PROPERTY[@name='status']").text]
+        dr_data['s'] = drive_status_map[drive.find("./PROPERTY[@name='status']").text]
         # Return SSD disk live remaining
-        if drive_data['a'] == 0:
-            drive_data['ll'] = int(drive.find("./PROPERTY[@name='ssd-life-left-numeric']").text)
-        sdata['drives'].append(drive_data)
-    # DEBUG PRINT
-    # print(json.dumps(sdata, indent=2))
-    # json.dumps(sdata, separators=(',', ':')).__sizeof__()
-
-    # Transform dict keys to human readable format if '--human' argument is given
+        if dr_data['a'] == 0:
+            dr_data['ll'] = int(drive.find("./PROPERTY[@name='ssd-life-left-numeric']").text)
+        sdata['drives'].append(dr_data)
+    # DOESNT WORK! NEED TO FIX! Transform dict keys to human readable format if '--human' argument is given
     if human:
         sdata = expand_dict(sdata)
     return json.dumps(sdata, separators=(',', ':'), indent=pretty)

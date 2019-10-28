@@ -67,9 +67,8 @@ I hope it will reduce total received bytes by Zabbix database.
  - [x] Login cache (SQLite3)
  - [x] 'install' argument to prepare script to work
 
-**LLD, health check and full data in JSON:**
+**LLD and full data in JSON:**
  - [x] Physical disks
- - [x] Virtual disks
  - [x] Controllers
  - [x] Enclosures
  - [x] Ports
@@ -102,8 +101,11 @@ Started with version v0.5.4 I've attached new template file for Zabbix 4.0, whic
 
 Have fun and don't forget to rate it on [share.zabbix.com](https://share.zabbix.com/component/mtree/storage-devices/hp/hp-msa-2040-xml-api) if you like it. =)
 
-**Tested with**:  
-HP MSA P2000 G3, HP MSA 2040, HP MSA 2050, HP MSA2324FC (2000 G2 series, I think, will works too)
+**Tested myself with**:  
+HPE MSA 2040, HPE MSA 2050
+
+**Reported about correct working with**  
+HP MSA P2000 G3, HP MSA2324FC (2000 G2 series, I think, will works too)
 
 **Known Issues**:
 - Using '--https verify' with round-robin DNS name doesn't works correctly. It may give you the "ERROR: -10027", that means the user in not recongnized on the system. It happens because of session key was given from one MSA controller, but the script tries to establish connections the other one. The option '--https direct|--ssl direct' will works fine, so you can try to use it instead. I haven't full solution right now, so just don't using it so. =)

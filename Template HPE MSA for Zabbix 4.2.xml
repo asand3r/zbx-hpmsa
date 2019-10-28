@@ -96,7 +96,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <snmp_community/>
                     <snmp_oid/>
                     <key>zbx-hpmsa.py[&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
-                    <delay>{$UPDATE}</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>

@@ -5,7 +5,7 @@ Zabbix Share page: https://share.zabbix.com/component/mtree/storage-devices/hp/h
 zbx-hpmsa provides ability to make Low Level Discovery (LLD) of HPE MSA storage components via it's XML API and retrieve many of some other metrics like health statuses, temperature etc.  
 Developed with Python 3.7, works with Python 3.4 and higher.
 
-**Latest stable versions:** 0.7
+**Latest stable versions:** 0.7.1
 
 __Please, read [Requirements and Installation](https://github.com/asand3r/zbx-hpmsa/wiki/Requirements-and-Installation) section on Wiki page before use.__  
 

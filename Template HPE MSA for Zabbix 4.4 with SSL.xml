@@ -1,0 +1,2760 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-02-07T12:19:18Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template HPE MSA for Zabbix 4.4 with SSL</template>
+            <name>Template HPE MSA for Zabbix 4.4 with SSL</name>
+            <description>Monitor HPE MSA storages.&#13;
+Tested with HP MSA 2040, HP MSA 2050&#13;
+&#13;
+Version: 0.7&#13;
+Min. script version: 0.7</description>
+            <templates>
+                <template>
+                    <name>Template Module Generic SNMPv2</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>MSA Master Items</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>MSA Model Name</name>
+                    <type>SNMPV2</type>
+                    <snmp_community>public</snmp_community>
+                    <snmp_oid>.1.3.6.1.4.1.232.2.2.4.2.0</snmp_oid>
+                    <key>msa.model.name</key>
+                    <delay>1h</delay>
+                    <history>{$HISTORY}</history>
+                    <trends>0</trends>
+                    <value_type>CHAR</value_type>
+                    <description>Device model.&#13;
+MIB: CPQSINFO-MIB::cpqSiProductName</description>
+                    <inventory_link>MODEL</inventory_link>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>MSA Master Item Controllers</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>JSON with controllers data</description>
+                    <applications>
+                        <application>
+                            <name>MSA Master Items</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata({$NODATA_RANGE})}=1</expression>
+                            <name>Cannot read MSA Conrollers data</name>
+                            <priority>WARNING</priority>
+                            <description>Cannot retrieve JSON with Controllers data from MSA.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>controller</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>MSA Master Item Disk-groups</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>JSON with disk-groups data</description>
+                    <applications>
+                        <application>
+                            <name>MSA Master Items</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata({$NODATA_RANGE})}=1</expression>
+                            <name>Cannot read MSA Disk Groups data</name>
+                            <priority>WARNING</priority>
+                            <description>Cannot retrieve JSON with Disk Groups data from MSA.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>disk group</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>MSA Master Item Physical Disks</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>JSON with physical disks data</description>
+                    <applications>
+                        <application>
+                            <name>MSA Master Items</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata({$NODATA_RANGE})}=1</expression>
+                            <name>Cannot read MSA Physical Drive data</name>
+                            <priority>WARNING</priority>
+                            <description>Cannot retrieve JSON with Physical Disks data from MSA.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>drive</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>MSA Master Item Enclosures</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>JSON with enclosures data</description>
+                    <applications>
+                        <application>
+                            <name>MSA Master Items</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata({$NODATA_RANGE})}=1</expression>
+                            <name>Cannot read MSA Enclosures data</name>
+                            <priority>WARNING</priority>
+                            <description>Cannot retrieve JSON with Enclosures data from MSA.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>enclosure</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>MSA Master Item Fans</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>JSON with fans data</description>
+                    <applications>
+                        <application>
+                            <name>MSA Master Items</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata({$NODATA_RANGE})}=1</expression>
+                            <name>Cannot read MSA Fans data</name>
+                            <priority>WARNING</priority>
+                            <description>Cannot retrieve JSON with Fans data from MSA.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>fan</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>MSA Master Item Pools</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>JSON with pools data</description>
+                    <applications>
+                        <application>
+                            <name>MSA Master Items</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata({$NODATA_RANGE})}=1</expression>
+                            <name>Cannot read MSA Pools data</name>
+                            <priority>WARNING</priority>
+                            <description>Cannot retrieve JSON with Pools data from MSA.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>pool</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>MSA Master Item Ports</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>JSON with ports data</description>
+                    <applications>
+                        <application>
+                            <name>MSA Master Items</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata({$NODATA_RANGE})}=1</expression>
+                            <name>Cannot read MSA Ports data</name>
+                            <priority>WARNING</priority>
+                            <description>Cannot retrieve JSON with Ports data from MSA.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>port</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>MSA Master Item Power Supplies</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>JSON with power supplies data</description>
+                    <applications>
+                        <application>
+                            <name>MSA Master Items</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata({$NODATA_RANGE})}=1</expression>
+                            <name>Cannot read MSA Power Supplies data</name>
+                            <priority>WARNING</priority>
+                            <description>Cannot retrieve JSON with Power Supplies data from MSA.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>power supply</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+                <item>
+                    <name>MSA Master Item Volumes</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                    <history>1d</history>
+                    <trends>0</trends>
+                    <value_type>TEXT</value_type>
+                    <description>JSON with volumes data</description>
+                    <applications>
+                        <application>
+                            <name>MSA Master Items</name>
+                        </application>
+                    </applications>
+                    <triggers>
+                        <trigger>
+                            <expression>{nodata({$NODATA_RANGE})}=1</expression>
+                            <name>Cannot read MSA Volumes data</name>
+                            <priority>WARNING</priority>
+                            <description>Cannot retrieve JSON with Volumes data from MSA.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>volume</value>
+                                </tag>
+                            </tags>
+                        </trigger>
+                    </triggers>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Controllers discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                    <delay>{$LLD_INTERVAL}</delay>
+                    <lifetime>1d</lifetime>
+                    <description>Discovery all HPE MSA controllers.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Controller {#CONTROLLER.ID} ping check</name>
+                            <type>SIMPLE</type>
+                            <key>icmpping[{#CONTROLLER.IP},2]</key>
+                            <delay>30s</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Controller {#CONTROLLER.ID} with IP {#CONTROLLER.IP} ICMP ping check.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller {#CONTROLLER.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{count(#3,1,ne)}&gt;2</expression>
+                                    <name>Controller {#CONTROLLER.ID} ({#CONTROLLER.IP}) ping failed</name>
+                                    <priority>INFO</priority>
+                                    <description>Controller {#CONTROLLER.ID} doesn't responce on ping.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>controller</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Controller {#CONTROLLER.ID} CPU Load</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <units>%</units>
+                            <description>MSA controller {#CONTROLLER.ID} CPU load in percent.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller {#CONTROLLER.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#CONTROLLER.ID}']['cpu']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{avg(1h)}&gt;85</expression>
+                                    <name>CPU load on {#CONTROLLER.ID} too high: {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>CPU Load on controller {#CONTROLLER.ID} too high for last hour.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>controller</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Controller {#CONTROLLER.ID} flash card health</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;fh&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>MSA controller {#CONTROLLER.ID} flash card health status&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller {#CONTROLLER.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#CONTROLLER.ID}']['fh']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(2m)}&lt;&gt;0</expression>
+                                    <name>Flash card on Controller {#CONTROLLER.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>WARNING</priority>
+                                    <description>Flash card on controller {#CONTROLLER.ID} status in {ITEM.VALUE} state.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>controller</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Controller {#CONTROLLER.ID} flash card status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;fs&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>MSA controller {#CONTROLLER.ID} flash card status&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller {#CONTROLLER.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Compact flash status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#CONTROLLER.ID}']['fs']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(2m)}&lt;&gt;1</expression>
+                                    <name>Flash card on Controller {#CONTROLLER.ID} operational status is {ITEM.VALUE}</name>
+                                    <priority>WARNING</priority>
+                                    <description>Flash card on controller {#CONTROLLER.ID} operational status in {ITEM.VALUE} state.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>controller</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Controller {#CONTROLLER.ID} health status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;h&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>MSA controller {#CONTROLLER.ID} health status&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller {#CONTROLLER.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#CONTROLLER.ID}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(2m)}&lt;&gt;0</expression>
+                                    <name>Controller {#CONTROLLER.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Controller {#CONTROLLER.ID} health status is {ITEM.VALUE} state.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>controller</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Controller {#CONTROLLER.ID} IOPS</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;io&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <description>MSA controller {#CONTROLLER.ID} IOPS count.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller {#CONTROLLER.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#CONTROLLER.ID}']['io']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Controller {#CONTROLLER.ID} redundancy status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;rs&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>MSA controller {#CONTROLLER.ID} redundancy status&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller {#CONTROLLER.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Controller Redundancy</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#CONTROLLER.ID}']['rs']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(2m)}&lt;&gt;2</expression>
+                                    <name>Controller {#CONTROLLER.ID} redundancy status is {ITEM.VALUE}</name>
+                                    <priority>WARNING</priority>
+                                    <description>Controller {#CONTROLLER.ID} redundancy in {ITEM.VALUE} state.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>controller</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Controller {#CONTROLLER.ID} operational status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;s&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>MSA controller {#CONTROLLER.ID} status&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller {#CONTROLLER.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Controller Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#CONTROLLER.ID}']['s']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(2m)}&lt;&gt;0</expression>
+                                    <name>Controller {#CONTROLLER.ID} operational status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Controller {#CONTROLLER.ID} operational status in {ITEM.VALUE} state.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>controller</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Controller {#CONTROLLER.ID} web interface status</name>
+                            <type>SIMPLE</type>
+                            <key>net.tcp.service[http,{#CONTROLLER.IP},80]</key>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Check 80/tcp availability on controller {#CONTROLLER.ID}.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller {#CONTROLLER.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(2m)}&lt;&gt;1</expression>
+                                    <name>Web interface on controller {#CONTROLLER.ID} ({#CONTROLLER.IP}) is down</name>
+                                    <priority>WARNING</priority>
+                                    <description>Cannot connect to controller {#CONTROLLER.ID} web interface.&#13;
+&#13;
+Controller info:&#13;
+SN: {#CONTROLLER.SN}&#13;
+IP: {#CONTROLLER.IP}&#13;
+WWN: {#CONTROLLER.WWN}</description>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>Controller {#CONTROLLER.ID} ({#CONTROLLER.IP}) ping failed</name>
+                                            <expression>{Template HPE MSA for Zabbix 4.4 with SSL:icmpping[{#CONTROLLER.IP},2].count(#3,1,ne)}&gt;2</expression>
+                                        </dependency>
+                                    </dependencies>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>controller</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Controller {#CONTROLLER.ID} CPU Load, %</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.4 with SSL</host>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Controller {#CONTROLLER.ID} IOPS</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.4 with SSL</host>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;io&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Controller {#CONTROLLER.ID} workload</name>
+                            <height>300</height>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>BOLD_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.4 with SSL</host>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;cpu&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>F63100</color>
+                                    <yaxisside>RIGHT</yaxisside>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.4 with SSL</host>
+                                        <key>msa.ctrl[&quot;{#CONTROLLER.ID}&quot;,&quot;io&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Disk groups discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                    <delay>{$LLD_INTERVAL}</delay>
+                    <lifetime>1d</lifetime>
+                    <description>Discovery all HPE MSA disk groups.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Disk group {#DG.ID} current job</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;cj&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} current job.&#13;
+&#13;
+Disk group type: {#DG.TYPE}&#13;
+Disk group tier: {#DG.TIER}&#13;
+Disk group SN: {#DG.SN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk Group {#DG.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Current Job</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DG.SN}']['cj']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disk group {#DG.ID} current job percent completion</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;cjp&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <units>%</units>
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} current job percent completion.&#13;
+&#13;
+Disk group type: {#DG.TYPE}&#13;
+Disk group tier: {#DG.TIER}&#13;
+Disk group SN: {#DG.SN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk Group {#DG.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Current Job</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DG.SN}']['cjp']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disk group {#DG.ID} health status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;h&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} health status&#13;
+&#13;
+Disk group type: {#DG.TYPE}&#13;
+Disk group tier: {#DG.TIER}&#13;
+Disk group SN: {#DG.SN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk Group {#DG.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DG.SN}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Disk group {#DG.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>WARNING</priority>
+                                    <description>Disk group {#DG.ID} health status in {ITEM.LASTVALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>disk group</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disk group {#DG.ID} current owner</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;ow&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <units>%</units>
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} owner&#13;
+&#13;
+Disk group type: {#DG.TYPE}&#13;
+Disk group tier: {#DG.TIER}&#13;
+Disk group SN: {#DG.SN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk Group {#DG.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Controller Owner</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DG.SN}']['ow']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disk group {#DG.ID} preferred owner</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;owp&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Disk group {#DG.ID} preferred owner&#13;
+&#13;
+Disk group type: {#DG.TYPE}&#13;
+Disk group tier: {#DG.TIER}&#13;
+Disk group SN: {#DG.SN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk Group {#DG.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Controller Owner</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DG.SN}']['owp']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Disk group {#DG.ID} operational status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.dg[&quot;{#DG.SN}&quot;,&quot;s&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} operational status&#13;
+&#13;
+Disk group type: {#DG.TYPE}&#13;
+Disk group tier: {#DG.TIER}&#13;
+Disk group SN: {#DG.SN}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk Group {#DG.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DG.SN}']['s']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;{$DG_STATUS_OK:&quot;{#DG.TIER}&quot;}</expression>
+                                    <name>Disk group {#DG.ID} operational status is {ITEM.VALUE}</name>
+                                    <priority>WARNING</priority>
+                                    <description>Disk group {#DG.ID} operational status in {ITEM.LASTVALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>disk group</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template HPE MSA for Zabbix 4.4 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;ow&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.4 with SSL:msa.dg[&quot;{#DG.SN}&quot;,&quot;owp&quot;].last()}</expression>
+                            <name>Disk group {#DG.ID} current owner is not preferred</name>
+                            <priority>INFO</priority>
+                            <description>Current disk group {#DG.ID} not preferred for this one.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>disk group</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Physical drives discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                    <delay>{$LLD_INTERVAL}</delay>
+                    <lifetime>1d</lifetime>
+                    <description>Discovery all HPE MSA physical disks.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Physical drive {#DISK.ID} current job</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;cj&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Physical drive {#DISK.ID} current running job.&#13;
+&#13;
+Disk SN: {#DISK.SN}&#13;
+Disk arch: {#DISK.ARCH}&#13;
+Disk model: {#DISK.MODEL}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk {#DISK.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Current Job</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DISK.ID}']['cj']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Physical drive {#DISK.ID} health status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;h&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Physical drive {#DISK.ID} health status.&#13;
+&#13;
+Disk SN: {#DISK.SN}&#13;
+Disk arch: {#DISK.ARCH}&#13;
+Disk model: {#DISK.MODEL}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk {#DISK.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DISK.ID}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                            </master_item>
+                            <request_method>POST</request_method>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Drive {#DISK.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Physical drive {#DISK.ID} health status in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>physical drive</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Physical drive {#DISK.ID} power on hours</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;poh&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Physical drive {#DISK.ID} power on hours.&#13;
+&#13;
+Disk SN: {#DISK.SN}&#13;
+Disk arch: {#DISK.ARCH}&#13;
+Disk model: {#DISK.MODEL}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk {#DISK.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Current Job</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DISK.ID}']['poh']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;{$MSA_DISK_POWER_ON_HOURS}</expression>
+                                    <name>Drive {#DISK.ID} power on hours are too high: {ITEM.VALUE} hours</name>
+                                    <priority>INFO</priority>
+                                    <description>Physical drive {#DISK.ID} summary work hourse are too high. Maybe, you should replace it. Check device owner manual.&#13;
+Ack to close.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>physical drive</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Physical drive {#DISK.ID} temperature</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <units>°C</units>
+                            <description>Physical drive {#DISK.ID} temperature in °C.&#13;
+&#13;
+Disk SN: {#DISK.SN}&#13;
+Disk arch: {#DISK.ARCH}&#13;
+Disk model: {#DISK.MODEL}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk {#DISK.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DISK.ID}']['t']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(5m)}&gt;={$MSA_DISK_TEMP_CRIT}</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{max(15m)}&lt;={$MSA_DISK_TEMP_CRIT}-5</recovery_expression>
+                                    <name>Drive {#DISK.ID} temperature is over critical threshold</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Physical disk {#DISK.ID} temperature is in critical state: {ITEM.VALUE}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>physical drive</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>temperature</tag>
+                                            <value>critical</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{max(10m)}&gt;={$MSA_DISK_TEMP_WARN}</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>{max(15m)}&lt;={$MSA_DISK_TEMP_OK}</recovery_expression>
+                                    <name>Drive {#DISK.ID} temperature is over warning threshold</name>
+                                    <priority>WARNING</priority>
+                                    <description>Physical drive {#DISK.ID} temperature too high: {ITEM.VALUE}</description>
+                                    <dependencies>
+                                        <dependency>
+                                            <name>Drive {#DISK.ID} temperature is over critical threshold</name>
+                                            <expression>{Template HPE MSA for Zabbix 4.4 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;].max(5m)}&gt;={$MSA_DISK_TEMP_CRIT}</expression>
+                                            <recovery_expression>{Template HPE MSA for Zabbix 4.4 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;t&quot;].max(15m)}&lt;={$MSA_DISK_TEMP_CRIT}-5</recovery_expression>
+                                        </dependency>
+                                    </dependencies>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>physical drive</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>temperature</tag>
+                                            <value>warning</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Physical drive {#DISK.ID} temperature status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.disk[&quot;{#DISK.SN}&quot;,&quot;ts&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Physical drive {#DISK.ID} temperature status.&#13;
+&#13;
+Disk SN: {#DISK.SN}&#13;
+Disk arch: {#DISK.ARCH}&#13;
+Disk model: {#DISK.MODEL}</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Disk {#DISK.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Drive Temperature Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#DISK.ID}']['ts']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{min(#3)}&lt;&gt;1</expression>
+                                    <name>Drive {#DISK.ID} temperature status in {ITEM.VALUE} state</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Physical disk {#DISK.ID} temperature status is in {ITEM.VALUE} state</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>physical drive</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>temperature</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Enclosures discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
+                    <delay>{$LLD_INTERVAL}</delay>
+                    <lifetime>1d</lifetime>
+                    <description>Discovery all HPE MSA enclosures.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Enclosure {#ENCLOSURE.ID} health status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;h&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Enclosure {#ENCLOSURE.ID} with SN {#ENCLOSURE.SN} health status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Enclosure {#ENCLOSURE.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Common Health</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#ENCLOSURE.ID}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Enclosure {#ENCLOSURE.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Enclosure {#ENCLOSURE.ID} health status in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>enclosure</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Enclosure {#ENCLOSURE.ID} operational status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;s&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Enclosure {#ENCLOSURE.ID} with SN {#ENCLOSURE.SN} operational status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Enclosure {#ENCLOSURE.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Enclosure Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#ENCLOSURE.ID}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;1</expression>
+                                    <name>Enclosure {#ENCLOSURE.ID} operational status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Enclosure {#ENCLOSURE.ID} operational status is {ITEM.VALUE}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>enclosure</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Fans discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                    <delay>{$LLD_INTERVAL}</delay>
+                    <lifetime>1d</lifetime>
+                    <description>Discovery all HPE MSA fans.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Fan {#FAN.ID} health status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.fan[&quot;{#FAN.ID}&quot;,&quot;h&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Fan {#FAN.ID} in location &quot;{#FAN.LOCATION}&quot; health status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Fan {#FAN.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Common Health</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#FAN.ID}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Fan {#FAN.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Fan {#FAN.ID} health status in {ITEM.VALUE} state</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>fan</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fan {#FAN.ID} operational status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.fan[&quot;{#FAN.ID}&quot;,&quot;s&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Fan {#FAN.ID} in location &quot;{#FAN.LOCATION}&quot; operational status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Fan {#FAN.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Port, Power Supply, Fan Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#FAN.ID}']['s']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Fan {#FAN.ID} operational status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Fan {#FAN.ID} operational status in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>fan</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fan {#FAN.ID} speed</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.fan[&quot;{#FAN.ID}&quot;,&quot;sp&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <description>Fan {#FAN.ID} in location &quot;{#FAN.LOCATION}&quot; rotation speed, rpm.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Fan {#FAN.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#FAN.ID}']['sp']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{avg(#3)}&lt;2000</expression>
+                                    <name>Fan {#FAN.ID} rotation speed too low</name>
+                                    <priority>WARNING</priority>
+                                    <description>Fan {#FAN.ID} rotation speed to low: {ITEM.VALUE}</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>fan</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Pools discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                    <delay>{$LLD_INTERVAL}</delay>
+                    <lifetime>1d</lifetime>
+                    <description>Discovery all HPE MSA pools.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Pool {#POOL.ID} health status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.pool[&quot;{#POOL.SN}&quot;,&quot;h&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Pool {#POOL.ID} with type {#POOL.TYPE} health status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Pool {#POOL.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Common Health</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POOL.SN}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Pool {#POOL.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>WARNING</priority>
+                                    <description>Pool {#POOL.ID} health status in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>pool</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Pool {#POOL.ID} current owner</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.pool[&quot;{#POOL.SN}&quot;,&quot;ow&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Pool {#POOL.ID} with type {#POOL.TYPE} owner</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Pool {#POOL.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Controller Owner</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POOL.SN}']['ow']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Pool {#POOL.ID} preferred owner</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.pool[&quot;{#POOL.SN}&quot;,&quot;owp&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Pool {#POOL.ID} with type {#POOL.TYPE} preferred owner</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Pool {#POOL.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Controller Owner</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POOL.SN}']['owp']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template HPE MSA for Zabbix 4.4 with SSL:msa.pool[&quot;{#POOL.SN}&quot;,&quot;ow&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.4 with SSL:msa.pool[&quot;{#POOL.SN}&quot;,&quot;owp&quot;].last()}</expression>
+                            <name>Pool {#POOL.ID} current owner not preferred</name>
+                            <priority>WARNING</priority>
+                            <description>Pool {#POOL.ID} current owner not preferred for this pool.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>pool</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Ports discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                    <delay>{$LLD_INTERVAL}</delay>
+                    <lifetime>1d</lifetime>
+                    <description>Discovery all HPE MSA ports.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Port {#PORT.ID} health status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.port[&quot;{#PORT.ID}&quot;,&quot;h&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Port {#PORT.ID} ({#PORT.SPEED}) with type {#PORT.TYPE} health status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller Port {#PORT.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#PORT.ID}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Port {#PORT.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Port {#PORT.ID} health status is in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>port</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Port {#PORT.ID} operational status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.port[&quot;{#PORT.ID}&quot;,&quot;ps&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Port {#PORT.ID} ({#PORT.SPEED}) with type {#PORT.TYPE} operational status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller Port {#PORT.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Port, Power Supply, Fan Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#PORT.ID}']['ps']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Port {#PORT.ID} operational status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Port {#PORT.ID} operational status is in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>port</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Port {#PORT.ID} SFP module in {ITEM.VALUE} state</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Port {#PORT.ID} SFP module operational status in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>sfp</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Port {#PORT.ID} SFP module operational status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.port[&quot;{#PORT.ID}&quot;,&quot;ss&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Port {#PORT.ID} ({#PORT.SPEED}) with type {#PORT.TYPE} SFP module operational status.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Controller Port {#PORT.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Port, Power Supply, Fan Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#PORT.ID}']['ss']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Power supplies discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                    <delay>{$LLD_INTERVAL}</delay>
+                    <lifetime>1d</lifetime>
+                    <description>Discovery all HPE MSA power supplies.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} power 5i</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;5i&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; power 5i.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POWERSUPPLY.ID}']['5i']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} power 5V</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;5v&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; power 5V.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POWERSUPPLY.ID}']['5v']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} power 12i</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;12i&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; power 12i.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POWERSUPPLY.ID}']['12i']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} power 12V</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;12v&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; power 12V.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POWERSUPPLY.ID}']['12v']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} power 33V</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;33v&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; power 33V.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POWERSUPPLY.ID}']['33v']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} health status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;h&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; health status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Common Health</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POWERSUPPLY.ID}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Power supply unit {#POWERSUPPLY.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Power supply unit {#POWERSUPPLY.ID} in {#POWERSUPPLY.LOCATION} health status is in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>power supply</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} operational status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;s&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; operational status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Port, Power Supply, Fan Status</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POWERSUPPLY.ID}']['s']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Power supply unit {#POWERSUPPLY.ID} operational status is {ITEM.VALUE}</name>
+                                    <priority>AVERAGE</priority>
+                                    <description>Power supply unit {#POWERSUPPLY.ID} in {#POWERSUPPLY.LOCATION} operational status is in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>power supply</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} temperature</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;t&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>{$TRENDS}</trends>
+                            <units>°C</units>
+                            <description>Power supply {#POWERSUPPLY.ID} in location &quot;{#POWERSUPPLY.LOCATION}&quot; temperature in Celsius.</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Power Supply Unit {#POWERSUPPLY.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#POWERSUPPLY.ID}']['t']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{avg(30m)}&gt;=50</expression>
+                                    <name>Power supply unit {#POWERSUPPLY.ID} temperature too high: {ITEM.VALUE}</name>
+                                    <priority>WARNING</priority>
+                                    <description>Power supply unit {#POWERSUPPLY.ID} in {#POWERSUPPLY.LOCATION} temperature too high.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>power supply</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>temperature</tag>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Power supply {#POWERSUPPLY.ID} unit voltage</name>
+                            <graph_items>
+                                <graph_item>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.4 with SSL</host>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;5i&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <color>F63100</color>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.4 with SSL</host>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;5v&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.4 with SSL</host>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;12i&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <color>A54F10</color>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.4 with SSL</host>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;12v&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>4</sortorder>
+                                    <color>FC6EA3</color>
+                                    <item>
+                                        <host>Template HPE MSA for Zabbix 4.4 with SSL</host>
+                                        <key>msa.psu[&quot;{#POWERSUPPLY.ID}&quot;,&quot;33v&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Volumes discovery</name>
+                    <type>EXTERNAL</type>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                    <delay>{$LLD_INTERVAL}</delay>
+                    <lifetime>1d</lifetime>
+                    <description>Discovery all HPE MSA volumes.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Volume {#VOLUME.ID} health status</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;h&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Volume {#VOLUME.ID} with type {#VOLUME.TYPE} health status</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Volume {#VOLUME.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Controller Owner</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#VOLUME.SN}']['h']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{max(#3)}&lt;&gt;0</expression>
+                                    <name>Volume {#VOLUME.ID} health status is {ITEM.VALUE}</name>
+                                    <priority>WARNING</priority>
+                                    <description>Volume {#VOLUME.ID} health status is in {ITEM.VALUE} state.</description>
+                                    <tags>
+                                        <tag>
+                                            <tag>device</tag>
+                                            <value>msa</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>model</tag>
+                                            <value>{INVENTORY.MODEL}</value>
+                                        </tag>
+                                        <tag>
+                                            <tag>part</tag>
+                                            <value>volume</value>
+                                        </tag>
+                                    </tags>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Volume {#VOLUME.ID} current owner</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;ow&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Volume {#VOLUME.ID} with type {#VOLUME.TYPE} current owner</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Volume {#VOLUME.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Controller Owner</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#VOLUME.SN}']['ow']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Volume {#VOLUME.ID} preferred owner</name>
+                            <type>DEPENDENT</type>
+                            <key>msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owp&quot;]</key>
+                            <delay>0</delay>
+                            <history>{$HISTORY}</history>
+                            <trends>0</trends>
+                            <description>Volume {#VOLUME.ID} with type {#VOLUME.TYPE} preferred owner</description>
+                            <application_prototypes>
+                                <application_prototype>
+                                    <name>MSA Volume {#VOLUME.ID}</name>
+                                </application_prototype>
+                            </application_prototypes>
+                            <valuemap>
+                                <name>HPE MSA Controller Owner</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <params>$['{#VOLUME.SN}']['owp']</params>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template HPE MSA for Zabbix 4.4 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;ow&quot;].last()}&lt;&gt;{Template HPE MSA for Zabbix 4.4 with SSL:msa.volume[&quot;{#VOLUME.SN}&quot;,&quot;owp&quot;].last()}</expression>
+                            <name>Volume {#VOLUME.ID} current owner not preferred</name>
+                            <priority>INFO</priority>
+                            <description>Volume {#VOLUME.ID} current owner is not preferred for this one.</description>
+                            <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
+                                    <tag>part</tag>
+                                    <value>volume</value>
+                                </tag>
+                            </tags>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$API.VER}</macro>
+                    <value>2</value>
+                </macro>
+                <macro>
+                    <macro>{$DG_STATUS_OK}</macro>
+                    <value>0</value>
+                </macro>
+                <macro>
+                    <macro>{$DG_STATUS_OK:&quot;Read Cache&quot;}</macro>
+                    <value>250</value>
+                </macro>
+                <macro>
+                    <macro>{$HISTORY}</macro>
+                    <value>14d</value>
+                </macro>
+                <macro>
+                    <macro>{$LLD_INTERVAL}</macro>
+                    <value>1h</value>
+                </macro>
+                <macro>
+                    <macro>{$MSA.PASSWORD}</macro>
+                    <value>!monitor</value>
+                </macro>
+                <macro>
+                    <macro>{$MSA.USERNAME}</macro>
+                    <value>monitor</value>
+                </macro>
+                <macro>
+                    <macro>{$MSA_DISK_POH_WARN}</macro>
+                    <value>43800</value>
+                </macro>
+                <macro>
+                    <macro>{$MSA_DISK_TEMP_CRIT}</macro>
+                    <value>50</value>
+                </macro>
+                <macro>
+                    <macro>{$MSA_DISK_TEMP_OK}</macro>
+                    <value>39</value>
+                </macro>
+                <macro>
+                    <macro>{$MSA_DISK_TEMP_WARN}</macro>
+                    <value>40</value>
+                </macro>
+                <macro>
+                    <macro>{$NODATA_RANGE}</macro>
+                    <value>15m</value>
+                </macro>
+                <macro>
+                    <macro>{$SSL_MODE}</macro>
+                    <value>direct</value>
+                </macro>
+                <macro>
+                    <macro>{$TRENDS}</macro>
+                    <value>180d</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>HPE MSA Common Health</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>OK</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Degraded</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Fault</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>N/A</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Compact flash status</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Not Installed</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Installed</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Controller Owner</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>B</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>A</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Controller Redundancy</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Operational but not redundant</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Redundant</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>Unknown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Controller Status</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Operational</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Down</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Not Installed</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Unknown</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Current Job</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>None</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>INIT</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>RCON</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>VRFY</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>EXPD</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>VRSC</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>DRSC</newvalue>
+                </mapping>
+                <mapping>
+                    <value>9</value>
+                    <newvalue>VREMV</newvalue>
+                </mapping>
+                <mapping>
+                    <value>12</value>
+                    <newvalue>VPREP</newvalue>
+                </mapping>
+                <mapping>
+                    <value>13</value>
+                    <newvalue>VDRAIN</newvalue>
+                </mapping>
+                <mapping>
+                    <value>14</value>
+                    <newvalue>VRECV</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Drive Temperature Status</name>
+            <mappings>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>OK</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Critical</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Warning</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Enclosure Status</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Unsupported</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Error</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Warning</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Unrecoverable</newvalue>
+                </mapping>
+                <mapping>
+                    <value>5</value>
+                    <newvalue>Not Present</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>Unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>7</value>
+                    <newvalue>Unavailable</newvalue>
+                </mapping>
+                <mapping>
+                    <value>20</value>
+                    <newvalue>Spun Down</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Flash, Drive, Controller Health</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>OK</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Degraded</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Fault</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>N/A</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>HPE MSA Port, Power Supply, Fan Status</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Up</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Warning</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Error</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>Not Present</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>Unknown</newvalue>
+                </mapping>
+                <mapping>
+                    <value>6</value>
+                    <newvalue>Disconnected</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>

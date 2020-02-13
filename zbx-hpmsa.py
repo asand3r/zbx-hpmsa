@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 
 import sqlite3
 import requests
-
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 def install_script(tmp_dir, group):
     """
@@ -237,7 +237,7 @@ def query_xmlapi(url, sessionkey):
             if VERIFY_SSL:
                 response = requests.get(full_url, headers=headers, verify=ca_file, timeout=timeout)
             else:
-                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+                requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
                 response = requests.get(full_url, headers=headers, verify=False, timeout=timeout)
         else:
             response = requests.get(full_url, headers=headers, timeout=timeout)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.2</version>
-    <date>2019-09-24T22:22:08Z</date>
+    <date>2020-02-07T12:04:20Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -23,9 +23,6 @@ Min. script version: 0.7</description>
             </groups>
             <applications>
                 <application>
-                    <name>Inventory</name>
-                </application>
-                <application>
                     <name>MSA Master Items</name>
                 </application>
             </applications>
@@ -35,7 +32,7 @@ Min. script version: 0.7</description>
                     <type>4</type>
                     <snmp_community>public</snmp_community>
                     <snmp_oid>.1.3.6.1.4.1.232.2.2.4.2.0</snmp_oid>
-                    <key>msa.model</key>
+                    <key>msa.model.name</key>
                     <delay>1h</delay>
                     <history>{$HISTORY}</history>
                     <trends>0</trends>
@@ -95,7 +92,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                     <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
@@ -118,7 +115,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>JSON with data about controllers</description>
+                    <description>JSON with controllers data</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
@@ -139,7 +136,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -154,7 +151,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
                     <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
@@ -177,7 +174,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>JSON with data about disk-groups</description>
+                    <description>JSON with disk-groups data</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
@@ -198,7 +195,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -213,7 +210,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
                     <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
@@ -257,7 +254,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -272,7 +269,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
                     <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
@@ -316,7 +313,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -331,7 +328,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
                     <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
@@ -375,7 +372,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -390,7 +387,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
                     <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
@@ -434,7 +431,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -449,7 +446,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
                     <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
@@ -493,7 +490,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -508,7 +505,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                     <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
@@ -552,7 +549,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -567,7 +564,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
                     <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
@@ -590,7 +587,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <description>JSON with data about volumes</description>
+                    <description>JSON with volumes data</description>
                     <inventory_link>0</inventory_link>
                     <applications>
                         <application>
@@ -611,7 +608,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <output_format>0</output_format>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
@@ -628,7 +625,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -652,7 +649,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA controllers.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -705,7 +702,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -777,7 +774,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -791,7 +788,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -853,7 +850,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -867,7 +864,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -907,7 +904,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Compact Flash Status</name>
+                                <name>HPE MSA Compact flash status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -929,7 +926,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -943,7 +940,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -1005,7 +1002,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -1019,7 +1016,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -1079,7 +1076,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -1093,7 +1090,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -1155,7 +1152,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -1169,7 +1166,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -1231,7 +1228,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -1245,7 +1242,7 @@ WWN: {#CONTROLLER.WWN}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -1298,7 +1295,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -1336,6 +1333,14 @@ WWN: {#CONTROLLER.WWN}</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
                                     <value>controller</value>
                                 </tag>
@@ -1361,6 +1366,14 @@ WWN: {#CONTROLLER.WWN}</description>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>controller</value>
@@ -1388,6 +1401,14 @@ WWN: {#CONTROLLER.WWN}</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
                                     <value>controller</value>
                                 </tag>
@@ -1413,6 +1434,14 @@ WWN: {#CONTROLLER.WWN}</description>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>controller</value>
@@ -1440,6 +1469,14 @@ WWN: {#CONTROLLER.WWN}</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
                                     <value>controller</value>
                                 </tag>
@@ -1466,8 +1503,16 @@ WWN: {#CONTROLLER.WWN}</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>flash card</value>
+                                    <value>controller</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -1492,8 +1537,16 @@ WWN: {#CONTROLLER.WWN}</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>flash card</value>
+                                    <value>controller</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -1523,6 +1576,14 @@ WWN: {#CONTROLLER.WWN}</description>
                                 </dependency>
                             </dependencies>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>controller</value>
@@ -1652,7 +1713,7 @@ WWN: {#CONTROLLER.WWN}</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
                     <ssl_key_file/>
@@ -1668,7 +1729,7 @@ WWN: {#CONTROLLER.WWN}</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -1692,7 +1753,7 @@ WWN: {#CONTROLLER.WWN}</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA disk groups.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -1705,7 +1766,7 @@ WWN: {#CONTROLLER.WWN}</description>
                             <history>{$HISTORY}</history>
                             <trends>0</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -1763,11 +1824,11 @@ Disk group SN: {#DG.SN}</description>
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>MSA Disk group {#DG.ID}</name>
+                                    <name>MSA Disk Group {#DG.ID}</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -1780,7 +1841,7 @@ Disk group SN: {#DG.SN}</description>
                             <history>{$HISTORY}</history>
                             <trends>0</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units>%</units>
                             <snmpv3_contextname/>
@@ -1805,7 +1866,9 @@ Disk group tier: {#DG.TIER}&#13;
 Disk group SN: {#DG.SN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
-                            <valuemap/>
+                            <valuemap>
+                                <name>HPE MSA Current Job</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
@@ -1836,11 +1899,11 @@ Disk group SN: {#DG.SN}</description>
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>MSA Disk group {#DG.ID}</name>
+                                    <name>MSA Disk Group {#DG.ID}</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -1853,7 +1916,7 @@ Disk group SN: {#DG.SN}</description>
                             <history>{$HISTORY}</history>
                             <trends>0</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -1901,7 +1964,7 @@ Disk group SN: {#DG.SN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -1911,11 +1974,11 @@ Disk group SN: {#DG.SN}</description>
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>MSA Disk group {#DG.ID}</name>
+                                    <name>MSA Disk Group {#DG.ID}</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -1930,7 +1993,7 @@ Disk group SN: {#DG.SN}</description>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>%</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1946,7 +2009,7 @@ Disk group SN: {#DG.SN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Disk group {#DG.ID} with type {#DG.TYPE} owner (numeric).&#13;
+                            <description>Disk group {#DG.ID} with type {#DG.TYPE} owner&#13;
 &#13;
 Disk group type: {#DG.TYPE}&#13;
 Disk group tier: {#DG.TIER}&#13;
@@ -1976,7 +2039,7 @@ Disk group SN: {#DG.SN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -1986,11 +2049,11 @@ Disk group SN: {#DG.SN}</description>
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>MSA Disk group {#DG.ID}</name>
+                                    <name>MSA Disk Group {#DG.ID}</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -2051,7 +2114,7 @@ Disk group SN: {#DG.SN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -2061,11 +2124,11 @@ Disk group SN: {#DG.SN}</description>
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>MSA Disk group {#DG.ID}</name>
+                                    <name>MSA Disk Group {#DG.ID}</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -2104,7 +2167,7 @@ Disk group SN: {#DG.SN}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Disk Group, VDisk Status</name>
+                                <name>HPE MSA Flash, Drive, Controller Health</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -2126,7 +2189,7 @@ Disk group SN: {#DG.SN}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -2136,11 +2199,11 @@ Disk group SN: {#DG.SN}</description>
                             <verify_host>0</verify_host>
                             <application_prototypes>
                                 <application_prototype>
-                                    <name>MSA Disk group {#DG.ID}</name>
+                                    <name>MSA Disk Group {#DG.ID}</name>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
@@ -2160,6 +2223,14 @@ Disk group SN: {#DG.SN}</description>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>disk group</value>
@@ -2182,6 +2253,14 @@ Disk group SN: {#DG.SN}</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
                                     <value>disk group</value>
                                 </tag>
@@ -2203,6 +2282,14 @@ Disk group SN: {#DG.SN}</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
                                     <value>disk group</value>
                                 </tag>
@@ -2222,7 +2309,7 @@ Disk group SN: {#DG.SN}</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
                     <ssl_key_file/>
@@ -2238,7 +2325,7 @@ Disk group SN: {#DG.SN}</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -2262,7 +2349,7 @@ Disk group SN: {#DG.SN}</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA physical disks.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -2293,7 +2380,7 @@ Disk group SN: {#DG.SN}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Physical disk {#DISK.ID} current running job.&#13;
+                            <description>Physical drive {#DISK.ID} current running job.&#13;
 &#13;
 Disk SN: {#DISK.SN}&#13;
 Disk arch: {#DISK.ARCH}&#13;
@@ -2337,7 +2424,7 @@ Disk model: {#DISK.MODEL}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -2368,7 +2455,7 @@ Disk model: {#DISK.MODEL}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Physical disk {#DISK.ID} health status.&#13;
+                            <description>Physical drive {#DISK.ID} health status.&#13;
 &#13;
 Disk SN: {#DISK.SN}&#13;
 Disk arch: {#DISK.ARCH}&#13;
@@ -2412,7 +2499,7 @@ Disk model: {#DISK.MODEL}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -2443,14 +2530,16 @@ Disk model: {#DISK.MODEL}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Physical disk {#DISK.ID} power on hours.&#13;
+                            <description>Physical drive {#DISK.ID} power on hours.&#13;
 &#13;
 Disk SN: {#DISK.SN}&#13;
 Disk arch: {#DISK.ARCH}&#13;
 Disk model: {#DISK.MODEL}</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
-                            <valuemap/>
+                            <valuemap>
+                                <name>HPE MSA Current Job</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
@@ -2471,7 +2560,7 @@ Disk model: {#DISK.MODEL}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -2485,7 +2574,7 @@ Disk model: {#DISK.MODEL}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -2544,7 +2633,7 @@ Disk model: {#DISK.MODEL}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -2558,11 +2647,11 @@ Disk model: {#DISK.MODEL}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Physical disk {#DISK.ID} temperature status</name>
+                            <name>Physical drive {#DISK.ID} temperature status</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -2589,7 +2678,7 @@ Disk model: {#DISK.MODEL}</description>
                             <publickey/>
                             <privatekey/>
                             <port/>
-                            <description>Physical disk {#DISK.ID} temperature status.&#13;
+                            <description>Physical drive {#DISK.ID} temperature status.&#13;
 &#13;
 Disk SN: {#DISK.SN}&#13;
 Disk arch: {#DISK.ARCH}&#13;
@@ -2633,13 +2722,13 @@ Disk model: {#DISK.MODEL}</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;h&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;h&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Drive {#DISK.ID} health status is {ITEM.VALUE}</name>
@@ -2654,14 +2743,22 @@ Disk model: {#DISK.MODEL}</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>physical disk</value>
+                                    <value>physical drive</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
                             <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.disk[&quot;{#DISK.SN}&quot;,&quot;poh&quot;].last()}&gt;{$MSA_DISK_POWER_ON_HOURS}</expression>
-                            <recovery_mode>2</recovery_mode>
+                            <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Drive {#DISK.ID} power on hours are too high: {ITEM.VALUE} hours</name>
                             <correlation_mode>0</correlation_mode>
@@ -2676,8 +2773,16 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>physical disk</value>
+                                    <value>physical drive</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -2691,14 +2796,22 @@ Ack to close.</description>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description>Physical drive {#DISK.ID} temperature is in critical state: {ITEM.VALUE}</description>
+                            <description>Physical disk {#DISK.ID} temperature is in critical state: {ITEM.VALUE}</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>physical disk</value>
+                                    <value>physical drive</value>
                                 </tag>
                                 <tag>
                                     <tag>temperature</tag>
@@ -2728,8 +2841,16 @@ Ack to close.</description>
                             </dependencies>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>physical disk</value>
+                                    <value>physical drive</value>
                                 </tag>
                                 <tag>
                                     <tag>temperature</tag>
@@ -2753,8 +2874,16 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>physical disk</value>
+                                    <value>physical drive</value>
                                 </tag>
                                 <tag>
                                     <tag>temperature</tag>
@@ -2776,7 +2905,7 @@ Ack to close.</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
                     <ssl_key_file/>
@@ -2792,7 +2921,7 @@ Ack to close.</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -2816,7 +2945,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA enclosures.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -2873,7 +3002,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -2887,7 +3016,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -2928,7 +3057,7 @@ Ack to close.</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#ENCLOSURE.ID}']['s']</params>
+                                    <params>$['{#ENCLOSURE.ID}']['h']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>
@@ -2944,7 +3073,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -2958,13 +3087,13 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;h&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;h&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Enclosure {#ENCLOSURE.ID} health status is {ITEM.VALUE}</name>
@@ -2979,13 +3108,21 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
                                     <value>enclosure</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;s&quot;].avg(#3)}&lt;&gt;1</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.encl[&quot;{#ENCLOSURE.ID}&quot;,&quot;s&quot;].max(#3)}&lt;&gt;1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Enclosure {#ENCLOSURE.ID} operational status is {ITEM.VALUE}</name>
@@ -2999,6 +3136,14 @@ Ack to close.</description>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>enclosure</value>
@@ -3019,7 +3164,7 @@ Ack to close.</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
                     <ssl_key_file/>
@@ -3035,7 +3180,7 @@ Ack to close.</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -3059,7 +3204,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA fans.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -3116,7 +3261,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -3130,7 +3275,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -3187,7 +3332,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -3201,7 +3346,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -3256,7 +3401,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -3270,13 +3415,13 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;h&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;h&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Fan {#FAN.ID} health status is {ITEM.VALUE}</name>
@@ -3291,13 +3436,21 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>fans</value>
+                                    <value>fan</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;s&quot;].avg(#3)}&lt;&gt;0</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.fan[&quot;{#FAN.ID}&quot;,&quot;s&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Fan {#FAN.ID} operational status is {ITEM.VALUE}</name>
@@ -3312,8 +3465,16 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>fans</value>
+                                    <value>fan</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -3333,8 +3494,16 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>fans</value>
+                                    <value>fan</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
@@ -3352,7 +3521,7 @@ Ack to close.</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
                     <ssl_key_file/>
@@ -3368,7 +3537,7 @@ Ack to close.</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -3392,7 +3561,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA pools.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -3449,7 +3618,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -3463,7 +3632,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -3520,7 +3689,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -3534,7 +3703,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -3591,7 +3760,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -3605,7 +3774,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
@@ -3625,6 +3794,14 @@ Ack to close.</description>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>pool</value>
@@ -3647,6 +3824,14 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
                                     <value>pool</value>
                                 </tag>
@@ -3666,7 +3851,7 @@ Ack to close.</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
                     <ssl_key_file/>
@@ -3682,7 +3867,7 @@ Ack to close.</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -3704,22 +3889,9 @@ Ack to close.</description>
                     <filter>
                         <evaltype>0</evaltype>
                         <formula/>
-                        <conditions>
-                            <condition>
-                                <macro>{#PORT.SFP}</macro>
-                                <value>^Present$</value>
-                                <operator>8</operator>
-                                <formulaid>A</formulaid>
-                            </condition>
-                            <condition>
-                                <macro>{#PORT.SPEED}</macro>
-                                <value>None</value>
-                                <operator>9</operator>
-                                <formulaid>B</formulaid>
-                            </condition>
-                        </conditions>
+                        <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA ports.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -3753,9 +3925,7 @@ Ack to close.</description>
                             <description>Port {#PORT.ID} ({#PORT.SPEED}) with type {#PORT.TYPE} health status</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
-                            <valuemap>
-                                <name>HPE MSA Common Health</name>
-                            </valuemap>
+                            <valuemap/>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
@@ -3776,7 +3946,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -3790,7 +3960,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -3847,7 +4017,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -3861,7 +4031,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -3896,7 +4066,7 @@ Ack to close.</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA SFP Module Status</name>
+                                <name>HPE MSA Port, Power Supply, Fan Status</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -3918,7 +4088,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -3932,7 +4102,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
@@ -3952,6 +4122,14 @@ Ack to close.</description>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>port</value>
@@ -3974,13 +4152,21 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
-                                    <value>ports</value>
+                                    <value>port</value>
                                 </tag>
                             </tags>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.port[&quot;{#PORT.ID}&quot;,&quot;ss&quot;].max(#3)}&lt;&gt;3</expression>
+                            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:msa.port[&quot;{#PORT.ID}&quot;,&quot;ps&quot;].max(#3)}&lt;&gt;0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Port {#PORT.ID} SFP module in {ITEM.VALUE} state</name>
@@ -3994,6 +4180,14 @@ Ack to close.</description>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>sfp</value>
@@ -4014,7 +4208,7 @@ Ack to close.</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
                     <ssl_key_file/>
@@ -4030,7 +4224,7 @@ Ack to close.</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -4054,7 +4248,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA power supplies.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -4109,7 +4303,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4123,7 +4317,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -4178,7 +4372,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4192,7 +4386,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -4247,7 +4441,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4261,7 +4455,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -4316,7 +4510,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4330,7 +4524,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -4385,7 +4579,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4399,7 +4593,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -4456,7 +4650,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4470,7 +4664,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -4527,7 +4721,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4541,7 +4735,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -4596,7 +4790,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4610,7 +4804,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
@@ -4631,6 +4825,14 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
                                     <value>power supply</value>
                                 </tag>
@@ -4646,11 +4848,19 @@ Ack to close.</description>
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description>Power supply unit {#POWERSUPPLY.ID} in {#POWERSUPPLY.LOCATION} operational status in {ITEM.VALUE} state.</description>
+                            <description>Power supply unit {#POWERSUPPLY.ID} in {#POWERSUPPLY.LOCATION} operational status is in {ITEM.VALUE} state.</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>power supply</value>
@@ -4672,6 +4882,14 @@ Ack to close.</description>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>power supply</value>
@@ -4777,7 +4995,7 @@ Ack to close.</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
                     <ssl_key_file/>
@@ -4793,7 +5011,7 @@ Ack to close.</description>
                     <type>10</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                    <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;lld&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
                     <delay>{$LLD_INTERVAL}</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -4815,16 +5033,9 @@ Ack to close.</description>
                     <filter>
                         <evaltype>0</evaltype>
                         <formula/>
-                        <conditions>
-                            <condition>
-                                <macro>{#VOLUME.TYPE}</macro>
-                                <value>master volume|standard</value>
-                                <operator>8</operator>
-                                <formulaid>A</formulaid>
-                            </condition>
-                        </conditions>
+                        <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA volumes.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -4859,7 +5070,7 @@ Ack to close.</description>
                             <inventory_link>0</inventory_link>
                             <applications/>
                             <valuemap>
-                                <name>HPE MSA Common Health</name>
+                                <name>HPE MSA Controller Owner</name>
                             </valuemap>
                             <logtimefmt/>
                             <preprocessing>
@@ -4881,7 +5092,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4895,7 +5106,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -4952,7 +5163,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -4966,7 +5177,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
                             </master_item>
                         </item_prototype>
                         <item_prototype>
@@ -5023,7 +5234,7 @@ Ack to close.</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>1</request_method>
+                            <request_method>0</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -5037,7 +5248,7 @@ Ack to close.</description>
                                 </application_prototype>
                             </application_prototypes>
                             <master_item>
-                                <key>zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
+                                <key>zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;]</key>
                             </master_item>
                         </item_prototype>
                     </item_prototypes>
@@ -5057,6 +5268,14 @@ Ack to close.</description>
                             <manual_close>0</manual_close>
                             <dependencies/>
                             <tags>
+                                <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
                                 <tag>
                                     <tag>part</tag>
                                     <value>volume</value>
@@ -5079,6 +5298,14 @@ Ack to close.</description>
                             <dependencies/>
                             <tags>
                                 <tag>
+                                    <tag>device</tag>
+                                    <value>msa</value>
+                                </tag>
+                                <tag>
+                                    <tag>model</tag>
+                                    <value>{INVENTORY.MODEL}</value>
+                                </tag>
+                                <tag>
                                     <tag>part</tag>
                                     <value>volume</value>
                                 </tag>
@@ -5098,7 +5325,7 @@ Ack to close.</description>
                     <http_proxy/>
                     <headers/>
                     <retrieve_mode>0</retrieve_mode>
-                    <request_method>1</request_method>
+                    <request_method>0</request_method>
                     <allow_traps>0</allow_traps>
                     <ssl_cert_file/>
                     <ssl_key_file/>
@@ -5130,11 +5357,7 @@ Ack to close.</description>
                 </macro>
                 <macro>
                     <macro>{$LLD_INTERVAL}</macro>
-                    <value>3h</value>
-                </macro>
-                <macro>
-                    <macro>{$LLD_KEEP_LOST}</macro>
-                    <value>7d</value>
+                    <value>1h</value>
                 </macro>
                 <macro>
                     <macro>{$MSA.PASSWORD}</macro>
@@ -5145,7 +5368,7 @@ Ack to close.</description>
                     <value>monitor</value>
                 </macro>
                 <macro>
-                    <macro>{$MSA_DISK_POWER_ON_HOURS}</macro>
+                    <macro>{$MSA_DISK_POH_WARN}</macro>
                     <value>43800</value>
                 </macro>
                 <macro>
@@ -5179,25 +5402,12 @@ Ack to close.</description>
                 </template>
             </templates>
             <screens/>
-            <tags>
-                <tag>
-                    <tag>device</tag>
-                    <value>msa</value>
-                </tag>
-                <tag>
-                    <tag>model</tag>
-                    <value>{INVENTORY.MODEL}</value>
-                </tag>
-                <tag>
-                    <tag>vendor</tag>
-                    <value>hp</value>
-                </tag>
-            </tags>
+            <tags/>
         </template>
     </templates>
     <triggers>
         <trigger>
-            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;].nodata({$NODATA_RANGE})}=1</expression>
+            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;controllers&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Cannot read MSA Conrollers data</name>
@@ -5212,13 +5422,21 @@ Ack to close.</description>
             <dependencies/>
             <tags>
                 <tag>
+                    <tag>device</tag>
+                    <value>msa</value>
+                </tag>
+                <tag>
+                    <tag>model</tag>
+                    <value>{INVENTORY.MODEL}</value>
+                </tag>
+                <tag>
                     <tag>part</tag>
                     <value>controller</value>
                 </tag>
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;].nodata({$NODATA_RANGE})}=1</expression>
+            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disk-groups&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Cannot read MSA Disk Groups data</name>
@@ -5233,13 +5451,21 @@ Ack to close.</description>
             <dependencies/>
             <tags>
                 <tag>
+                    <tag>device</tag>
+                    <value>msa</value>
+                </tag>
+                <tag>
+                    <tag>model</tag>
+                    <value>{INVENTORY.MODEL}</value>
+                </tag>
+                <tag>
                     <tag>part</tag>
-                    <value>disk groups</value>
+                    <value>disk group</value>
                 </tag>
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;].nodata({$NODATA_RANGE})}=1</expression>
+            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;enclosures&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Cannot read MSA Enclosures data</name>
@@ -5254,13 +5480,21 @@ Ack to close.</description>
             <dependencies/>
             <tags>
                 <tag>
+                    <tag>device</tag>
+                    <value>msa</value>
+                </tag>
+                <tag>
+                    <tag>model</tag>
+                    <value>{INVENTORY.MODEL}</value>
+                </tag>
+                <tag>
                     <tag>part</tag>
-                    <value>enclosures</value>
+                    <value>enclosure</value>
                 </tag>
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;].nodata({$NODATA_RANGE})}=1</expression>
+            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;fans&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Cannot read MSA Fans data</name>
@@ -5275,26 +5509,42 @@ Ack to close.</description>
             <dependencies/>
             <tags>
                 <tag>
+                    <tag>device</tag>
+                    <value>msa</value>
+                </tag>
+                <tag>
+                    <tag>model</tag>
+                    <value>{INVENTORY.MODEL}</value>
+                </tag>
+                <tag>
                     <tag>part</tag>
-                    <value>fans</value>
+                    <value>fan</value>
                 </tag>
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;].nodata({$NODATA_RANGE})}=1</expression>
+            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;disks&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Cannot read MSA Physical Drives data</name>
+            <name>Cannot read MSA Physical Drive data</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
             <status>0</status>
             <priority>2</priority>
-            <description>Cannot retrieve JSON with Physical Drives data from MSA.</description>
+            <description>Cannot retrieve JSON with Physical Disks data from MSA.</description>
             <type>0</type>
             <manual_close>0</manual_close>
             <dependencies/>
             <tags>
+                <tag>
+                    <tag>device</tag>
+                    <value>msa</value>
+                </tag>
+                <tag>
+                    <tag>model</tag>
+                    <value>{INVENTORY.MODEL}</value>
+                </tag>
                 <tag>
                     <tag>part</tag>
                     <value>drive</value>
@@ -5302,7 +5552,7 @@ Ack to close.</description>
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;].nodata({$NODATA_RANGE})}=1</expression>
+            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;pools&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Cannot read MSA Pools data</name>
@@ -5317,13 +5567,21 @@ Ack to close.</description>
             <dependencies/>
             <tags>
                 <tag>
+                    <tag>device</tag>
+                    <value>msa</value>
+                </tag>
+                <tag>
+                    <tag>model</tag>
+                    <value>{INVENTORY.MODEL}</value>
+                </tag>
+                <tag>
                     <tag>part</tag>
                     <value>pool</value>
                 </tag>
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;].nodata({$NODATA_RANGE})}=1</expression>
+            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;ports&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Cannot read MSA Ports data</name>
@@ -5338,13 +5596,21 @@ Ack to close.</description>
             <dependencies/>
             <tags>
                 <tag>
+                    <tag>device</tag>
+                    <value>msa</value>
+                </tag>
+                <tag>
+                    <tag>model</tag>
+                    <value>{INVENTORY.MODEL}</value>
+                </tag>
+                <tag>
                     <tag>part</tag>
-                    <value>ports</value>
+                    <value>port</value>
                 </tag>
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;].nodata({$NODATA_RANGE})}=1</expression>
+            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;power-supplies&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Cannot read MSA Power Supplies data</name>
@@ -5359,13 +5625,21 @@ Ack to close.</description>
             <dependencies/>
             <tags>
                 <tag>
+                    <tag>device</tag>
+                    <value>msa</value>
+                </tag>
+                <tag>
+                    <tag>model</tag>
+                    <value>{INVENTORY.MODEL}</value>
+                </tag>
+                <tag>
                     <tag>part</tag>
                     <value>power supply</value>
                 </tag>
             </tags>
         </trigger>
         <trigger>
-            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;, &quot;{$SSL_MODE}&quot;, &quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;].nodata({$NODATA_RANGE})}=1</expression>
+            <expression>{Template HPE MSA for Zabbix 4.2 with SSL:zbx-hpmsa.py[&quot;--ssl&quot;,&quot;{$SSL_MODE}&quot;,&quot;-a&quot;, &quot;{$API.VER}&quot;, &quot;-u&quot;, &quot;{$MSA.USERNAME}&quot;, &quot;-p&quot;, &quot;{$MSA.PASSWORD}&quot;, &quot;full&quot;, &quot;{HOST.CONN}&quot;, &quot;volumes&quot;].nodata({$NODATA_RANGE})}=1</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Cannot read MSA Volumes data</name>
@@ -5379,6 +5653,14 @@ Ack to close.</description>
             <manual_close>0</manual_close>
             <dependencies/>
             <tags>
+                <tag>
+                    <tag>device</tag>
+                    <value>msa</value>
+                </tag>
+                <tag>
+                    <tag>model</tag>
+                    <value>{INVENTORY.MODEL}</value>
+                </tag>
                 <tag>
                     <tag>part</tag>
                     <value>volume</value>
@@ -5409,7 +5691,7 @@ Ack to close.</description>
             </mappings>
         </value_map>
         <value_map>
-            <name>HPE MSA Compact Flash Status</name>
+            <name>HPE MSA Compact flash status</name>
             <mappings>
                 <mapping>
                     <value>0</value>
@@ -5442,7 +5724,7 @@ Ack to close.</description>
                     <newvalue>Operational but not redundant</newvalue>
                 </mapping>
                 <mapping>
-                    <value>3</value>
+                    <value>2</value>
                     <newvalue>Redundant</newvalue>
                 </mapping>
                 <mapping>
@@ -5522,51 +5804,6 @@ Ack to close.</description>
                 <mapping>
                     <value>14</value>
                     <newvalue>VRECV</newvalue>
-                </mapping>
-            </mappings>
-        </value_map>
-        <value_map>
-            <name>HPE MSA Disk Group, VDisk Status</name>
-            <mappings>
-                <mapping>
-                    <value>0</value>
-                    <newvalue>FTOL</newvalue>
-                </mapping>
-                <mapping>
-                    <value>1</value>
-                    <newvalue>FTDN</newvalue>
-                </mapping>
-                <mapping>
-                    <value>2</value>
-                    <newvalue>CRIT</newvalue>
-                </mapping>
-                <mapping>
-                    <value>3</value>
-                    <newvalue>OFFL</newvalue>
-                </mapping>
-                <mapping>
-                    <value>4</value>
-                    <newvalue>QTCR</newvalue>
-                </mapping>
-                <mapping>
-                    <value>5</value>
-                    <newvalue>QTOF</newvalue>
-                </mapping>
-                <mapping>
-                    <value>6</value>
-                    <newvalue>QTDN</newvalue>
-                </mapping>
-                <mapping>
-                    <value>7</value>
-                    <newvalue>STOP</newvalue>
-                </mapping>
-                <mapping>
-                    <value>250</value>
-                    <newvalue>UP</newvalue>
-                </mapping>
-                <mapping>
-                    <value>other</value>
-                    <newvalue>UNKN</newvalue>
                 </mapping>
             </mappings>
         </value_map>
@@ -5679,27 +5916,6 @@ Ack to close.</description>
                 <mapping>
                     <value>6</value>
                     <newvalue>Disconnected</newvalue>
-                </mapping>
-            </mappings>
-        </value_map>
-        <value_map>
-            <name>HPE MSA SFP Module Status</name>
-            <mappings>
-                <mapping>
-                    <value>0</value>
-                    <newvalue>Not compatible</newvalue>
-                </mapping>
-                <mapping>
-                    <value>1</value>
-                    <newvalue>Incorrect protocol</newvalue>
-                </mapping>
-                <mapping>
-                    <value>2</value>
-                    <newvalue>Not present</newvalue>
-                </mapping>
-                <mapping>
-                    <value>3</value>
-                    <newvalue>OK</newvalue>
                 </mapping>
             </mappings>
         </value_map>

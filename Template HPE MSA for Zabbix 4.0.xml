@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-09-24T21:21:35Z</date>
+    <date>2019-11-12T17:36:04Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -649,7 +649,7 @@ MIB: CPQSINFO-MIB::cpqSiProductName</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA controllers.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -1736,7 +1736,7 @@ WWN: {#CONTROLLER.WWN}</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA disk groups.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -2317,7 +2317,7 @@ Disk group SN: {#DG.SN}</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA physical disks.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -2449,7 +2449,7 @@ Disk model: {#DISK.MODEL}</description>
                             <http_proxy/>
                             <headers/>
                             <retrieve_mode>0</retrieve_mode>
-                            <request_method>0</request_method>
+                            <request_method>1</request_method>
                             <output_format>0</output_format>
                             <allow_traps>0</allow_traps>
                             <ssl_cert_file/>
@@ -2900,7 +2900,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA enclosures.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -3152,7 +3152,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA fans.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -3500,7 +3500,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA pools.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -3821,7 +3821,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA ports.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -4169,7 +4169,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA power supplies.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -4937,7 +4937,7 @@ Ack to close.</description>
                         <formula/>
                         <conditions/>
                     </filter>
-                    <lifetime>{$LLD_KEEP_LOST}</lifetime>
+                    <lifetime>1d</lifetime>
                     <description>Discovery all HPE MSA volumes.</description>
                     <item_prototypes>
                         <item_prototype>
@@ -5251,10 +5251,6 @@ Ack to close.</description>
                 <macro>
                     <macro>{$LLD_INTERVAL}</macro>
                     <value>1h</value>
-                </macro>
-                <macro>
-                    <macro>{$LLD_KEEP_LOST}</macro>
-                    <value>7d</value>
                 </macro>
                 <macro>
                     <macro>{$MSA.PASSWORD}</macro>
@@ -5616,7 +5612,7 @@ Ack to close.</description>
                     <newvalue>Operational but not redundant</newvalue>
                 </mapping>
                 <mapping>
-                    <value>3</value>
+                    <value>2</value>
                     <newvalue>Redundant</newvalue>
                 </mapping>
                 <mapping>

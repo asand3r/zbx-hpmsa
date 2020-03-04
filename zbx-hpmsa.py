@@ -223,46 +223,52 @@ def query_xmlapi(url, sessionkey):
     :rtype: tuple
     """
 
-    # Set file where we can find root CA
-    ca_file = '/etc/pki/tls/certs/ca-bundle.crt'
-
-    # Makes GET request to URL
-    try:
-        # Connection timeout in seconds (connection, read).
-        timeout = (3, 10)
-        full_url = 'https://' + url if USE_SSL else 'http://' + url
-        headers = {'sessionKey': sessionkey} if API_VERSION == 2 else {
-            'Cookie': "wbiusername={}; wbisessionkey={}".format(MSA_USERNAME, sessionkey)}
-        if USE_SSL:
-            if VERIFY_SSL:
-                response = requests.get(full_url, headers=headers, verify=ca_file, timeout=timeout)
+    if SAMPLE_FILE is None:
+        # Makes GET request to URL
+        try:
+            # Connection timeout in seconds (connection, read).
+            timeout = (3, 10)
+            full_url = 'https://' + url if USE_SSL else 'http://' + url
+            headers = {'sessionKey': sessionkey} if API_VERSION == 2 else {
+                'Cookie': "wbiusername={}; wbisessionkey={}".format(MSA_USERNAME, sessionkey)}
+            if USE_SSL:
+                if VERIFY_SSL:
+                    response = requests.get(full_url, headers=headers, verify=CA_FILE, timeout=timeout)
+                else:
+                    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+                    response = requests.get(full_url, headers=headers, verify=False, timeout=timeout)
             else:
-                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-                response = requests.get(full_url, headers=headers, verify=False, timeout=timeout)
+                response = requests.get(full_url, headers=headers, timeout=timeout)
+        except requests.exceptions.SSLError:
+            raise SystemExit('ERROR: Cannot verify storage SSL Certificate.')
+        except requests.exceptions.ConnectTimeout:
+            raise SystemExit('ERROR: Timeout occurred!')
+        except requests.exceptions.ConnectionError as e:
+            raise SystemExit("ERROR: Cannot connect to storage {}.".format(e))
+
+        # Reading data from server XML response
+        try:
+            if SAVE_XML is not None and 'login' not in url:
+                try:
+                    with open(SAVE_XML[0], 'w') as xml_file:
+                        xml_file.write(response.text)
+                except PermissionError:
+                    raise SystemExit('ERROR: Cannot save XML file to "{}"'.format(args.savexml))
+            rxml = eTree.fromstring(response.content)
+            rcode = rxml.find("./OBJECT[@name='status']/PROPERTY[@name='return-code']").text
+            rtext = rxml.find("./OBJECT[@name='status']/PROPERTY[@name='response']").text
+            return rcode, rtext, rxml
+        except (ValueError, AttributeError) as e:
+            raise SystemExit("ERROR: Cannot parse XML. {}".format(e))
+    else:
+        if "login" in url:
+            return "1", "test_session_key", None
         else:
-            response = requests.get(full_url, headers=headers, timeout=timeout)
-    except requests.exceptions.SSLError:
-        raise SystemExit('ERROR: Cannot verify storage SSL Certificate.')
-    except requests.exceptions.ConnectTimeout:
-        raise SystemExit('ERROR: Timeout occurred!')
-    except requests.exceptions.ConnectionError as e:
-        raise SystemExit("ERROR: Cannot connect to storage {}.".format(e))
-
-    # Reading data from server XML response
-    try:
-        if SAVE_XML is not None and 'login' not in url:
-            try:
-                with open(SAVE_XML[0], 'w') as xml_file:
-                    xml_file.write(response.text)
-            except PermissionError:
-                raise SystemExit('ERROR: Cannot save XML file to "{}"'.format(args.savexml))
-        response_xml = eTree.fromstring(response.content)
-        return_code = response_xml.find("./OBJECT[@name='status']/PROPERTY[@name='return-code']").text
-        return_response = response_xml.find("./OBJECT[@name='status']/PROPERTY[@name='response']").text
-
-        return return_code, return_response, response_xml
-    except (ValueError, AttributeError) as e:
-        raise SystemExit("ERROR: Cannot parse XML. {}".format(e))
+            with open(SAMPLE_FILE, "r") as sample_xml:
+                rxml = eTree.parse(sample_xml)
+                rcode = rxml.findtext("./OBJECT[@name='status']/PROPERTY[@name='return-code']")
+                rtext = rxml.findtext("./OBJECT[@name='status']/PROPERTY[@name='response']")
+                return rcode, rtext, rxml
 
 
 def make_lld(msa, component, sessionkey, pretty=False):
@@ -651,9 +657,9 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
     return json.dumps(all_components, separators=(',', ':'), indent=pretty)
 
 
-def get_super(msa, sessionkey, pretty=False, human=False):
+def make_get(msa, sessionkey, pretty=False):
     """
-    Query /show/configuration for super-discovery
+    Query /show/configuration to get maximum info in one JSON document
 
     :param msa: MSA DNS name and IP address.
     :type msa: tuple
@@ -661,8 +667,6 @@ def get_super(msa, sessionkey, pretty=False, human=False):
     :type sessionkey: str
     :param pretty: Print in pretty format
     :type pretty: int
-    :param human: Expand result dict keys in human readable format
-    :type: bool
     :return: JSON with all found data.
     :rtype: str
     """
@@ -675,11 +679,6 @@ def get_super(msa, sessionkey, pretty=False, human=False):
     resp_code, resp_descr, xml = query_xmlapi(url, sessionkey)
     if resp_code != '0':
         raise SystemExit('ERROR: {rc} : {rd}'.format(rc=resp_code, rd=resp_descr))
-
-    # DELETE! Local XML file!
-    # with open('/home/asand3r/Downloads/conf_2040.xml', 'r') as xml_file:
-    #     xml_data = xml_file.read().encode()
-    #     xml = eTree.fromstring(xml_data)
 
     # Function to extract typical fields
     def get_api_field(xml_obj, keys_dict):
@@ -753,7 +752,7 @@ def get_super(msa, sessionkey, pretty=False, human=False):
         # Power Supplies
         for ps in en.findall("./OBJECT[@name='power-supplies']"):
             ps_api = {'i': 'durable-id', 'p': 'position-numeric', 's': 'status-numeric', 'h': 'health-numeric',
-                      '12v': 'dc12v', '5v': 'dc5v', '33v': 'dc33v', '12i': 'dc12i', '5i': 'dc5i'}
+                      '12v': 'dc12v', '5v': 'dc5v', '33v': 'dc33v', '12i': 'dc12i', '5i': 'dc5i', "t": "dctemp"}
             ps_data = get_api_field(ps, ps_api)
             sdata['ps'].append(ps_data)
 
@@ -773,7 +772,7 @@ def get_super(msa, sessionkey, pretty=False, human=False):
     # Pools and Disk groups
     for pool in xml.findall("./OBJECT[@name='pools']"):
         pool_api = {'i': 'name', 'tp': 'storage-type-numeric', 'sn': 'serial-number',
-                    'ts': 'total-size-numeric', 'ta': 'total-avail-numeric', 'h': 'health-numeric',
+                    'ts': 'total-size-numeric', 'ta': 'total-avail-numeric', 'h': 'health-numeric',  
                     'o': 'owner-numeric', 'op': 'preferred-owner-numeric'}
         pool_data = get_api_field(pool, pool_api)
         sdata['pools'].append(pool_data)
@@ -817,9 +816,6 @@ def get_super(msa, sessionkey, pretty=False, human=False):
         if dr_data['a'] == 0:
             dr_data['ll'] = int(drive.find("./PROPERTY[@name='ssd-life-left-numeric']").text)
         sdata['drives'].append(dr_data)
-    # DOESNT WORK! NEED TO FIX! Transform dict keys to human readable format if '--human' argument is given
-    if human:
-        sdata = expand_dict(sdata)
     return json.dumps(sdata, separators=(',', ':'), indent=pretty)
 
 
@@ -852,8 +848,8 @@ def expand_dict(init_dict):
 
 
 if __name__ == '__main__':
-    # Current program version
-    VERSION = '0.7super'
+    # Script version
+    VERSION = '0.8'
     MSA_PARTS = ('disks', 'vdisks', 'controllers', 'enclosures', 'fans',
                  'power-supplies', 'ports', 'pools', 'disk-groups', 'volumes')
 
@@ -869,6 +865,7 @@ if __name__ == '__main__':
     main_parser.add_argument('--ssl', type=str, choices=('direct', 'verify'), help='Use secure connections')
     main_parser.add_argument('--pretty', action='store_true', help='Print output in pretty format')
     main_parser.add_argument('--human', action='store_true', help='Expose shorten response fields')
+    main_parser.add_argument('--sample-file', type=str, help='XML file with API response data')
 
     # Subparsers
     subparsers = main_parser.add_subparsers(help='Possible options list', dest='command')
@@ -883,32 +880,36 @@ if __name__ == '__main__':
     cache_parser.add_argument('--show', action='store_true', help='Display cache data')
     cache_parser.add_argument('--drop', action='store_true', help='Drop cache data')
 
-    # LLD script command
+    # DEPRECATED: LLD script command
     lld_parser = subparsers.add_parser('lld', help='Retrieve LLD data from MSA')
     lld_parser.add_argument('msa', type=str, help='MSA address (DNS name or IP)')
     lld_parser.add_argument('part', type=str, help='MSA part name', choices=MSA_PARTS)
 
-    # FULL script command
+    # DEPRECATED: FULL script command
     full_parser = subparsers.add_parser('full', help='Retrieve metrics data for a MSA component')
     full_parser.add_argument('msa', type=str, help='MSA connection address (DNS name or IP)')
     full_parser.add_argument('part', type=str, help='MSA part name', choices=MSA_PARTS)
 
-    # SUPER script command
-    super_parser = subparsers.add_parser('super', help='Experimental: Return all posible data with one JSON doc')
+    # GET script command
+    super_parser = subparsers.add_parser('get', help='Experimental: Return all posible data with one JSON doc')
     super_parser.add_argument('msa', type=str, help='MSA connection address (DNS name or IP)')
     args = main_parser.parse_args()
 
     API_VERSION = args.api
     TMP_DIR = args.tmp_dir
     CACHE_DB = TMP_DIR.rstrip('/') + '/zbx-hpmsa.cache.db'
+    # Set file where we can find root CA
+    CA_FILE = '/etc/pki/tls/certs/ca-bundle.crt'
 
-    if args.command in ('lld', 'full', 'super'):
+    if args.command in ('lld', 'full', 'get'):
         # Set some global variables
         SAVE_XML = args.save_xml
+        SAMPLE_FILE = args.sample_file
         USE_SSL = args.ssl in ('direct', 'verify')
         VERIFY_SSL = args.ssl == 'verify'
         MSA_USERNAME = args.username
         MSA_PASSWORD = args.password
+        # Pretty output
         to_pretty = 2 if args.pretty else None
 
         # (IP, DNS)
@@ -930,8 +931,9 @@ if __name__ == '__main__':
         # Getting full components data in JSON
         elif args.command == 'full':
             print(get_full_json(MSA_CONNECT, args.part, skey, to_pretty, args.human))
-        elif args.command == 'super':
-            print(get_super(MSA_CONNECT, skey, to_pretty, args.human))
+        # Get maximum info with one request for Zabbix 4.4 and higher
+        elif args.command == 'get':
+            print(make_get(MSA_CONNECT, skey, to_pretty))
     # Preparations tasks
     elif args.command == 'install':
         TMP_GROUP = args.group

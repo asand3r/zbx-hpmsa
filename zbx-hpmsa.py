@@ -690,7 +690,7 @@ if __name__ == '__main__':
     main_parser.add_argument('-a', '--api', type=int, default=2, choices=(1, 2), help='MSA API version (default: 2)')
     main_parser.add_argument('-u', '--username', default='monitor', type=str, help='Username to connect with')
     main_parser.add_argument('-p', '--password', default='!monitor', type=str, help='Password for the username')
-    main_parser.add_argument('-f', '--login-file', nargs=1, type=str, help='Path to the file with credentials')
+    main_parser.add_argument('-f', '--login-file', type=str, help='Path to the file with credentials')
     main_parser.add_argument('-v', '--version', action='version', version=VERSION, help='Print script version and exit')
     main_parser.add_argument('-s', '--save-xml', type=str, nargs=1, help='Save response to XML file')
     main_parser.add_argument('-t', '--tmp-dir', type=str, nargs=1, default='/var/tmp/zbx-hpmsa/', help='Temp directory')

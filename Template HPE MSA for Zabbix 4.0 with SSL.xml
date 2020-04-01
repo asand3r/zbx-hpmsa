@@ -3010,7 +3010,7 @@ Ack to close.</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#ENCLOSURE.ID}']['h']</params>
+                                    <params>$['{#ENCLOSURE.ID}']['s']</params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>

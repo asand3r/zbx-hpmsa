@@ -3057,7 +3057,7 @@ Ack to close.</description>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
-                                    <params>$['{#ENCLOSURE.ID}']['h']</params>
+                                    <params>$['{#ENCLOSURE.ID}']['s']</params>
                                     <error_handler>0</error_handler>
                                     <error_handler_params/>
                                 </step>

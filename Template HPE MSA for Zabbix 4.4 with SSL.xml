@@ -1533,7 +1533,7 @@ Disk model: {#DISK.MODEL}</description>
                             <preprocessing>
                                 <step>
                                     <type>JSONPATH</type>
-                                    <params>$['{#ENCLOSURE.ID}']['h']</params>
+                                    <params>$['{#ENCLOSURE.ID}']['s']</params>
                                 </step>
                             </preprocessing>
                             <master_item>

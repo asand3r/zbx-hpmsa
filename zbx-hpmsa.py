@@ -290,128 +290,45 @@ def make_lld(msa, component, sessionkey, pretty=False):
     if resp_return_code != '0':
         raise SystemExit('ERROR: {rc} : {rd}'.format(rc=resp_return_code, rd=resp_description))
 
+    # CLI component names to XML API mapping
+    comp_names_map = {
+        'disks': 'drive', 'vdisks': 'virtual-disk', 'pools': 'pools', 'disk-groups': 'disk-group',
+        'volumes': 'volume', 'controllers': 'controllers', 'enclosures': 'enclosures',
+        'power-supplies': 'power-supplies', 'fans': 'fan-details', 'ports': 'ports'
+    }
+    # XML API prop names to Zabbix macro mapping
+    comp_props_map = {
+        'vdisks': {'{#VDISK.ID}': 'name', '{#VDISK.TYPE}': 'storage-type'},
+        'fans': {'{#FAN.ID}': 'durable-id', '{#FAN.LOCATION}': 'location'},
+        'ports': {'{#PORT.ID}': 'port', '{#PORT.TYPE}': 'port-type', '{#PORT.SPEED}': 'actual-speed'},
+        'pools': {'{#POOL.ID}': 'name', '{#POOL.SN}': 'serial-number', '{#POOL.TYPE}': 'storage-type'},
+        'enclosures': {'{#ENCLOSURE.ID}': 'enclosure-id', '{#ENCLOSURE.SN}': 'midplane-serial-number'},
+        'volumes': {'{#VOLUME.ID}': 'volume-name', '{#VOLUME.SN}': 'serial-number', '{#VOLUME.TYPE}': 'volume-type'},
+        'power-supplies': {'{#POWERSUPPLY.ID}': 'durable-id', '{#POWERSUPPLY.LOCATION}': 'location',
+                           '{#POWERSUPPLY.NAME}': 'name'},
+        'disks': {'{#DISK.ID}': 'location', '{#DISK.SN}': 'serial-number', '{#DISK.MODEL}': 'model',
+                  '{#DISK.ARCH}': 'architecture'},
+        'disk-groups': {'{#DG.ID}': 'name', '{#DG.SN}': 'serial-number', '{#DG.TYPE}': 'storage-type',
+                        '{#DG.TIER}': 'storage-tier'},
+        'controllers': {'{#CONTROLLER.ID}': 'controller-id', '{#CONTROLLER.SN}': 'serial-number',
+                        '{#CONTROLLER.IP}': 'ip-address', '{#CONTROLLER.WWN}': 'node-wwn'}
+    }
+
     # Processing response
     all_components = []
-    if component == 'disks':
-        for disk in xml.findall("./OBJECT[@name='drive']"):
-            disk_id = disk.find("./PROPERTY[@name='location']").text
-            disk_sn = disk.find("./PROPERTY[@name='serial-number']").text
-            disk_model = disk.find("./PROPERTY[@name='model']").text
+    for part in xml.findall("./OBJECT[@name='{}']".format(comp_names_map[component])):
+        lld_dict = {}
+        for macro, prop in comp_props_map[component].items():
             try:
-                disk_arch = disk.find("./PROPERTY[@name='architecture']").text
+                xml_prop_value = part.find("./PROPERTY[@name='{}']".format(prop))
             except AttributeError:
-                disk_arch = "UNKNOWN"
-            lld_dict = {
-                "{#DISK.ID}": "{}".format(disk_id),
-                "{#DISK.SN}": "{}".format(disk_sn),
-                "{#DISK.MODEL}": "{}".format(disk_model),
-                "{#DISK.ARCH}": "{}".format(disk_arch)
-            }
-            all_components.append(lld_dict)
-    # vdisks is deprecated in HPE MSA 1040/2040+ so it stay here for old MSA devices
-    elif component == 'vdisks':
-        for vdisk in xml.findall("./OBJECT[@name='virtual-disk']"):
-            vdisk_id = vdisk.find("./PROPERTY[@name='name']").text
-            try:
-                vdisk_type = vdisk.find("./PROPERTY[@name='storage-type']").text
-            except AttributeError:
-                vdisk_type = "UNKNOWN"
-            lld_dict = {
-                "{#VDISK.ID}": "{}".format(vdisk_id),
-                "{#VDISK.TYPE}": "{}".format(vdisk_type)
-            }
-            all_components.append(lld_dict)
-    elif component == 'pools':
-        for pool in xml.findall("./OBJECT[@name='pools']"):
-            pool_id = pool.find("./PROPERTY[@name='name']").text
-            pool_type = pool.find("./PROPERTY[@name='storage-type']").text
-            pool_sn = pool.find("./PROPERTY[@name='serial-number']").text
-            lld_dict = {
-                "{#POOL.ID}": "{}".format(pool_id),
-                "{#POOL.SN}": "{}".format(pool_sn),
-                "{#POOL.TYPE}": "{}".format(pool_type)
-            }
-            all_components.append(lld_dict)
-    elif component == 'disk-groups':
-        for dg in xml.findall("./OBJECT[@name='disk-group']"):
-            dg_id = dg.find("./PROPERTY[@name='name']").text
-            dg_type = dg.find("./PROPERTY[@name='storage-type']").text
-            dg_sn = dg.find(".PROPERTY[@name='serial-number']").text
-            dg_tier = dg.find("./PROPERTY[@name='storage-tier']").text
-            lld_dict = {
-                "{#DG.ID}": "{}".format(dg_id),
-                "{#DG.SN}": "{}".format(dg_sn),
-                "{#DG.TYPE}": "{}".format(dg_type),
-                "{#DG.TIER}": "{}".format(dg_tier)
-            }
-            all_components.append(lld_dict)
-    elif component == 'volumes':
-        for vol in xml.findall("./OBJECT[@name='volume']"):
-            vol_id = vol.find("./PROPERTY[@name='volume-name']").text
-            vol_type = vol.find("./PROPERTY[@name='volume-type']").text
-            vol_sn = vol.find("./PROPERTY[@name='serial-number']").text
-            lld_dict = {
-                "{#VOLUME.ID}": "{}".format(vol_id),
-                "{#VOLUME.SN}": "{}".format(vol_sn),
-                "{#VOLUME.TYPE}": "{}".format(vol_type)
-            }
-            all_components.append(lld_dict)
-    elif component == 'controllers':
-        for ctrl in xml.findall("./OBJECT[@name='controllers']"):
-            ctrl_id = ctrl.find("./PROPERTY[@name='controller-id']").text
-            ctrl_sn = ctrl.find("./PROPERTY[@name='serial-number']").text
-            ctrl_ip = ctrl.find("./PROPERTY[@name='ip-address']").text
-            ctrl_wwn = ctrl.find("./PROPERTY[@name='node-wwn']").text
-            lld_dict = {
-                "{#CONTROLLER.ID}": "{}".format(ctrl_id),
-                "{#CONTROLLER.SN}": "{}".format(ctrl_sn),
-                "{#CONTROLLER.IP}": "{}".format(ctrl_ip),
-                "{#CONTROLLER.WWN}": "{}".format(ctrl_wwn),
-            }
-            all_components.append(lld_dict)
-    elif component == 'enclosures':
-        for encl in xml.findall("./OBJECT[@name='enclosures']"):
-            encl_id = encl.find("./PROPERTY[@name='enclosure-id']").text
-            encl_sn = encl.find("./PROPERTY[@name='midplane-serial-number']").text
-            lld_dict = {
-                "{#ENCLOSURE.ID}": "{}".format(encl_id),
-                "{#ENCLOSURE.SN}": "{}".format(encl_sn)
-            }
-            all_components.append(lld_dict)
-    elif component == 'power-supplies':
-        for PS in xml.findall("./OBJECT[@name='power-supplies']"):
-            ps_id = PS.find("./PROPERTY[@name='durable-id']").text
-            ps_loc = PS.find("./PROPERTY[@name='location']").text
-            ps_name = PS.find("./PROPERTY[@name='name']").text
-            # Exclude voltage regulators from discovery
-            if ps_name.lower().find('voltage regulator') == -1:
-                lld_dict = {
-                    "{#POWERSUPPLY.ID}": "{}".format(ps_id),
-                    "{#POWERSUPPLY.LOCATION}": "{}".format(ps_loc)
-                }
-                all_components.append(lld_dict)
-    elif component == 'fans':
-        for FAN in xml.findall("./OBJECT[@name='fan-details']"):
-            fan_id = FAN.find("./PROPERTY[@name='durable-id']").text
-            fan_loc = FAN.find("./PROPERTY[@name='location']").text
-            lld_dict = {
-                "{#FAN.ID}": "{}".format(fan_id),
-                "{#FAN.LOCATION}": "{}".format(fan_loc)
-            }
-            all_components.append(lld_dict)
-    elif component == 'ports':
-        for PORT in xml.findall("./OBJECT[@name='ports']"):
-            port_id = PORT.find("./PROPERTY[@name='port']").text
-            port_type = PORT.find("./PROPERTY[@name='port-type']").text
-            port_speed = PORT.find("./PROPERTY[@name='actual-speed']").text
-            port_sfp = PORT.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-present']").text
-            lld_dict = {
-                "{#PORT.ID}": "{}".format(port_id),
-                "{#PORT.TYPE}": "{}".format(port_type),
-                "{#PORT.SPEED}": "{}".format(port_speed),
-                "{#PORT.SFP}": "{}".format(port_sfp)
-            }
-            all_components.append(lld_dict)
+                xml_prop_value = "UNKNOWN"
+            lld_dict[macro] = xml_prop_value
+        # Dirty workaround for SFP present status
+        if component == 'ports':
+            port_sfp = part.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-present']").text
+            lld_dict['{#PORT.SFP}'] = port_sfp
+        all_components.append(lld_dict)
 
     # Dumps JSON and return it
     return json.dumps({"data": all_components}, separators=(',', ':'), indent=pretty)

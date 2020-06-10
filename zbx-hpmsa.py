@@ -297,7 +297,10 @@ def make_lld(msa, component, sessionkey, pretty=False):
             disk_id = disk.find("./PROPERTY[@name='location']").text
             disk_sn = disk.find("./PROPERTY[@name='serial-number']").text
             disk_model = disk.find("./PROPERTY[@name='model']").text
-            disk_arch = disk.find("./PROPERTY[@name='architecture']").text
+            try:
+                disk_arch = disk.find("./PROPERTY[@name='architecture']").text
+            except AttributeError:
+                disk_arch = "UNKNOWN"
             lld_dict = {
                 "{#DISK.ID}": "{}".format(disk_id),
                 "{#DISK.SN}": "{}".format(disk_sn),
@@ -681,7 +684,7 @@ def expand_dict(init_dict):
 
 if __name__ == '__main__':
     # Current program version
-    VERSION = '0.7'
+    VERSION = '0.7.4'
     MSA_PARTS = ('disks', 'vdisks', 'controllers', 'enclosures', 'fans',
                  'power-supplies', 'ports', 'pools', 'disk-groups', 'volumes')
 

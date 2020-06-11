@@ -326,7 +326,10 @@ def make_lld(msa, component, sessionkey, pretty=False):
             lld_dict[macro] = xml_prop_value
         # Dirty workaround for SFP present status
         if component == 'ports':
-            port_sfp = part.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-present']").text
+            try:
+                port_sfp = part.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-present']").text
+            except AttributeError:
+                port_sfp = "UNKNOWN"
             lld_dict['{#PORT.SFP}'] = port_sfp
         all_components.append(lld_dict)
 

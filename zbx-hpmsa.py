@@ -320,7 +320,7 @@ def make_lld(msa, component, sessionkey, pretty=False):
         lld_dict = {}
         for macro, prop in comp_props_map[component].items():
             try:
-                xml_prop_value = part.find("./PROPERTY[@name='{}']".format(prop))
+                xml_prop_value = part.find("./PROPERTY[@name='{}']".format(prop)).text
             except AttributeError:
                 xml_prop_value = "UNKNOWN"
             lld_dict[macro] = xml_prop_value

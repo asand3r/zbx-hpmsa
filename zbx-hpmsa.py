@@ -461,7 +461,7 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             if stats_ret_code != '0':
                 raise SystemExit('ERROR: {} : {}'.format(stats_ret_code, stats_descr))
 
-            # THINK: I don't know, is it good solution, but it's one more query to XML API
+            # TODO: I don't know, is it good solution, but it's one more query to XML API
             ctrl_cpu_load = stats_xml.find("./OBJECT[@name='controller-statistics']/PROPERTY[@name='cpu-load']").text
             ctrl_iops = stats_xml.find("./OBJECT[@name='controller-statistics']/PROPERTY[@name='iops']").text
 

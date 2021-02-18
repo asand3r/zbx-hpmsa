@@ -647,7 +647,7 @@ if __name__ == '__main__':
     args = main_parser.parse_args()
 
     API_VERSION = args.api
-    TMP_DIR = args.tmp_dir
+    TMP_DIR = "".join(args.tmp_dir)
     CACHE_DB = TMP_DIR.rstrip('/') + '/zbx-hpmsa.cache.db'
 
     if args.command in ('lld', 'full'):

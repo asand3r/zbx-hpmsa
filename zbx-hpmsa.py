@@ -678,7 +678,7 @@ if __name__ == '__main__':
             print(get_super(MSA_CONNECT, skey, to_pretty))
     elif args.command == 'install':
         if args.reinstall:
-            print("Removing '{}' and '{}'".format(CACHE_DB, TMP_DIR))
+            print(f"Removing '{CACHE_DB}' and '{TMP_DIR}'")
             os.remove(CACHE_DB)
             os.rmdir(TMP_DIR)
             install_script(TMP_DIR, args.group)

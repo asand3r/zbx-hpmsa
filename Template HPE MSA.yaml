@@ -1,0 +1,1873 @@
+zabbix_export:
+  version: '5.4'
+  date: '2021-09-23T13:18:56Z'
+  groups:
+    -
+      uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    -
+      uuid: b71bf1798ac1475398a09c0763ded694
+      template: 'Template HPE MSA'
+      name: 'Template HPE MSA'
+      description: |
+        Monitor HPE MSA storages.
+        Tested with HP MSA 2040, HP MSA 2050
+        
+        Version: 0.8
+        Min. script version: 0.8
+      groups:
+        -
+          name: Templates
+      items:
+        -
+          uuid: e854fc08110c42b482061b36ca494744
+          name: 'HPE MSA Device Contact'
+          type: DEPENDENT
+          key: hpe.msa.contact
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: CHAR
+          description: 'HPE MSA Device contact'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.sys.[0].c'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+        -
+          uuid: 9c65ce6380a84b4b988d5a8aaa545f3f
+          name: 'HPE MSA Device Location'
+          type: DEPENDENT
+          key: hpe.msa.location
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: CHAR
+          description: 'HPE MSA Device location'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.sys.[0].l'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+        -
+          uuid: e10da7c468e24ed8b4e5f01408f3c261
+          name: 'HPE MSA Device Model'
+          type: DEPENDENT
+          key: hpe.msa.model
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: CHAR
+          description: 'HPE MSA Device model'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.sys.[0].m'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+        -
+          uuid: 45315ee83b7e437b84f72f886f9540d3
+          name: 'HPE MSA Device Name'
+          type: DEPENDENT
+          key: hpe.msa.name
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: CHAR
+          description: 'HPE MSA Device system name'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.sys.[0].n'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+        -
+          uuid: 693b6c88a2074bba8bcb6a8b39c821f7
+          name: 'HPE MSA Device Serial Number'
+          type: DEPENDENT
+          key: hpe.msa.sn
+          delay: '0'
+          history: 7d
+          trends: '0'
+          value_type: CHAR
+          description: 'HPE MSA Device serial number'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.sys.[0].sn'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+        -
+          uuid: 4b8e2b32314c47fa91060410a7c2be8b
+          name: 'HPE MSA raw data'
+          type: EXTERNAL
+          key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+          tags:
+            -
+              tag: type
+              value: 'Zabbix raw'
+      discovery_rules:
+        -
+          uuid: 22a4de21eb0f401cad2ef08a7227db70
+          name: 'HPE MSA Controllers Discovery'
+          type: DEPENDENT
+          key: hpe.msa.controllers.discovery
+          delay: '0'
+          lifetime: 2w
+          description: 'HPE MSA Controllers discovery'
+          item_prototypes:
+            -
+              uuid: 515d8740c57042dfb267b70784dc0f19
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} flash card health'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.flash.health["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Controller {#HPE.MSA.CTRL.ID} compact flash health'
+              valuemap:
+                name: 'HPE MSA Common Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].cfh.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: 16a5e5dbda5b440281fe716fac71e135
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} flash card status'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.flash.status["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Controller {#HPE.MSA.CTRL.ID} compact flash status'
+              valuemap:
+                name: 'HPE MSA Compact Flash Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].cfs.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: fae315c4adc7417bad6f91b4dc6bbfbe
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} firmware version'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.fw["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              description: 'Controller {#HPE.MSA.CTRL.ID} firmware version'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].fw.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: 36882c4da91a45eba54a3007ac5020c7
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} health'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.healh["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Controller {#HPE.MSA.CTRL.ID} health status'
+              valuemap:
+                name: 'HPE MSA Flash, Drive, Controller Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].h.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: f96133b710b3403abd3de87bdba3fa76
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} IP address'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.ip["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              description: 'Controller {#HPE.MSA.CTRL.ID} IP address'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].ip.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: 9fa40661f7554e82ab97006dc2506210
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} MAC address'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.mac["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              description: 'Controller {#HPE.MSA.CTRL.ID} MAC address'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].mac.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: ad310990ece04cf58599523c53562009
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} position'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.position["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Controller {#HPE.MSA.CTRL.ID} position'
+              valuemap:
+                name: 'HPE MSA Controller Position'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].p.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: 794a692046e04996a35535f40cc5b664
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} redundancy status'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.redundancy.status["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Controller {#HPE.MSA.CTRL.ID} redundancy status'
+              valuemap:
+                name: 'HPE MSA Controller Redundancy'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].rs.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: 6c9f8d48e615483bb1c2d7832a52f895
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} SAS port health'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.sas.health["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Controller {#HPE.MSA.CTRL.ID} sas port health'
+              valuemap:
+                name: 'HPE MSA Common Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].sph.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: 559959b835dc4a2ba6b6576209a88451
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} SAS port status'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.sas.status["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Controller {#HPE.MSA.CTRL.ID} sas port status'
+              valuemap:
+                name: 'HPE MSA SAS Port Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].sps.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: a3765244757b4a788d766c595ffd6361
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} serial number'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.sn["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              description: 'Controller {#HPE.MSA.CTRL.ID} serial number'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].sn.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+            -
+              uuid: e6bf062c4d7444d4bb793e69c6b1c46b
+              name: 'HPE MSA Controller {#HPE.MSA.CTRL.ID} status'
+              type: DEPENDENT
+              key: 'hpe.msa.controller.status["{#HPE.MSA.CTRL.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Controller {#HPE.MSA.CTRL.ID} operational status'
+              valuemap:
+                name: 'HPE MSA Flash, Drive, Controller Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ctrl[?(@.i == ''{#HPE.MSA.CTRL.ID}'')].s.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Controller {#HPE.MSA.CTRL.ID}'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#HPE.MSA.CTRL.ID}'
+              path: $.i
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.ctrl
+            -
+              type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+        -
+          uuid: d0edf99c7860480aa6a81943bd386eab
+          name: 'HPE MSA HDD Drives Discovery'
+          type: DEPENDENT
+          key: hpe.msa.drive.hdd.discovery
+          delay: '0'
+          filter:
+            conditions:
+              -
+                macro: '{#HPE.MSA.DRIVE.ARCH}'
+                value: '1'
+                formulaid: A
+          lifetime: 2w
+          description: 'HPE MSA Drive discovery'
+          item_prototypes:
+            -
+              uuid: 206bf173ed79497b9694a1c3ba43df60
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} architecture'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.architecture["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} architecture'
+              valuemap:
+                name: 'HPE MSA Drive Architecture'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].a.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: 9274d6d2a61a4ee78bc0eeb85d1e47f9
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} health'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.health["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} health'
+              valuemap:
+                name: 'HPE MSA Flash, Drive, Controller Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].h.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: 55201d34e2bf4ecf93c656241ae84717
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} job running'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.job["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} current job running'
+              valuemap:
+                name: 'HPE MSA Current Job'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].j.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: 76fb735716944e0fbf7fde21f6bdeff8
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} power on hours'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.poh["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} total power on hours'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].p.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: 5ac820f55ff54c15bfba407e1d804e1c
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} status'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.status["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: |
+                HPE MSA {#HPE.MSA.DRIVE.ID} operational status
+                • Up: The disk is present and is properly communicating with the expander.
+                • Spun Down: The disk is present and has been spun down by the drive spin
+                down feature.
+                • Warning: The disk is present but the system is having communication
+                problems with the disk LED processor. For disk and midplane types where this
+                processor also controls power to the disk, power-on failure will result in Error
+                status.
+                • Error: The disk is present but is not detected by the expander.
+                • Unknown: Initial status when the disk is first detected or powered on.
+                • Not Present: The disk slot indicates that no disk is present.
+                • Unrecoverable: The disk is present but has unrecoverable errors.
+                • Unavailable: The disk is present but cannot communicate with the expander.
+                • Unsupported: The disk is present but is an unsupported type.
+              valuemap:
+                name: 'HPE MSA Drive Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].s.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: 5e376516a26d4c99881dcf684dacc221
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} temperature status'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.temperature.status["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} temperature status'
+              valuemap:
+                name: 'HPE MSA Drive Temperature Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].ts.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: d8128aaeabaf4a82b63ea6144477619e
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} temperature'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.temperature["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              value_type: FLOAT
+              units: ℃
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} temperature in Celsius'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].t.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#HPE.MSA.DRIVE.ARCH}'
+              path: $.a
+            -
+              lld_macro: '{#HPE.MSA.DRIVE.ID}'
+              path: $.i
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.drives
+            -
+              type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+        -
+          uuid: b8ba63ea42144be391ef4ca4e6e391c0
+          name: 'HPE MSA SSD Drives Discovery'
+          type: DEPENDENT
+          key: hpe.msa.drive.ssd.discovery
+          delay: '0'
+          filter:
+            conditions:
+              -
+                macro: '{#HPE.MSA.DRIVE.ARCH}'
+                value: '0'
+                formulaid: A
+          lifetime: 2w
+          description: 'HPE MSA SSD Drive discovery'
+          item_prototypes:
+            -
+              uuid: c40694ca85424eb0ae319e9bc402087e
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} architecture'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.ssd.architecture["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} architecture'
+              valuemap:
+                name: 'HPE MSA Drive Architecture'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].a.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: e883d4c2085442338a4ff3a9be5cf542
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} health'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.ssd.health["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} health'
+              valuemap:
+                name: 'HPE MSA Common Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].h.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: 9dfdc0407bab4cc3b57de1c119bcad34
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} job running'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.ssd.job["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} current job running'
+              valuemap:
+                name: 'HPE MSA Current Job'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].j.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: c02f2012388a4016b409f61fb43f070d
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} life left'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.ssd.live.left["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              units: '%'
+              description: |
+                HPE MSA {#HPE.MSA.DRIVE.ID} life left in pecent.
+                100%–0%: For an SSD, this value shows the percentage of disk life remaining.
+                This value is polled every 5 minutes. When the value decreases to 20%, event
+                502 is logged with Informational severity. Event 502 is logged again with
+                Warning severity when the value decreases to 5%, 2% or 1%, and 0%. If a disk
+                crosses more than one percentage threshold during a polling period, only the
+                lowest percentage will be reported.
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].ll.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: 0eaeaca0ad6a4feb8425f0c19740e2b6
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} power on hours'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.ssd.poh["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} total power on hours'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].p.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: 67da016162364514a1f2a850b2065ec9
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} status'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.ssd.status["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: |
+                HPE MSA {#HPE.MSA.DRIVE.ID} operational status
+                • Up: The disk is present and is properly communicating with the expander.
+                • Spun Down: The disk is present and has been spun down by the drive spin
+                down feature.
+                • Warning: The disk is present but the system is having communication
+                problems with the disk LED processor. For disk and midplane types where this
+                processor also controls power to the disk, power-on failure will result in Error
+                status.
+                • Error: The disk is present but is not detected by the expander.
+                • Unknown: Initial status when the disk is first detected or powered on.
+                • Not Present: The disk slot indicates that no disk is present.
+                • Unrecoverable: The disk is present but has unrecoverable errors.
+                • Unavailable: The disk is present but cannot communicate with the expander.
+                • Unsupported: The disk is present but is an unsupported type.
+              valuemap:
+                name: 'HPE MSA Drive Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].s.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: 835ce0ee9cd6455ebf8e5938460e8104
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} temperature status'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.ssd.temperature.status["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} temperature status'
+              valuemap:
+                name: 'HPE MSA Drive Temperature Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].ts.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+            -
+              uuid: b03f4c2300b44304a0792802d3fb0f08
+              name: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID} temperature'
+              type: DEPENDENT
+              key: 'hpe.msa.drive.ssd.temperature["{#HPE.MSA.DRIVE.ID}"]'
+              delay: '0'
+              value_type: FLOAT
+              units: ℃
+              description: 'HPE MSA {#HPE.MSA.DRIVE.ID} temperature in Celsius'
+              valuemap:
+                name: 'HPE MSA Drive Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.drives[?(@.i == ''{#HPE.MSA.DRIVE.ID}'')].t.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Drive {#HPE.MSA.DRIVE.ID}'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#HPE.MSA.DRIVE.ARCH}'
+              path: $.a
+            -
+              lld_macro: '{#HPE.MSA.DRIVE.ID}'
+              path: $.i
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.drives
+            -
+              type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+        -
+          uuid: 5b9fbef58d124066a7d7990c3991cca4
+          name: 'HPE MSA Enclosures Discovery'
+          type: DEPENDENT
+          key: hpe.msa.enclosures.discovery
+          delay: '0'
+          lifetime: 2w
+          description: 'HPE MSA Enclosures objects discovery'
+          item_prototypes:
+            -
+              uuid: 5ab0ef18d46845a0a34a37e75d3b0fed
+              name: 'HPE MSA Enclosure {#HPE.MSA.ENCL.ID} health'
+              type: DEPENDENT
+              key: 'hpe.msa.enclosure.healh["{#HPE.MSA.ENCL.ID}"]'
+              delay: '0'
+              trends: '0'
+              valuemap:
+                name: 'HPE MSA Common Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.encl[?(@.i == ''{#HPE.MSA.ENCL.ID}'')].h.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Enclosure {#HPE.MSA.ENCL.ID}'
+            -
+              uuid: 3c902da7b0904f0a9d063773d995cc54
+              name: 'HPE MSA Enclosure {#HPE.MSA.ENCL.ID} serial number'
+              type: DEPENDENT
+              key: 'hpe.msa.enclosure.sn["{#HPE.MSA.ENCL.ID}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.encl[?(@.i == ''{#HPE.MSA.ENCL.ID}'')].sn.first()'
+                -
+                  type: DISCARD_UNCHANGED_HEARTBEAT
+                  parameters:
+                    - 1h
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Enclosure {#HPE.MSA.ENCL.ID}'
+            -
+              uuid: 57583248cee24e57b0706d5cfccb4503
+              name: 'HPE MSA Enclosure {#HPE.MSA.ENCL.ID} status'
+              type: DEPENDENT
+              key: 'hpe.msa.enclosure.status["{#HPE.MSA.ENCL.ID}"]'
+              delay: '0'
+              trends: '0'
+              valuemap:
+                name: 'HPE MSA Enclosure Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.encl[?(@.i == ''{#HPE.MSA.ENCL.ID}'')].s.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Enclosure {#HPE.MSA.ENCL.ID}'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#HPE.MSA.ENCL.ID}'
+              path: $.i
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.encl
+            -
+              type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+        -
+          uuid: 7ffe9b5bb1c94b68b5eab270acf7cadd
+          name: 'HPE MSA Fans Discovery'
+          type: DEPENDENT
+          key: hpe.msa.fan.discovery
+          delay: '0'
+          lifetime: 2w
+          description: 'HPE MSA Fan discovery'
+          item_prototypes:
+            -
+              uuid: 942ec905c44241e790d0fd22005e92f1
+              name: 'HPE MSA Fan {#HPE.MSA.FAN.ID} health'
+              type: DEPENDENT
+              key: 'hpe.msa.fan.health["{#HPE.MSA.FAN.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA Fan {#HPE.MSA.FAN.ID} health'
+              valuemap:
+                name: 'HPE MSA Common Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.fans[?(@.i == ''{#HPE.MSA.FAN.ID}'')].h.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA FAN {#HPE.MSA.FAN.ID}'
+            -
+              uuid: fda4739544944068bd842fb1e5ad414a
+              name: 'HPE MSA Fan {#HPE.MSA.FAN.ID} position'
+              type: DEPENDENT
+              key: 'hpe.msa.fan.position["{#HPE.MSA.FAN.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA Fan {#HPE.MSA.FAN.ID} position'
+              valuemap:
+                name: 'HPE MSA Fan Position'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.fans[?(@.i == ''{#HPE.MSA.FAN.ID}'')].p.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA FAN {#HPE.MSA.FAN.ID}'
+            -
+              uuid: 48a79140f2a141bfa9630ba55a5125ce
+              name: 'HPE MSA Fan {#HPE.MSA.FAN.ID} speed'
+              type: DEPENDENT
+              key: 'hpe.msa.fan.speed["{#HPE.MSA.FAN.ID}"]'
+              delay: '0'
+              units: rpm
+              description: 'HPE MSA Fan {#HPE.MSA.FAN.ID} revolutions per minute'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.fans[?(@.i == ''{#HPE.MSA.FAN.ID}'')].sp.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA FAN {#HPE.MSA.FAN.ID}'
+            -
+              uuid: ecd9384dd44b48eda48f02fca9b5dc39
+              name: 'HPE MSA Fan {#HPE.MSA.FAN.ID} extended status'
+              type: DEPENDENT
+              key: 'hpe.msa.fan.status.extended["{#HPE.MSA.FAN.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA Fan {#HPE.MSA.FAN.ID} fan extended status'
+              valuemap:
+                name: 'HPE MSA Fan Status Extended'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.fans[?(@.i == ''{#HPE.MSA.FAN.ID}'')].sx.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA FAN {#HPE.MSA.FAN.ID}'
+            -
+              uuid: eb5d9449dbe8436cbc03e79b8d80b191
+              name: 'HPE MSA Fan {#HPE.MSA.FAN.ID} status ses'
+              type: DEPENDENT
+              key: 'hpe.msa.fan.status.ses["{#HPE.MSA.FAN.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA Fan {#HPE.MSA.FAN.ID} fan status'
+              valuemap:
+                name: 'HPE MSA Fan Status SES'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.fans[?(@.i == ''{#HPE.MSA.FAN.ID}'')].ss.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA FAN {#HPE.MSA.FAN.ID}'
+            -
+              uuid: 6d73a6937c0e4b65812065dc4e5d4716
+              name: 'HPE MSA Fan {#HPE.MSA.FAN.ID} status'
+              type: DEPENDENT
+              key: 'hpe.msa.fan.status["{#HPE.MSA.FAN.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA Fan {#HPE.MSA.FAN.ID} operational status'
+              valuemap:
+                name: 'HPE MSA Port, Power Supply, Fan Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.fans[?(@.i == ''{#HPE.MSA.FAN.ID}'')].s.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA FAN {#HPE.MSA.FAN.ID}'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#HPE.MSA.FAN.ID}'
+              path: $.i
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.fans
+            -
+              type: DISCARD_UNCHANGED_HEARTBEAT
+              parameters:
+                - 1h
+        -
+          uuid: 0f12004fcd7e4c258d8f4c9c943adabb
+          name: 'HPE MSA Pools Discovery'
+          type: DEPENDENT
+          key: hpe.msa.pools.discovery
+          delay: '0'
+          lifetime: 2w
+          description: 'HPE MSA Pools discovery'
+          item_prototypes:
+            -
+              uuid: d9b16743ad2a4992acb86fcf93add1c0
+              name: 'HPE MSA Pool {#HPE.MSA.POOL.ID} health'
+              type: DEPENDENT
+              key: 'hpe.msa.pool.health["{#HPE.MSA.POOL.SN}"]'
+              delay: '0'
+              trends: '0'
+              description: |
+                HPE MSA {#HPE.MSA.POOL.ID} health
+                Pool SN: {#HPE.MSA.POOL.SN}
+              valuemap:
+                name: 'HPE MSA Common Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.pools[?(@.i == ''{#HPE.MSA.POOL.SN}'')].h.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Pool {#HPE.MSA.POOL.ID}'
+            -
+              uuid: a5763817a65d41998dcf70242a671fb9
+              name: 'HPE MSA Pool {#HPE.MSA.POOL.ID} storage type'
+              type: DEPENDENT
+              key: 'hpe.msa.pool.type["{#HPE.MSA.POOL.SN}"]'
+              delay: '0'
+              trends: '0'
+              description: |
+                HPE MSA {#HPE.MSA.POOL.ID} storage type
+                Pool SN: {#HPE.MSA.POOL.SN}
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.pools[?(@.i == ''{#HPE.MSA.POOL.SN}'')].tp.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Pool {#HPE.MSA.POOL.ID}'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#HPE.MSA.POOL.ID}'
+              path: $.i
+            -
+              lld_macro: '{#HPE.MSA.POOL.SN}'
+              path: $.sn
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.pools
+        -
+          uuid: 2eb03b35206e488c90aa4df84f85814c
+          name: 'HPE MSA Ports Discovery'
+          type: DEPENDENT
+          key: hpe.msa.ports.discovery
+          delay: '0'
+          filter:
+            conditions:
+              -
+                macro: '{#HPE.MSA.PORT.SFP}'
+                value: '0'
+                operator: NOT_MATCHES_REGEX
+                formulaid: A
+          lifetime: 2w
+          description: 'HPE MSA Ports discovery'
+          item_prototypes:
+            -
+              uuid: d743ecfcdf3c4f128ef93e3727b26efb
+              name: 'HPE MSA Port {#HPE.MSA.PORT.ID} health'
+              type: DEPENDENT
+              key: 'hpe.msa.port.health["{#HPE.MSA.PORT.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA Port {#HPE.MSA.PORT.ID} health'
+              valuemap:
+                name: 'HPE MSA Common Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ports[?(@.i == ''{#HPE.MSA.PORT.ID}'')].h.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Port {#HPE.MSA.PORT.ID}'
+            -
+              uuid: 6d454596f6b449e2880b1bd0da808446
+              name: 'HPE MSA Port {#HPE.MSA.PORT.ID} SFP status'
+              type: DEPENDENT
+              key: 'hpe.msa.port.sfp.status["{#HPE.MSA.PORT.ID}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              description: 'HPE MSA Port {#HPE.MSA.PORT.ID} SFP module opetaional status'
+              valuemap:
+                name: 'HPE MSA Port SFP Module Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ports[?(@.i == ''{#HPE.MSA.PORT.ID}'')].ss.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Port {#HPE.MSA.PORT.ID}'
+            -
+              uuid: f5978d2ddb534c069ff8645b1b5c23dc
+              name: 'HPE MSA Port {#HPE.MSA.PORT.ID} SFP present'
+              type: DEPENDENT
+              key: 'hpe.msa.port.sfp["{#HPE.MSA.PORT.ID}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              description: 'HPE MSA Port {#HPE.MSA.PORT.ID} SFP module present status'
+              valuemap:
+                name: 'HPE MSA Port SFP Module Present'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ports[?(@.i == ''{#HPE.MSA.PORT.ID}'')].sfp.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Port {#HPE.MSA.PORT.ID}'
+            -
+              uuid: 44e08b4bf65b4e73a644940381a44839
+              name: 'HPE MSA Port {#HPE.MSA.PORT.ID} speed'
+              type: DEPENDENT
+              key: 'hpe.msa.port.speed["{#HPE.MSA.PORT.ID}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              description: 'HPE MSA Port {#HPE.MSA.PORT.ID} speed'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ports[?(@.i == ''{#HPE.MSA.PORT.ID}'')].ps.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Port {#HPE.MSA.PORT.ID}'
+            -
+              uuid: 34d81424feed4d0eaf03fb007d8fade7
+              name: 'HPE MSA Port {#HPE.MSA.PORT.ID} status'
+              type: DEPENDENT
+              key: 'hpe.msa.port.status["{#HPE.MSA.PORT.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'HPE MSA Port {#HPE.MSA.PORT.ID} operational status'
+              valuemap:
+                name: 'HPE MSA Port, Power Supply, Fan Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ports[?(@.i == ''{#HPE.MSA.PORT.ID}'')].s.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Port {#HPE.MSA.PORT.ID}'
+            -
+              uuid: 95929d49f9f74fb188ff6a7653a07436
+              name: 'HPE MSA Port {#HPE.MSA.PORT.ID} type'
+              type: DEPENDENT
+              key: 'hpe.msa.port.type["{#HPE.MSA.PORT.ID}"]'
+              delay: '0'
+              trends: '0'
+              value_type: CHAR
+              description: 'HPE MSA Port {#HPE.MSA.PORT.ID} type'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ports[?(@.i == ''{#HPE.MSA.PORT.ID}'')].t.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA Port {#HPE.MSA.PORT.ID}'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#HPE.MSA.PORT.ID}'
+              path: $.i
+            -
+              lld_macro: '{#HPE.MSA.PORT.SFP}'
+              path: $.sfp
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.ports
+        -
+          uuid: 493f921345a84daa8708c95f2f7a5169
+          name: 'HPE MSA Power Supplies Discovery'
+          type: DEPENDENT
+          key: hpe.msa.ps.discovery
+          delay: '0'
+          lifetime: 2w
+          description: 'HPE MSA Power Supplies discovery'
+          item_prototypes:
+            -
+              uuid: 4cbf1da57cd74ccbb36b6cc2bac2c5dc
+              name: 'HPE MSA PS {#HPE.MSA.PS.ID} 5i voltage'
+              type: DEPENDENT
+              key: 'hpe.msa.ps.5i["{#HPE.MSA.PS.ID}"]'
+              delay: '0'
+              units: V
+              description: 'Power Supply {#HPE.MSA.PS.ID} 5i'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ps[?(@.i == ''{#HPE.MSA.PS.ID}'')].5i.first()'
+                -
+                  type: MULTIPLIER
+                  parameters:
+                    - '100'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA PS {#HPE.MSA.PS.ID}'
+            -
+              uuid: 069999432ae64ae08ad4531fa56c2cf8
+              name: 'HPE MSA PS {#HPE.MSA.PS.ID} 5V voltage'
+              type: DEPENDENT
+              key: 'hpe.msa.ps.5v["{#HPE.MSA.PS.ID}"]'
+              delay: '0'
+              units: V
+              description: 'Power Supply {#HPE.MSA.PS.ID} 5V'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ps[?(@.i == ''{#HPE.MSA.PS.ID}'')].5v.first()'
+                -
+                  type: MULTIPLIER
+                  parameters:
+                    - '100'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA PS {#HPE.MSA.PS.ID}'
+            -
+              uuid: 41e1b74b0eda4210ab8dc5e42bc5a6d1
+              name: 'HPE MSA PS {#HPE.MSA.PS.ID} 12i voltage'
+              type: DEPENDENT
+              key: 'hpe.msa.ps.12i["{#HPE.MSA.PS.ID}"]'
+              delay: '0'
+              units: V
+              description: 'Power Supply {#HPE.MSA.PS.ID} 12i'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ps[?(@.i == ''{#HPE.MSA.PS.ID}'')].12i.first()'
+                -
+                  type: MULTIPLIER
+                  parameters:
+                    - '100'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA PS {#HPE.MSA.PS.ID}'
+            -
+              uuid: 0a85d660904b4535b7b46980b41619f8
+              name: 'HPE MSA PS {#HPE.MSA.PS.ID} 12V voltage'
+              type: DEPENDENT
+              key: 'hpe.msa.ps.12v["{#HPE.MSA.PS.ID}"]'
+              delay: '0'
+              units: V
+              description: 'Power Supply {#HPE.MSA.PS.ID} 12V'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ps[?(@.i == ''{#HPE.MSA.PS.ID}'')].12v.first()'
+                -
+                  type: MULTIPLIER
+                  parameters:
+                    - '100'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA PS {#HPE.MSA.PS.ID}'
+            -
+              uuid: 19ca1bd7daca47b98172882734038489
+              name: 'HPE MSA PS {#HPE.MSA.PS.ID} 3.3V voltage'
+              type: DEPENDENT
+              key: 'hpe.msa.ps.33v["{#HPE.MSA.PS.ID}"]'
+              delay: '0'
+              units: V
+              description: 'Power Supply {#HPE.MSA.PS.ID} 3.3V'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ps[?(@.i == ''{#HPE.MSA.PS.ID}'')].33v.first()'
+                -
+                  type: MULTIPLIER
+                  parameters:
+                    - '100'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA PS {#HPE.MSA.PS.ID}'
+            -
+              uuid: b314bf9dcca84383b49f5648e42458ab
+              name: 'HPE MSA PS {#HPE.MSA.PS.ID} health'
+              type: DEPENDENT
+              key: 'hpe.msa.ps.health["{#HPE.MSA.PS.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Power Supply {#HPE.MSA.PS.ID} health'
+              valuemap:
+                name: 'HPE MSA Common Health'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ps[?(@.i == ''{#HPE.MSA.PS.ID}'')].h.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA PS {#HPE.MSA.PS.ID}'
+            -
+              uuid: 6532f0a902414bc79a6de74871f2229d
+              name: 'HPE MSA PS {#HPE.MSA.PS.ID} position'
+              type: DEPENDENT
+              key: 'hpe.msa.ps.position["{#HPE.MSA.PS.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Power Supply {#HPE.MSA.PS.ID} position'
+              valuemap:
+                name: 'HPE MSA Power Supply Position'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ps[?(@.i == ''{#HPE.MSA.PS.ID}'')].p.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA PS {#HPE.MSA.PS.ID}'
+            -
+              uuid: 70f9d1a8765045d18a2daebf4ae1d650
+              name: 'HPE MSA PS {#HPE.MSA.PS.ID} status'
+              type: DEPENDENT
+              key: 'hpe.msa.ps.status["{#HPE.MSA.PS.ID}"]'
+              delay: '0'
+              trends: '0'
+              description: 'Power Supply {#HPE.MSA.PS.ID} operational status'
+              valuemap:
+                name: 'HPE MSA Port, Power Supply, Fan Status'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ps[?(@.i == ''{#HPE.MSA.PS.ID}'')].s.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA PS {#HPE.MSA.PS.ID}'
+            -
+              uuid: 4c891ca142164efdad764b3432624b17
+              name: 'HPE MSA PS {#HPE.MSA.PS.ID} temperature'
+              type: DEPENDENT
+              key: 'hpe.msa.ps.temperature["{#HPE.MSA.PS.ID}"]'
+              delay: '0'
+              units: ℃
+              description: 'Power Supply {#HPE.MSA.PS.ID} temperature in Celsius'
+              preprocessing:
+                -
+                  type: JSONPATH
+                  parameters:
+                    - '$.ps[?(@.i == ''{#HPE.MSA.PS.ID}'')].t.first()'
+              master_item:
+                key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+              tags:
+                -
+                  tag: app
+                  value: 'HPE MSA PS {#HPE.MSA.PS.ID}'
+          master_item:
+            key: 'zbx-hpmsa.py["-u", "{$MSA.USERNAME}", "-p", "{$MSA.PASSWORD}", "super", "{HOST.CONN}"]'
+          lld_macro_paths:
+            -
+              lld_macro: '{#HPE.MSA.PS.ID}'
+              path: $.i
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.ps
+      macros:
+        -
+          macro: '{$API.VER}'
+          value: '2'
+        -
+          macro: '{$DG_STATUS_OK}'
+          value: '0'
+        -
+          macro: '{$DG_STATUS_OK:"Read Cache"}'
+          value: '250'
+        -
+          macro: '{$HISTORY}'
+          value: 14d
+        -
+          macro: '{$LLD_INTERVAL}'
+          value: 1h
+        -
+          macro: '{$MSA.PASSWORD}'
+          value: '!monitor'
+        -
+          macro: '{$MSA.USERNAME}'
+          value: monitor
+        -
+          macro: '{$MSA_DISK_POH_WARN}'
+          value: '43800'
+        -
+          macro: '{$MSA_DISK_TEMP_CRIT}'
+          value: '50'
+        -
+          macro: '{$MSA_DISK_TEMP_OK}'
+          value: '39'
+        -
+          macro: '{$MSA_DISK_TEMP_WARN}'
+          value: '40'
+        -
+          macro: '{$NODATA_RANGE}'
+          value: 15m
+        -
+          macro: '{$TRENDS}'
+          value: 180d
+      valuemaps:
+        -
+          uuid: bd2d5ea748864425a047612258546295
+          name: 'HPE MSA Common Health'
+          mappings:
+            -
+              value: '0'
+              newvalue: OK
+            -
+              value: '1'
+              newvalue: Degraded
+            -
+              value: '2'
+              newvalue: Fault
+            -
+              value: '3'
+              newvalue: N/A
+        -
+          uuid: 83f5d61ad00a4a76af1c255e26084e4e
+          name: 'HPE MSA Compact Flash Status'
+          mappings:
+            -
+              value: '0'
+              newvalue: 'Not Installed'
+            -
+              value: '1'
+              newvalue: Installed
+        -
+          uuid: 8354c902be9c469aab80de6dfca7d5a8
+          name: 'HPE MSA Controller Position'
+          mappings:
+            -
+              value: '2'
+              newvalue: Top
+            -
+              value: '3'
+              newvalue: Bottom
+        -
+          uuid: 6af32c81a00446c3becb213edf5e8756
+          name: 'HPE MSA Controller Redundancy'
+          mappings:
+            -
+              value: '0'
+              newvalue: 'Operational but not redundant'
+            -
+              value: '2'
+              newvalue: Redundant
+            -
+              value: '4'
+              newvalue: Down
+            -
+              value: '5'
+              newvalue: Unknown
+        -
+          uuid: bdd1251ff5a24c51aea85853cc3b6d57
+          name: 'HPE MSA Current Job'
+          mappings:
+            -
+              value: '0'
+              newvalue: None
+            -
+              value: '2'
+              newvalue: INIT
+            -
+              value: '3'
+              newvalue: RCON
+            -
+              value: '4'
+              newvalue: VRFY
+            -
+              value: '5'
+              newvalue: EXPD
+            -
+              value: '6'
+              newvalue: VRSC
+            -
+              value: '7'
+              newvalue: DRSC
+            -
+              value: '9'
+              newvalue: VREMV
+            -
+              value: '12'
+              newvalue: VPREP
+            -
+              value: '13'
+              newvalue: VDRAIN
+            -
+              value: '14'
+              newvalue: VRECV
+        -
+          uuid: 6e5dc5541a004e1f9db35118d85b196e
+          name: 'HPE MSA Drive Architecture'
+          mappings:
+            -
+              value: '0'
+              newvalue: SSD
+            -
+              value: '1'
+              newvalue: HDD
+        -
+          uuid: be026684692c46a689d94df0ae973f57
+          name: 'HPE MSA Drive Status'
+          mappings:
+            -
+              value: '0'
+              newvalue: Up
+            -
+              value: '1'
+              newvalue: 'Spun Down'
+            -
+              value: '2'
+              newvalue: Warning
+            -
+              value: '3'
+              newvalue: Error
+            -
+              value: '4'
+              newvalue: Unknown
+            -
+              value: '5'
+              newvalue: 'Not Present'
+            -
+              value: '6'
+              newvalue: Unrecoverable
+            -
+              value: '7'
+              newvalue: Unavailable
+            -
+              value: '8'
+              newvalue: Unsupported
+        -
+          uuid: 5acd65a466cc474d932cac90c010a1f1
+          name: 'HPE MSA Drive Temperature Status'
+          mappings:
+            -
+              value: '1'
+              newvalue: OK
+            -
+              value: '2'
+              newvalue: Critical
+            -
+              value: '3'
+              newvalue: Warning
+        -
+          uuid: 7d0ecb2f0fad45c48d25052c48cc900e
+          name: 'HPE MSA Enclosure Status'
+          mappings:
+            -
+              value: '0'
+              newvalue: Unsupported
+            -
+              value: '1'
+              newvalue: Up
+            -
+              value: '2'
+              newvalue: Error
+            -
+              value: '3'
+              newvalue: Warning
+            -
+              value: '4'
+              newvalue: Unrecoverable
+            -
+              value: '5'
+              newvalue: 'Not Present'
+            -
+              value: '6'
+              newvalue: Unknown
+            -
+              value: '7'
+              newvalue: Unavailable
+            -
+              value: '20'
+              newvalue: 'Spun Down'
+        -
+          uuid: 4ff2e124dbd84b7f8c818b814ddb94af
+          name: 'HPE MSA Fan Position'
+          mappings:
+            -
+              value: '0'
+              newvalue: Left
+            -
+              value: '1'
+              newvalue: Right
+            -
+              value: '2'
+              newvalue: Top
+            -
+              value: '3'
+              newvalue: Bottom
+        -
+          uuid: bf5c4d3e1380416b99acbec8c7cbd546
+          name: 'HPE MSA Fan Status Extended'
+          mappings:
+            -
+              value: '1'
+              newvalue: 'The fan has reported a failure'
+            -
+              value: '2'
+              newvalue: 'The fan is off'
+            -
+              value: '4'
+              newvalue: 'The fan FRU is not installed'
+            -
+              value: '8'
+              newvalue: 'The fan status cannot be determined'
+            -
+              value: '16'
+              newvalue: 'The fan is requested to be on'
+            -
+              value: '17'
+              newvalue: 'Fan has failed'
+            -
+              value: '18'
+              newvalue: 'Fan is off'
+            -
+              value: '19'
+              newvalue: 'Fan has failed and is off'
+            -
+              value: '24'
+              newvalue: 'Fan status is unknown'
+        -
+          uuid: 2c610e62d49a4941adf3750fe4038cbc
+          name: 'HPE MSA Fan Status SES'
+          mappings:
+            -
+              value: '0'
+              newvalue: Unsupported
+            -
+              value: '1'
+              newvalue: OK
+            -
+              value: '2'
+              newvalue: Critical
+            -
+              value: '3'
+              newvalue: Warning
+            -
+              value: '4'
+              newvalue: Unrecoverable
+            -
+              value: '5'
+              newvalue: 'Not Installed'
+            -
+              value: '6'
+              newvalue: Unknown
+            -
+              value: '7'
+              newvalue: Unavailable
+        -
+          uuid: 6e879abb90014ed586d9acfd3d13f4d7
+          name: 'HPE MSA Flash, Drive, Controller Health'
+          mappings:
+            -
+              value: '0'
+              newvalue: OK
+            -
+              value: '1'
+              newvalue: Degraded
+            -
+              value: '2'
+              newvalue: Fault
+            -
+              value: '3'
+              newvalue: Unknown
+            -
+              value: '4'
+              newvalue: N/A
+        -
+          uuid: 32dd28f03ca44a7583ca7351e4b87adb
+          name: 'HPE MSA Port, Power Supply, Fan Status'
+          mappings:
+            -
+              value: '0'
+              newvalue: Up
+            -
+              value: '1'
+              newvalue: Warning
+            -
+              value: '2'
+              newvalue: Error
+            -
+              value: '3'
+              newvalue: 'Not Present'
+            -
+              value: '4'
+              newvalue: Unknown
+            -
+              value: '6'
+              newvalue: Disconnected
+        -
+          uuid: fee580ae79bb4d8d9a4f9b8e5d2803e7
+          name: 'HPE MSA Port SFP Module Present'
+          mappings:
+            -
+              value: '0'
+              newvalue: 'Not Present'
+            -
+              value: '1'
+              newvalue: Present
+        -
+          uuid: e22276661c1c46abb6a2de17894daea0
+          name: 'HPE MSA Port SFP Module Status'
+          mappings:
+            -
+              value: '0'
+              newvalue: 'Not compatible'
+            -
+              value: '1'
+              newvalue: 'Incorrect protocol'
+            -
+              value: '2'
+              newvalue: 'Not present'
+            -
+              value: '3'
+              newvalue: OK
+        -
+          uuid: 414965fcfd524c69ac960839b66115e3
+          name: 'HPE MSA Power Supply Position'
+          mappings:
+            -
+              value: '0'
+              newvalue: Left
+            -
+              value: '1'
+              newvalue: Right
+            -
+              value: '2'
+              newvalue: Top
+            -
+              value: '3'
+              newvalue: Bottom
+        -
+          uuid: 4da3c854f45d4eed92ea816bbe980ce3
+          name: 'HPE MSA SAS Port Status'
+          mappings:
+            -
+              value: '0'
+              newvalue: Up
+            -
+              value: '1'
+              newvalue: Warning
+            -
+              value: '2'
+              newvalue: Error
+            -
+              value: '3'
+              newvalue: 'Not Present'
+            -
+              value: '4'
+              newvalue: Unknown
+            -
+              value: '6'
+              newvalue: Disconnected

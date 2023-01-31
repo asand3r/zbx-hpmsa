@@ -438,11 +438,23 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             vol_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
             vol_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
             vol_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
+            vol_size_num = PROP.find("./PROPERTY[@name='size-numeric']").text
+            vol_size = PROP.find("./PROPERTY[@name='size']").text
+            vol_total_size_num = PROP.find("./PROPERTY[@name='total-size-numeric']").text
+            vol_total_size = PROP.find("./PROPERTY[@name='total-size']").text
+            vol_allocated_size_num = PROP.find("./PROPERTY[@name='allocated-size-numeric']").text
+            vol_allocated_size = PROP.find("./PROPERTY[@name='allocated-size']").text
+            			
             vol_full_data = {
                 "h": vol_health_num,
                 "ow": vol_owner_num,
-                "owp": vol_owner_pref_num
-            }
+                "owp": vol_owner_pref_num,
+                "szn": vol_size_num,
+                "sz": vol_size,
+                "tszn": vol_total_size_num,
+                "tsz": vol_total_size,
+                "asn": vol_allocated_size_num,
+                "as": vol_allocated_size
             all_components[vol_sn] = vol_full_data
     elif component == 'controllers':
         for PROP in xml.findall("./OBJECT[@name='controllers']"):

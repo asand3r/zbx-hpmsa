@@ -454,6 +454,14 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             dg_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
             dg_curr_job_num = PROP.find("./PROPERTY[@name='current-job-numeric']").text
             dg_curr_job_pct = PROP.find("./PROPERTY[@name='current-job-completion']").text
+            dg_blocksize = PROP.find("./PROPERTY[@name='blocksize']").text
+            dg_size = PROP.find("./PROPERTY[@name='size']").text
+            dg_size_num = PROP.find("./PROPERTY[@name='size-numeric']").text
+            dg_freespace = PROP.find("./PROPERTY[@name='freespace']").text
+            dg_freespace_num = PROP.find("./PROPERTY[@name='freespace-numeric']").text
+            dg_raw_size = PROP.find("./PROPERTY[@name='raw-size']").text
+            dg_raw_size_num = PROP.find("./PROPERTY[@name='raw-size-numeric']").text
+                        
             # current job completion return None if job isn't running, so I'm replacing it with zero if None
             if dg_curr_job_pct is None:
                 dg_curr_job_pct = '0'
@@ -463,7 +471,16 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
                 "ow": dg_owner_num,
                 "owp": dg_owner_pref_num,
                 "cj": dg_curr_job_num,
-                "cjp": dg_curr_job_pct.rstrip('%')
+                "cjp": dg_curr_job_pct.rstrip('%'),
+                "bs": dg_blocksize,
+                "sz": dg_size,
+                "szn": dg_size_num,
+                "fr": dg_freespace,
+                "frn": dg_freespace_num,
+                "rs": dg_raw_size,
+                "rsn": dg_raw_size_num,
+                
+                
             }
             all_components[dg_sn] = dg_full_data
     elif component == 'volumes':

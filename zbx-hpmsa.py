@@ -402,13 +402,47 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
     elif component == 'pools':
         for PROP in xml.findall("./OBJECT[@name='pools']"):
             pool_sn = PROP.find("./PROPERTY[@name='serial-number']").text
+            pool_health = PROP.find("./PROPERTY[@name='health']").text
+            pool_healthreason = PROP.find("./PROPERTY[@name='health-reason']").text
+            pool_healthrecommendation = PROP.find("./PROPERTY[@name='health-recommendation']").text
             pool_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
             pool_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
             pool_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
+            pool_storage_type = PROP.find("./PROPERTY[@name='storage-type']").text
+            pool_block_size = PROP.find("./PROPERTY[@name='blocksize']").text
+            pool_totalsize = PROP.find("./PROPERTY[@name='total-size']").text
+            pool_totalsize_num = PROP.find("./PROPERTY[@name='total-size-numeric']").text
+            pool_totalavail = PROP.find("./PROPERTY[@name='total-avail']").text
+            pool_totalavail_num = PROP.find("./PROPERTY[@name='total-avail-numeric']").text
+            pool_diskgroups = PROP.find("./PROPERTY[@name='disk-groups']").text
+            pool_volumes = PROP.find("./PROPERTY[@name='volumes']").text
+            pool_pagesize = PROP.find("./PROPERTY[@name='page-size']").text
+            pool_pagesize_num = PROP.find("./PROPERTY[@name='page-size-numeric']").text
+            pool_lowthreshold = PROP.find("./PROPERTY[@name='low-threshold']").text
+            pool_middlethreshold = PROP.find("./PROPERTY[@name='middle-threshold']").text
+            pool_highthreshold = PROP.find("./PROPERTY[@name='high-threshold']").text
             pool_full_data = {
                 "h": pool_health_num,
+                "hc": pool_health,
+                "hr": pool_healthreason,
+                "hrc": pool_healthrecommendation,
+                "sn": pool_sn,
                 "ow": pool_owner_num,
-                "owp": pool_owner_pref_num
+                "owp": pool_owner_pref_num,
+                "pst": pool_storage_type,
+                "bs": pool_block_size,
+                "ts": pool_totalsize,
+                "tsn": pool_totalsize_num,
+                "ta": pool_totalavail,
+                "tan": pool_totalavail_num,
+                "dgs": pool_diskgroups,
+                "vms": pool_volumes,
+                "ps": pool_pagesize,
+                "psn": pool_pagesize_num,
+                "lts": pool_lowthreshold,
+                "mts": pool_middlethreshold,
+                "hts": pool_highthreshold
+                
             }
             all_components[pool_sn] = pool_full_data
     elif component == 'disk-groups':
@@ -420,6 +454,14 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             dg_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
             dg_curr_job_num = PROP.find("./PROPERTY[@name='current-job-numeric']").text
             dg_curr_job_pct = PROP.find("./PROPERTY[@name='current-job-completion']").text
+            dg_blocksize = PROP.find("./PROPERTY[@name='blocksize']").text
+            dg_size = PROP.find("./PROPERTY[@name='size']").text
+            dg_size_num = PROP.find("./PROPERTY[@name='size-numeric']").text
+            dg_freespace = PROP.find("./PROPERTY[@name='freespace']").text
+            dg_freespace_num = PROP.find("./PROPERTY[@name='freespace-numeric']").text
+            dg_raw_size = PROP.find("./PROPERTY[@name='raw-size']").text
+            dg_raw_size_num = PROP.find("./PROPERTY[@name='raw-size-numeric']").text
+                        
             # current job completion return None if job isn't running, so I'm replacing it with zero if None
             if dg_curr_job_pct is None:
                 dg_curr_job_pct = '0'
@@ -429,7 +471,16 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
                 "ow": dg_owner_num,
                 "owp": dg_owner_pref_num,
                 "cj": dg_curr_job_num,
-                "cjp": dg_curr_job_pct.rstrip('%')
+                "cjp": dg_curr_job_pct.rstrip('%'),
+                "bs": dg_blocksize,
+                "sz": dg_size,
+                "szn": dg_size_num,
+                "fr": dg_freespace,
+                "frn": dg_freespace_num,
+                "rs": dg_raw_size,
+                "rsn": dg_raw_size_num,
+                
+                
             }
             all_components[dg_sn] = dg_full_data
     elif component == 'volumes':
@@ -438,10 +489,23 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             vol_health_num = PROP.find("./PROPERTY[@name='health-numeric']").text
             vol_owner_num = PROP.find("./PROPERTY[@name='owner-numeric']").text
             vol_owner_pref_num = PROP.find("./PROPERTY[@name='preferred-owner-numeric']").text
+            vol_size_num = PROP.find("./PROPERTY[@name='size-numeric']").text
+            vol_size = PROP.find("./PROPERTY[@name='size']").text
+            vol_total_size_num = PROP.find("./PROPERTY[@name='total-size-numeric']").text
+            vol_total_size = PROP.find("./PROPERTY[@name='total-size']").text
+            vol_allocated_size_num = PROP.find("./PROPERTY[@name='allocated-size-numeric']").text
+            vol_allocated_size = PROP.find("./PROPERTY[@name='allocated-size']").text
+            			
             vol_full_data = {
                 "h": vol_health_num,
                 "ow": vol_owner_num,
-                "owp": vol_owner_pref_num
+                "owp": vol_owner_pref_num,
+                "szn": vol_size_num,
+                "sz": vol_size,
+                "tszn": vol_total_size_num,
+                "tsz": vol_total_size,
+                "asn": vol_allocated_size_num,
+                "as": vol_allocated_size
             }
             all_components[vol_sn] = vol_full_data
     elif component == 'controllers':
@@ -545,8 +609,14 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             # Processing main ports properties
             port_name = FC.find("./PROPERTY[@name='port']").text
             port_health_num = FC.find("./PROPERTY[@name='health-numeric']").text
+            port_type = FC.find("./PROPERTY[@name='port-type']").text
+            port_speed = FC.find("./PROPERTY[@name='actual-speed']").text
+            port_status = FC.find("./PROPERTY[@name='status']").text
             port_full_data = {
-                "h": port_health_num
+                "h": port_health_num,
+                "pt": port_type,
+                "pas": port_speed,
+                "ps": port_status
             }
 
             # Processing advanced ports properties
@@ -563,9 +633,12 @@ def get_full_json(msa, component, sessionkey, pretty=False, human=False):
             sfp_status_num = FC.find("./OBJECT[@name='port-details']/PROPERTY[@name='sfp-status-numeric']")
             if sfp_status_num is not None:
                 port_full_data['ss'] = sfp_status_num.text
+                port_full_data['sfps'] = sfp_status_char.text
             else:
                 if sfp_status_char is not None:
                     port_full_data['ss'] = sfp_status_map[sfp_status_char.text]
+                    port_full_data['sfps'] = sfp_status_char.text
+                    
 
             all_components[port_name] = port_full_data
     # Transform dict keys to human readable format if '--human' argument is given
@@ -698,3 +771,4 @@ if __name__ == '__main__':
         else:
             display_cache()
         exit(0)
+
